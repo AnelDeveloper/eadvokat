@@ -1,11 +1,46 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
+import BriefingCard from '@/components/today/BriefingCard.vue';
+import QuickActions from '@/components/today/QuickActions.vue';
+import TodayHeader from '@/components/today/TodayHeader.vue';
+import Button from '@/components/ui/Button.vue';
 import { bs } from '@/i18n/bs';
+import type { BriefingGroup, BriefingRow } from '@/types';
+
+defineProps<{ date: string; lawyer: string; groups: BriefingGroup[] }>();
+
+function toggle(row: BriefingRow): void {
+    if (row.toggleUrl) {
+        router.post(row.toggleUrl, {}, { preserveScroll: true });
+    }
+}
 </script>
 
 <template>
-    <Head :title="bs.tabs.today" />
-    <div class="px-4.5 pt-1.5">
-        <h1 class="m-0 text-title font-semibold">{{ bs.tabs.today }}</h1>
+    <Head :title="bs.today.title" />
+    <div class="flex flex-1 flex-col">
+        <div class="flex-1 px-4.5 pt-1.5 pb-4.5">
+            <TodayHeader :date="date">
+                <Button
+                    href="/postavke"
+                    variant="subtle"
+                    size="sm"
+                    weight="medium"
+                    class="text-[13px]"
+                    >{{ bs.today.settings }}</Button
+                >
+            </TodayHeader>
+            <BriefingCard
+                class="mt-3.5"
+                :lawyer="lawyer"
+                :groups="groups"
+                @toggle="toggle"
+            />
+        </div>
+        <QuickActions
+            capture-href="/posta/fotografisi"
+            dictate-href="/diktat"
+            submission-href="/posta/podnesak"
+        />
     </div>
 </template>

@@ -1,15 +1,27 @@
 <?php
 
+use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\CostSheetController;
+use App\Http\Controllers\DeadlineController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\MatterController;
+use App\Http\Controllers\ReminderController;
+use App\Http\Controllers\TodayController;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'Landing')->name('home');
 
 Route::middleware('auth')->group(function () {
-    // Replaced by the Danas briefing in Phase 4.
-    Route::inertia('danas', 'Today')->name('today');
+    Route::get('danas', TodayController::class)->name('today');
+    Route::get('kalendar', CalendarController::class)->name('calendar');
+    Route::post('podsjetnici/{reminder}/provjereno', [ReminderController::class, 'toggle'])->name('reminders.toggle');
+
+    Route::get('rokovi/{deadline}/prijedlog', [DeadlineController::class, 'review'])->name('deadlines.review');
+    Route::post('rokovi/{deadline}/potvrda', [DeadlineController::class, 'confirm'])->name('deadlines.confirm');
+
+    // Troškovnik tab; filled in by Phase 7.
+    Route::get('predmeti/{matter}/troskovnik', [CostSheetController::class, 'show'])->name('matters.costs');
 
     Route::get('predmeti', [MatterController::class, 'index'])->name('matters.index');
     Route::get('predmeti/{matter}', [MatterController::class, 'show'])->name('matters.show');

@@ -205,6 +205,7 @@ export const bs = {
         capture: 'Fotografiši',
         dictate: 'Diktiraj',
         submission: 'Podnesak',
+        settings: 'Postavke',
     },
 
     matters: {
@@ -265,6 +266,58 @@ export const bs = {
             'Pretpostavljen današnji datum — provjerite s dostavnicom.',
         quotes: 'Izdvojeni navodi iz dokumenta',
         save: 'Potvrdi i sačuvaj u knjigu pošte',
+    },
+
+    calendar: {
+        prev: 'Prethodni mjesec',
+        next: 'Naredni mjesec',
+        weekdays: ['pon', 'uto', 'sri', 'čet', 'pet', 'sub', 'ned'],
+        legend: {
+            event: 'ročište, sastanak',
+            deadline: 'potvrđen rok',
+            proposed: 'prijedlog',
+            reminder: 'podsjetnik',
+        },
+        empty: 'Nema unosa za ovaj dan.',
+    },
+
+    deadline: {
+        title: 'Prijedlog roka',
+        step: '2/2',
+        banner: 'Predloženo — rok nije aktivan.',
+        bannerText:
+            'U rokovnik ulazi tek kada potvrdite pravilo, početak i posljednji dan.',
+        confirmedBanner: 'Rok je aktivan.',
+        confirmedBannerText:
+            'Ponovna potvrda s novim datumom zamjenjuje ranije podsjetnike.',
+        source: 'Izvor',
+        rule: '1 · Pravilo',
+        ruleAck: 'Pravilo i nadležnost su tačni',
+        start: '2 · Početak (datum prijema)',
+        startHint: 'Iz knjige pošte. Prvi dan roka je naredni dan.',
+        startAck: 'Datum početka je tačan',
+        due: '3 · Posljednji dan roka',
+        dueAck: 'Posljednji dan je tačan',
+        dueComputed: (weekday: string, days: number) =>
+            `${weekday} · ${days}. dan od početka`,
+        dueManual: (weekday: string, days: number, proposed: number) =>
+            `${weekday} · izmijenjeno ručno (${days}. dan od početka; prijedlog je bio ${proposed}.)`,
+        assumptions: 'Pretpostavke obračuna — provjerite',
+        assumptionList: [
+            'Dan prijema se ne računa.',
+            'Nije provjereno pada li posljednji dan na praznik ili neradni dan.',
+            'Aplikacija ne ocjenjuje vrstu roka ni posljedice propuštanja.',
+        ],
+        reminders: 'Podsjetnici',
+        remind3: (date: string) => `3 dana prije · ${date}`,
+        remind1: (date: string) => `1 dan prije · ${date}`,
+        confirm: (date: string) => `Potvrdi rok ${date}`,
+        needsChecks: (n: number) => `Označite sve tri provjere (${n}/3)`,
+        needsChecksToast:
+            'Rok se ne može potvrditi dok ne označite pravilo, početak i posljednji dan.',
+        invalidDue: 'Posljednji dan roka nije ispravan datum.',
+        later: 'Ne sada — ostavi kao prijedlog',
+        laterToast: 'Prijedlog ostaje na čekanju. Rok nije aktivan.',
     },
 
     status: {
