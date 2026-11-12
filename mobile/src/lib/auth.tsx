@@ -48,7 +48,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const result = await api.post<{ token: string; user: User }>('/auth/token', {
             email: email.trim().toLowerCase(),
             password,
-            device_name: `Rokovnik ${Platform.OS}`,
+            device_name: `eAdvokat ${Platform.OS}`,
         });
 
         setApiToken(result.token);

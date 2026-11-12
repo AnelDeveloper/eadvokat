@@ -5,7 +5,7 @@ import AuthLayout from '@/layouts/AuthLayout.vue';
 import FlowLayout from '@/layouts/FlowLayout.vue';
 
 void createInertiaApp({
-    title: (title) => (title ? `${title} · Rokovnik` : 'Rokovnik'),
+    title: (title) => (title ? `${title} · eAdvokat` : 'eAdvokat'),
     layout: (name) => {
         switch (true) {
             case name === 'Landing' || name === 'Demo':

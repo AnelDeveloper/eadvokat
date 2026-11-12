@@ -3,7 +3,7 @@
  * prototype are verbatim; do not reword them.
  */
 export const bs = {
-    appName: 'Rokovnik',
+    appName: 'eAdvokat',
 
     landing: {
         metaTitle: 'Asistent za advokatsku kancelariju',
@@ -184,7 +184,7 @@ export const bs = {
             text: 'Obračun sudskih taksi · fakture i uplate · obavijesti strankama · rokovi zastare · provjera sukoba interesa · raspodjela zadataka u timu · predlošci dokumenata prilagođeni stilu pisanja. Ništa od ovoga nije dio prototipa.',
         },
         footer: {
-            text: '„Rokovnik“ je radni naziv. Ovo je prototip, a ne proizvod u upotrebi; advokatska komora ga nije odobrila niti podržala. Svi predmeti, stranke, dokumenti i iznosi su izmišljeni.',
+            text: '„eAdvokat“ je radni naziv. Ovo je prototip, a ne proizvod u upotrebi; advokatska komora ga nije odobrila niti podržala. Svi predmeti, stranke, dokumenti i iznosi su izmišljeni.',
             cta: 'Pogledaj prototip →',
         },
         phoneLabel: 'Otvori prototip: ekran „Danas“ u aplikaciji',
@@ -466,7 +466,7 @@ export const bs = {
         sheetTitle: 'Demo podaci',
         sheetText:
             'Predmet, stranke, dokumenti i iznosi su izmišljeni. Ništa se ne šalje sudu, stranci ni trećim licima. Unosi se brišu nakon 24 sata ili kada vratite demo na početak.',
-        phoneLabel: 'Aplikacija Rokovnik s demo podacima',
+        phoneLabel: 'Aplikacija eAdvokat s demo podacima',
         blocked:
             'Prijavljeni ste kao korisnik kancelarije. Demo se otvara samo bez prijave, da se vaši podaci ne bi miješali s demo podacima.',
         openApp: 'Otvori aplikaciju',
@@ -528,7 +528,7 @@ export const bs = {
         submit: 'Prijavi se',
         noAccount:
             'Račune otvara administrator kancelarije. Javna registracija nije moguća.',
-        backHome: '‹ Rokovnik',
+        backHome: '‹ eAdvokat',
     },
 
     settings: {

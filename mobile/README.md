@@ -1,4 +1,4 @@
-# Rokovnik — mobile app
+# eAdvokat — mobile app
 
 Expo (React Native, TypeScript, Expo Router) client for the same Laravel
 backend, through the JSON API at `/api/v1` (Sanctum bearer tokens).

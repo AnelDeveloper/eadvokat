@@ -1,15 +1,15 @@
 {
   "expo": {
-    "name": "Rokovnik",
-    "slug": "rokovnik",
+    "name": "eAdvokat",
+    "slug": "eadvokat",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "rokovnik",
+    "scheme": "eadvokat",
     "userInterfaceStyle": "light",
     "ios": {
       "icon": "./assets/expo.icon",
-      "bundleIdentifier": "ba.rokovnik.app"
+      "bundleIdentifier": "ba.eadvokat.app"
     },
     "android": {
       "adaptiveIcon": {
@@ -19,7 +19,7 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "ba.rokovnik.app"
+      "package": "ba.eadvokat.app"
     },
     "web": {
       "output": "single",
@@ -39,14 +39,14 @@
       [
         "expo-audio",
         {
-          "microphonePermission": "Rokovnik koristi mikrofon za diktiranje bilješke s ročišta."
+          "microphonePermission": "eAdvokat koristi mikrofon za diktiranje bilješke s ročišta."
         }
       ],
       [
         "expo-image-picker",
         {
-          "cameraPermission": "Rokovnik koristi kameru za fotografisanje primljenih dokumenata i dokaza o predaji.",
-          "photosPermission": "Rokovnik otvara fotografije dokumenata koje odaberete."
+          "cameraPermission": "eAdvokat koristi kameru za fotografisanje primljenih dokumenata i dokaza o predaji.",
+          "photosPermission": "eAdvokat otvara fotografije dokumenata koje odaberete."
         }
       ],
       "expo-sharing",
