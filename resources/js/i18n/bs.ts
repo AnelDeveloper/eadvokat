@@ -602,16 +602,27 @@ export const bs = {
 
     settings: {
         title: 'Postavke',
+        back: '‹ Danas',
+        intro: 'Vaši podaci za prijavu i sigurnost računa.',
         profile: 'Podaci o korisniku',
+        profileHelp:
+            'Ime se prikazuje u jutarnjem pregledu i u dnevniku izmjena. Na e-mail se prijavljujete.',
+        office: 'Kancelarija',
         name: 'Ime i prezime',
         email: 'E-mail',
         saveProfile: 'Sačuvaj podatke',
         password: 'Promjena lozinke',
+        passwordHelp:
+            'Za promjenu je potrebna trenutna lozinka. Nakon promjene ostajete prijavljeni na ovom uređaju.',
         currentPassword: 'Trenutna lozinka',
         newPassword: 'Nova lozinka',
         confirmPassword: 'Ponovite novu lozinku',
         savePassword: 'Promijeni lozinku',
         logout: 'Odjava',
+        logoutTitle: 'Odjava',
+        logoutHelp:
+            'Odjavite se kada završite rad na zajedničkom ili tuđem računaru.',
+        saved: 'Sačuvano',
         open: 'Postavke',
     },
 } as const;
