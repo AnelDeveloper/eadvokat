@@ -207,6 +207,29 @@ export const bs = {
         submission: 'Podnesak',
     },
 
+    matters: {
+        title: 'Predmeti',
+        next: 'Naredno:',
+        costs: 'Troškovnik:',
+        demoNote: 'U prototipu je prikazan jedan izmišljen predmet.',
+        back: '‹ Predmeti',
+        costButton: 'Troškovnik',
+        tabs: {
+            timeline: 'Hronologija',
+            costs: 'Troškovnik',
+            audit: 'Izmjene',
+        },
+        upcoming: 'Predstoji',
+        recorded: 'Evidentirano',
+        auditIntro: 'Dnevnik značajnih izmjena u predmetu.',
+        empty: 'Nema unosa.',
+    },
+
+    document: {
+        fictional: 'DEMO — izmišljen dokument',
+        openFile: 'Otvori originalnu datoteku ›',
+    },
+
     status: {
         proposed: 'Predloženo · čeka pregled',
         confirmed: 'Potvrdio advokat',

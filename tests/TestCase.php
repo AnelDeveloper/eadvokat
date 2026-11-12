@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use App\Support\CurrentOffice;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -13,5 +14,6 @@ abstract class TestCase extends BaseTestCase
         // SSR is exercised manually in the browser; tests assert on Inertia page data.
         config(['inertia.ssr.enabled' => false]);
         $this->withoutVite();
+        CurrentOffice::flush();
     }
 }

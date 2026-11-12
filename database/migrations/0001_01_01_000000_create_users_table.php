@@ -6,13 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
+        Schema::create('offices', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            // Offices holding only fictional data (seed, live demo).
+            $table->boolean('is_demo')->default(false);
+            // Live-demo offices pin "today" so the scripted scenario stays valid.
+            $table->date('pinned_today')->nullable();
+            $table->timestampTz('expires_at')->nullable()->index();
+            $table->timestampsTz();
+        });
+
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('office_id')->constrained()->cascadeOnDelete();
+            $table->string('title')->nullable(); // "adv."
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
@@ -30,12 +40,10 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('users');
         Schema::dropIfExists('sessions');
+        Schema::dropIfExists('users');
+        Schema::dropIfExists('offices');
     }
 };
