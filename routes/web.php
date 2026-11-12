@@ -10,6 +10,7 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\MatterController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\ReminderController;
+use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\TodayController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,8 @@ Route::middleware('auth')->group(function () {
     Route::get('posta', [MailController::class, 'index'])->name('mail.index');
     Route::get('posta/fotografisi', [MailController::class, 'capture'])->name('mail.capture');
     Route::post('posta/fotografisi', [MailController::class, 'store'])->name('mail.store');
+    Route::get('posta/podnesak', [SubmissionController::class, 'create'])->name('submissions.create');
+    Route::post('posta/podnesak', [SubmissionController::class, 'store'])->name('submissions.store');
     Route::get('posta/pregled/{document}', [MailController::class, 'review'])->name('mail.review');
     Route::post('posta/pregled/{document}', [MailController::class, 'save'])->name('mail.save');
 

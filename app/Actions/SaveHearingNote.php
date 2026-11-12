@@ -56,6 +56,12 @@ final class SaveHearingNote
         $matter = $hearing->matter;
 
         return DB::transaction(function () use ($user, $recording, $input, $transcription, $hearing, $matter, $data) {
+            // Claim the recording: a concurrent second save waits here and then fails.
+            $locked = Document::query()->lockForUpdate()->findOrFail($recording->id);
+            if (($locked->extraction['saved'] ?? null) !== null) {
+                throw ValidationException::withMessages(['recording' => __('dictation.already_saved')]);
+            }
+
             $proposal = $transcription->event;
             $heard = $proposal['location_heard'];
             $chosen = $input['event']['location'];

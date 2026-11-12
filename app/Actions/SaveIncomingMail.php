@@ -17,6 +17,7 @@ use App\Support\Clock;
 use App\Support\Format;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 /**
  * Saves a reviewed incoming document into the mail register and turns the
@@ -33,6 +34,14 @@ final class SaveIncomingMail
     public function handle(User $user, Document $document, Matter $matter, array $fields): array
     {
         return DB::transaction(function () use ($user, $document, $matter, $fields) {
+            // One register entry per document, even under concurrent saves.
+            Document::query()->lockForUpdate()->findOrFail($document->id);
+            if (MailEntry::query()->where('document_id', $document->id)->exists()) {
+                throw ValidationException::withMessages(['document' => __('mail.already_registered', [
+                    'number' => MailEntry::query()->where('document_id', $document->id)->value('register_number'),
+                ])]);
+            }
+
             $receivedOn = CarbonImmutable::parse($fields['received_on']);
             [$sequence, $number] = $this->numbers->next($user->office_id, MailDirection::In, $receivedOn->year);
             $extraction = $document->extraction ? Extraction::fromArray($document->extraction) : null;

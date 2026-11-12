@@ -15,4 +15,7 @@ return [
     'note_confirmed' => 'Bilješku u predmetu potvrdio advokat.',
     'cost_suggested' => 'Predložena stavka troškovnika „:title“.',
     'cost_sheet_reverted' => 'Nacrt troškovnika vraćen na pregled zbog izmjene stavki.',
+    'deadline_fulfilled' => 'Rok :date ispunjen podneskom :number.',
+    'outgoing_with_proof' => 'Izlazni podnesak :number evidentiran s dokazom o predaji. Podsjetnik postavljen za :date',
+    'outgoing_without_proof' => 'Izlazni podnesak :number evidentiran bez dokaza o predaji. Podsjetnik postavljen za :date',
 ];

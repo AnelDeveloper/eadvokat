@@ -362,6 +362,26 @@ export const bs = {
             'Bilješka je sačuvana. Nepotvrđeni prijedlozi čekaju vaš pregled.',
     },
 
+    submission: {
+        title: 'Izlazni podnesak',
+        matter: 'Predmet',
+        docType: 'Vrsta podneska',
+        docTypePlaceholder: 'npr. Podnesak — dostava adrese svjedoka',
+        sentOn: 'Datum predaje',
+        method: 'Način predaje',
+        proof: 'Dokaz o predaji',
+        proofEmpty: 'Fotografiši prijemni štambilj',
+        proofEmptySub: 'Ili potvrdu o predaji pošiljke',
+        proofAttached: 'Dokaz priložen',
+        proofThumb: (date: string) => `PRIM. ${date}`,
+        fulfils: (date: string) => `Ovim podneskom ispunjen je rok ${date}`,
+        reminder: 'Podsjetnik za provjeru',
+        weekendNote: (date: string, weekday: string) =>
+            `Deset dana od ${date} pada u ${weekday}. Odaberite dan:`,
+        reminderOn: (date: string) => `Podsjetnik se javlja ${date}`,
+        save: 'Sačuvaj i postavi podsjetnik',
+    },
+
     status: {
         proposed: 'Predloženo · čeka pregled',
         confirmed: 'Potvrdio advokat',
