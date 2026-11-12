@@ -4,6 +4,7 @@ use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\CostItemController;
 use App\Http\Controllers\CostSheetController;
 use App\Http\Controllers\DeadlineController;
+use App\Http\Controllers\DemoController;
 use App\Http\Controllers\DictationController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EventController;
@@ -16,6 +17,10 @@ use App\Http\Controllers\TodayController;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'Landing')->name('home');
+
+Route::get('demo', [DemoController::class, 'show'])->middleware('throttle:demo')->name('demo');
+Route::post('demo/reset', [DemoController::class, 'reset'])->middleware('throttle:demo')->name('demo.reset');
+Route::get('demo/napredak', [DemoController::class, 'progress'])->middleware('auth')->name('demo.progress');
 
 Route::middleware('auth')->group(function () {
     Route::get('danas', TodayController::class)->name('today');

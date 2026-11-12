@@ -23,7 +23,6 @@ export const bs = {
             title: 'Od primljene pošte do potvrđenog roka. Bez prepisivanja.',
             lead: 'Fotografija sudskog pismena postaje prijedlog unosa u knjigu pošte, prijedlog roka i podsjetnik. Advokat sve pregleda, ispravlja i potvrđuje — tek tada rok postaje aktivan.',
             cta: 'Pogledaj prototip →',
-            // Restored in Phase 8 together with the live demo.
             ctaNote: 'Telefon desno je već aktivan — možete kliknuti odmah.',
             tableCase: 'Predmet 65 0 P 084512 25 P',
             tableFictional: 'izmišljen',
@@ -127,7 +126,7 @@ export const bs = {
                 {
                     question: 'Gdje bi se podaci čuvali?',
                     prototype:
-                        'nigdje. Demo podaci postoje samo u ovom pregledniku.',
+                        'na serveru prototipa — samo izmišljeni demo podaci, odvojeno za svakog posjetioca i najviše 24 sata.',
                     pilot: 'odabrati mjesto i pružaoca pohrane zajedno s kancelarijom.',
                 },
                 {
@@ -149,7 +148,8 @@ export const bs = {
                 },
                 {
                     question: 'Kako se podaci mogu izvesti?',
-                    prototype: 'dugme za izvoz je prikazano, ali ne radi.',
+                    prototype:
+                        'nacrt troškovnika izvozi se u PDF; potpun izvoz svih podataka još ne postoji.',
                     pilot: 'dogovoriti formate izvoza i potpuno preuzimanje podataka po završetku.',
                 },
             ],
@@ -187,7 +187,7 @@ export const bs = {
             text: '„Rokovnik“ je radni naziv. Ovo je prototip, a ne proizvod u upotrebi; advokatska komora ga nije odobrila niti podržala. Svi predmeti, stranke, dokumenti i iznosi su izmišljeni.',
             cta: 'Pogledaj prototip →',
         },
-        phoneLabel: 'Prikaz ekrana „Danas“ u aplikaciji',
+        phoneLabel: 'Otvori prototip: ekran „Danas“ u aplikaciji',
     },
 
     today: {
@@ -417,6 +417,59 @@ export const bs = {
         nothingSent:
             'Ništa se ne šalje sudu ni stranci. Nacrt služi samo za pregled advokata.',
         empty: 'Nacrt još nema stavki.',
+    },
+
+    demo: {
+        title: 'Prototip',
+        back: '‹ Predstavljanje',
+        reset: 'Vrati demo na početak',
+        pill: 'Demo podaci',
+        guideKicker: 'Tok prezentacije · oko 90 sekundi',
+        guideTitle: 'Jedan predmet, od pošte do troškovnika',
+        steps: [
+            [
+                'Jutarnji pregled',
+                'Ekran „Danas“: ročište u 11:00, rok 13.11., provjera u pisarnici.',
+            ],
+            [
+                'Fotografišite dokument',
+                'Dodirnite „Fotografiši“, zatim okidač.',
+            ],
+            [
+                'Pregledajte unos',
+                'Provjerite polja i sačuvajte u knjigu pošte.',
+            ],
+            [
+                'Potvrdite rok',
+                'Označite pravilo, početak i posljednji dan, pa „Potvrdi rok“.',
+            ],
+            [
+                'Rok u kalendaru',
+                'Otvorite „Kalendar“: 26.11. i podsjetnici 23. i 25.11.',
+            ],
+            [
+                'Bilješka glasom',
+                '„Danas“ → „Diktiraj“. Ispravite sudnicu 21 → 12, potvrdite i sačuvajte.',
+            ],
+            [
+                'Podnesak i podsjetnik',
+                '„Danas“ → „Podnesak“. Priložite dokaz i sačuvajte.',
+            ],
+            ['Troškovnik', 'U predmetu otvorite „Troškovnik“.'],
+            [
+                'Odobrite nacrt',
+                'Potvrdite preostale stavke, zatim „Odobri nacrt“.',
+            ],
+        ] as const,
+        guideNote:
+            'Stanje je izmišljeno i čuva se najviše 24 sata. „Vrati demo na početak“ briše sve unose.',
+        sheetTitle: 'Demo podaci',
+        sheetText:
+            'Predmet, stranke, dokumenti i iznosi su izmišljeni. Ništa se ne šalje sudu, stranci ni trećim licima. Unosi se brišu nakon 24 sata ili kada vratite demo na početak.',
+        phoneLabel: 'Aplikacija Rokovnik s demo podacima',
+        blocked:
+            'Prijavljeni ste kao korisnik kancelarije. Demo se otvara samo bez prijave, da se vaši podaci ne bi miješali s demo podacima.',
+        openApp: 'Otvori aplikaciju',
     },
 
     status: {

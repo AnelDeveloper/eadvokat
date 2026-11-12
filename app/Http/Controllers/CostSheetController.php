@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Costs\ManageCostSheet;
+use App\Demo\DemoProgress;
 use App\Enums\ItemStatus;
 use App\Enums\Jurisdiction;
 use App\Models\CostItem;
@@ -24,9 +25,10 @@ use Inertia\Response;
 
 class CostSheetController extends Controller
 {
-    public function show(Matter $matter): Response
+    public function show(Matter $matter, DemoProgress $demo): Response
     {
         Gate::authorize('view', $matter);
+        $demo->markSeen($this->office(), 'costs');
 
         $sheet = $this->sheet($matter)->load('items');
 

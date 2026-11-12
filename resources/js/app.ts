@@ -8,7 +8,7 @@ void createInertiaApp({
     title: (title) => (title ? `${title} · Rokovnik` : 'Rokovnik'),
     layout: (name) => {
         switch (true) {
-            case name === 'Landing':
+            case name === 'Landing' || name === 'Demo':
                 return null;
             case name.startsWith('auth/'):
                 return AuthLayout;
@@ -33,6 +33,16 @@ void createInertiaApp({
 });
 
 if (typeof window !== 'undefined') {
+    // Inside the /demo phone frame: tell the guide that the app moved on.
+    if (window.parent !== window) {
+        router.on('success', () =>
+            window.parent.postMessage(
+                { type: 'rk:navigated' },
+                window.location.origin,
+            ),
+        );
+    }
+
     router.on('flash', (event) => {
         const toast = event.detail.flash.toast;
 

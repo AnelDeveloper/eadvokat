@@ -16,10 +16,6 @@ it('serves the landing page to signed-in users too', function () {
         ->assertInertia(fn ($page) => $page->component('Landing')->where('auth.user.id', $user->id));
 });
 
-it('does not expose the live demo before Phase 8', function () {
-    $this->get('/demo')->assertNotFound();
-});
-
 it('renders the page shell in Bosnian', function () {
     $this->get('/')->assertSee('<html lang="bs">', false);
 });

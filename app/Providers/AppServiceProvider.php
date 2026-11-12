@@ -7,8 +7,11 @@ use App\Contracts\SpeechTranscriber;
 use App\Services\Extraction\FakeDocumentExtractor;
 use App\Services\Speech\FakeSpeechTranscriber;
 use Carbon\CarbonImmutable;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 
@@ -30,6 +33,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+
+        // Each new demo office is a database write; cap it per visitor.
+        RateLimiter::for('demo', fn (Request $request) => Limit::perHour(30)->by($request->ip()));
     }
 
     /**

@@ -19,6 +19,8 @@ const { fit = 'landing' } = defineProps<{ fit?: 'landing' | 'demo' }>();
 </template>
 
 <style scoped>
+/* Each step uses the scale at the lower edge of its height range, so the
+   frame never exceeds clamp((100vh - 104px) / 866, 0.6, max). */
 .phone-fit {
     --s: 0.92;
     width: calc(412px * var(--s));
@@ -33,13 +35,13 @@ const { fit = 'landing' } = defineProps<{ fit?: 'landing' | 'demo' }>();
     --s: 1.2;
 }
 
-@media (max-height: 1143px) {
+@media (max-height: 1142px) {
     .phone-fit--demo {
         --s: 1.1;
     }
 }
 
-@media (max-height: 1056px) {
+@media (max-height: 1055px) {
     .phone-fit--demo {
         --s: 1;
     }
@@ -47,53 +49,46 @@ const { fit = 'landing' } = defineProps<{ fit?: 'landing' | 'demo' }>();
 
 @media (max-height: 969px) {
     .phone-fit--demo {
-        --s: 0.95;
+        --s: 0.92;
     }
 }
 
 @media (max-height: 900px) {
     .phone-fit--landing,
     .phone-fit--demo {
-        --s: 0.9;
-    }
-}
-
-@media (max-height: 840px) {
-    .phone-fit--landing,
-    .phone-fit--demo {
         --s: 0.85;
     }
 }
 
-@media (max-height: 797px) {
+@media (max-height: 839px) {
     .phone-fit--landing,
     .phone-fit--demo {
         --s: 0.8;
     }
 }
 
-@media (max-height: 753px) {
+@media (max-height: 796px) {
     .phone-fit--landing,
     .phone-fit--demo {
         --s: 0.75;
     }
 }
 
-@media (max-height: 710px) {
+@media (max-height: 752px) {
     .phone-fit--landing,
     .phone-fit--demo {
         --s: 0.7;
     }
 }
 
-@media (max-height: 667px) {
+@media (max-height: 709px) {
     .phone-fit--landing,
     .phone-fit--demo {
         --s: 0.65;
     }
 }
 
-@media (max-height: 623px) {
+@media (max-height: 666px) {
     .phone-fit--landing,
     .phone-fit--demo {
         --s: 0.6;

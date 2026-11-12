@@ -3,7 +3,11 @@ import { onBeforeUnmount, watch } from 'vue';
 
 const open = defineModel<boolean>('open', { required: true });
 
-defineProps<{ title: string }>();
+const { contained = false } = defineProps<{
+    title: string;
+    /** Inside a phone frame: cover the frame, not the window. */
+    contained?: boolean;
+}>();
 
 function onKey(event: KeyboardEvent): void {
     if (event.key === 'Escape') {
@@ -29,7 +33,8 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey));
 <template>
     <div
         v-if="open"
-        class="fixed inset-0 z-50 flex items-end bg-ink-deep/50"
+        class="inset-0 z-50 flex items-end bg-ink-deep/50"
+        :class="contained ? 'absolute' : 'fixed'"
         @click.self="open = false"
     >
         <div

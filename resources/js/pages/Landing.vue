@@ -17,8 +17,7 @@ const t = bs.landing;
 const page = usePage();
 const signedIn = computed(() => page.props.auth.user !== null);
 
-// Until the live demo exists (Phase 8) every "Pogledaj prototip" goes to #tok.
-const prototypeHref = '#tok';
+const prototypeHref = '/demo';
 
 const tabs = [
     { key: 'today', label: bs.tabs.today, href: '', active: true },
@@ -102,6 +101,9 @@ const h2 =
                     <Button :href="prototypeHref" anchor size="hero">{{
                         t.hero.cta
                     }}</Button>
+                    <span class="max-w-[260px] text-[14px] text-muted">{{
+                        t.hero.ctaNote
+                    }}</span>
                 </div>
                 <div class="mt-11 max-w-[560px] border-t-2 border-ink">
                     <div
@@ -131,27 +133,28 @@ const h2 =
                 </p>
             </div>
 
-            <PhoneFrame
-                class="order-2"
-                role="img"
+            <a
+                :href="prototypeHref"
+                class="order-2 block flex-none text-ink no-underline hover:text-ink"
                 :aria-label="t.phoneLabel"
-                inert
             >
-                <PhoneStatusBar :clock="landingDemo.clock" />
-                <div
-                    class="min-h-0 flex-1 overflow-hidden px-4.5 pt-1.5 pb-4.5"
-                >
-                    <TodayHeader :date="landingDemo.date" as="div" />
-                    <BriefingCard
-                        class="mt-3.5"
-                        :lawyer="landingDemo.lawyer"
-                        :groups="landingDemo.groups"
-                        :interactive="false"
-                    />
-                </div>
-                <QuickActions :interactive="false" />
-                <TabBar :items="tabs" :interactive="false" />
-            </PhoneFrame>
+                <PhoneFrame aria-hidden="true">
+                    <PhoneStatusBar :clock="landingDemo.clock" />
+                    <div
+                        class="min-h-0 flex-1 overflow-hidden px-4.5 pt-1.5 pb-4.5"
+                    >
+                        <TodayHeader :date="landingDemo.date" as="div" />
+                        <BriefingCard
+                            class="mt-3.5"
+                            :lawyer="landingDemo.lawyer"
+                            :groups="landingDemo.groups"
+                            :interactive="false"
+                        />
+                    </div>
+                    <QuickActions :interactive="false" />
+                    <TabBar :items="tabs" :interactive="false" />
+                </PhoneFrame>
+            </a>
         </main>
 
         <section

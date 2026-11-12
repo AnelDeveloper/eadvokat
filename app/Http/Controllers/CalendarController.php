@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Demo\DemoProgress;
 use App\Enums\DisplayStatus;
 use App\Queries\Agenda;
 use App\Queries\AgendaItem;
@@ -13,8 +14,9 @@ use Inertia\Response;
 
 class CalendarController extends Controller
 {
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request, DemoProgress $demo): Response
     {
+        $demo->markSeen($this->office(), 'calendar');
         $agenda = new Agenda;
         $today = $agenda->today;
 
