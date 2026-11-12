@@ -17,7 +17,10 @@ const t = bs.landing;
 const page = usePage();
 const signedIn = computed(() => page.props.auth.user !== null);
 
-const prototypeHref = '/demo';
+// The landing page can be exported as a static site (Vercel); then the app
+// links point to the app's own origin.
+const appOrigin = (import.meta.env.VITE_APP_ORIGIN as string | undefined) ?? '';
+const prototypeHref = `${appOrigin}/demo`;
 
 const tabs = [
     { key: 'today', label: bs.tabs.today, href: '', active: true },
@@ -68,7 +71,14 @@ const h2 =
                 <a href="#tok" class="no-underline">{{ t.nav.flow }}</a>
                 <a href="#nadzor" class="no-underline">{{ t.nav.oversight }}</a>
                 <a href="#pilot" class="no-underline">{{ t.nav.pilot }}</a>
+                <a
+                    v-if="appOrigin"
+                    :href="`${appOrigin}/login`"
+                    class="inline-flex min-h-11 items-center no-underline"
+                    >{{ t.nav.login }}</a
+                >
                 <Link
+                    v-else
                     :href="signedIn ? today() : login()"
                     class="inline-flex min-h-11 items-center no-underline"
                     >{{ signedIn ? t.nav.openApp : t.nav.login }}</Link

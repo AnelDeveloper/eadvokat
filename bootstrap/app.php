@@ -15,8 +15,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        // Railway and Vercel terminate TLS in front of the app.
-        $middleware->trustProxies(at: '*');
+        // Railway terminates TLS in front of the app. Only the immediate proxy
+        // (or the ranges in TRUSTED_PROXIES) is trusted, and only for the
+        // client IP, scheme and port — never the Host header.
+        $middleware->trustProxies(
+            at: ($proxies = (string) getenv('TRUSTED_PROXIES')) !== '' ? explode(',', $proxies) : '*',
+            headers: Request::HEADER_X_FORWARDED_FOR | Request::HEADER_X_FORWARDED_PROTO | Request::HEADER_X_FORWARDED_PORT,
+        );
 
         $middleware->redirectUsersTo(fn () => route('today'));
 

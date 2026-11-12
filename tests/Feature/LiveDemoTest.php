@@ -84,7 +84,7 @@ it('prunes demo offices after 24 hours, but never real ones', function () {
 
 it('points the landing page to the live demo', function () {
     $this->get('/')->assertOk();
-    expect(file_get_contents(resource_path('js/pages/Landing.vue')))->toContain("const prototypeHref = '/demo';");
+    expect(file_get_contents(resource_path('js/pages/Landing.vue')))->toContain('const prototypeHref = `${appOrigin}/demo`;');
 });
 
 it('ticks guide steps as the visitor works through the scenario', function () {
