@@ -48,7 +48,7 @@ const tag = computed(() => (!interactive ? 'div' : href ? Link : 'button'));
         <span class="min-w-0">
             <span
                 v-if="type"
-                class="block font-semibold tracking-[.05em] text-chip text-muted uppercase"
+                class="block text-chip font-semibold tracking-[.05em] text-muted uppercase"
                 >{{ type }}</span
             >
             <span class="block text-row font-medium">{{ title }}</span>

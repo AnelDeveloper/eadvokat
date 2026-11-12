@@ -9,7 +9,7 @@ type Variant =
     | 'ghost'
     | 'confirm'
     | 'inactive';
-type Size = 'sm' | 'md' | 'lg' | 'xl' | 'hero';
+type Size = 'sm' | 'md' | 'lg' | 'xl' | 'hero' | 'nav' | 'cta';
 
 const {
     variant = 'primary',
@@ -48,6 +48,8 @@ const sizes: Record<Size, string> = {
     lg: 'min-h-13 rounded-card px-3 text-action',
     xl: 'min-h-14 rounded-card px-3 text-row',
     hero: 'min-h-15 rounded-card px-[30px] text-[19px]',
+    nav: 'min-h-11 rounded-field px-[18px] text-[15px]',
+    cta: 'min-h-13 rounded-card px-6 text-[16px]',
 };
 
 const classes = computed(() => [
