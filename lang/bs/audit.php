@@ -18,4 +18,10 @@ return [
     'deadline_fulfilled' => 'Rok :date ispunjen podneskom :number.',
     'outgoing_with_proof' => 'Izlazni podnesak :number evidentiran s dokazom o predaji. Podsjetnik postavljen za :date',
     'outgoing_without_proof' => 'Izlazni podnesak :number evidentiran bez dokaza o predaji. Podsjetnik postavljen za :date',
+    'cost_amount_changed' => 'Iznos stavke „:title“ izmijenjen: :old → :new.',
+    'cost_confirmed' => 'Stavka troškovnika „:title“ potvrđena (iznos :amount).',
+    'cost_reverted' => 'Stavka troškovnika „:title“ vraćena na pregled.',
+    'cost_removed' => 'Stavka troškovnika „:title“ uklonjena iz nacrta.',
+    'tariff_changed' => 'Izvor tarife izmijenjen: :source',
+    'cost_sheet_approved' => 'Nacrt troškovnika odobrio advokat. Nadležnost: :jurisdiction; izvor tarife: :source.',
 ];

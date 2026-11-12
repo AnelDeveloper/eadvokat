@@ -1,0 +1,31 @@
+<?php
+
+return [
+    'amount_required' => 'Unesite iznos prije potvrde stavke.',
+    'confirm_all_first' => 'Nacrt se može odobriti tek kada pregledate i potvrdite svaku stavku.',
+    'tariff_required' => 'Unesite izvor i verziju tarife.',
+    'approved' => 'Nacrt odobren. Ništa nije poslano.',
+    'item_confirmed' => 'Stavka je potvrđena.',
+    'item_reverted' => 'Stavka je vraćena na pregled.',
+    'item_removed' => 'Stavka je uklonjena iz nacrta.',
+    'pdf' => [
+        'title' => 'NACRT TROŠKOVNIKA',
+        'notice' => 'Nacrt služi samo za pregled advokata. Ništa nije poslano sudu ni stranci.',
+        'demo' => 'Svi iznosi su demo podaci. Nisu preuzeti iz važeće tarife i nemaju pravnu snagu.',
+        'matter' => 'Predmet',
+        'court' => 'Sud',
+        'jurisdiction' => 'Nadležnost',
+        'tariff' => 'Izvor i verzija tarife (unosi advokat)',
+        'date' => 'Datum',
+        'item' => 'Radnja',
+        'source' => 'Izvor',
+        'status' => 'Status',
+        'amount' => 'Iznos (KM)',
+        'total' => 'Ukupno',
+        'status_confirmed' => 'Potvrdio advokat',
+        'status_proposed' => 'Predloženo · čeka pregled',
+        'sheet_approved' => 'Nacrt odobrio :name, :date.',
+        'sheet_draft' => 'Nacrt · čeka pregled. Nije odobren.',
+        'generated' => 'Izvezeno :date.',
+    ],
+];

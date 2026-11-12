@@ -2,6 +2,7 @@
 
 namespace App\Actions;
 
+use App\Actions\Costs\RevertSheetToDraft;
 use App\Enums\CostSheetStatus;
 use App\Enums\ItemStatus;
 use App\Models\CostItem;
@@ -17,6 +18,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 final class SuggestCostItem
 {
+    public function __construct(private readonly RevertSheetToDraft $revert) {}
+
     public function handle(Matter $matter, string $title, CarbonInterface $date, Model $source, string $sourceLabel, ?int $documentId = null, ?string $quote = null): CostItem
     {
         $sheet = CostSheet::query()->firstOrCreate(['matter_id' => $matter->id], [
@@ -45,11 +48,7 @@ final class SuggestCostItem
             'source' => $sourceLabel,
         ]);
 
-        // Any change to the items reverts an approved sheet to draft.
-        if ($sheet->status === CostSheetStatus::Approved) {
-            $sheet->update(['status' => CostSheetStatus::Draft, 'approved_by' => null, 'approved_at' => null]);
-            Audit::record($matter, 'cost_sheet.reverted', __('audit.cost_sheet_reverted'), $sheet, ['status' => 'approved'], ['status' => 'draft']);
-        }
+        $this->revert->handle($sheet);
 
         return $item;
     }

@@ -382,6 +382,43 @@ export const bs = {
         save: 'Sačuvaj i postavi podsjetnik',
     },
 
+    costs: {
+        title: 'Nacrt troškovnika',
+        chipDraft: 'Nacrt · čeka pregled',
+        chipApproved: 'Nacrt odobrio advokat',
+        demoNotice: 'Svi iznosi su',
+        demoNoticeBold: 'demo podaci',
+        demoNoticeEnd:
+            '. Nisu preuzeti iz važeće tarife i nemaju pravnu snagu.',
+        notice: 'Iznose unosi ili potvrđuje advokat. Aplikacija ne sadrži tarife i ne računa iznose.',
+        jurisdiction: 'Nadležnost',
+        tariff: 'Izvor i verzija tarife (unosi advokat)',
+        tariffPlaceholder: 'Naziv tarife i broj službenog glasila',
+        tariffNoteDemo:
+            'Prototip ne sadrži važeće tarife. Promjena nadležnosti ne preračunava demo iznose.',
+        tariffNote:
+            'Aplikacija ne sadrži tarife. Promjena nadležnosti ne preračunava iznose.',
+        suffixDemo: 'KM · demo',
+        suffix: 'KM',
+        confirm: 'Potvrdi',
+        revert: 'Vrati',
+        remove: 'Ukloni stavku',
+        totalDemo: 'Ukupno (demo iznosi)',
+        total: 'Ukupno',
+        approve: 'Odobri nacrt',
+        approved: 'Nacrt odobren ✓',
+        confirmFirst: (pending: string) =>
+            `Prvo potvrdite sve stavke (${pending})`,
+        confirmAllToast:
+            'Nacrt se može odobriti tek kada pregledate i potvrdite svaku stavku.',
+        tariffToast: 'Unesite izvor i verziju tarife.',
+        amountToast: 'Unesite iznos prije potvrde stavke.',
+        export: 'Izvezi nacrt (PDF)',
+        nothingSent:
+            'Ništa se ne šalje sudu ni stranci. Nacrt služi samo za pregled advokata.',
+        empty: 'Nacrt još nema stavki.',
+    },
+
     status: {
         proposed: 'Predloženo · čeka pregled',
         confirmed: 'Potvrdio advokat',

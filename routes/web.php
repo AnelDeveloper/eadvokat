@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\CostItemController;
 use App\Http\Controllers\CostSheetController;
 use App\Http\Controllers\DeadlineController;
 use App\Http\Controllers\DictationController;
@@ -24,8 +25,14 @@ Route::middleware('auth')->group(function () {
     Route::get('rokovi/{deadline}/prijedlog', [DeadlineController::class, 'review'])->name('deadlines.review');
     Route::post('rokovi/{deadline}/potvrda', [DeadlineController::class, 'confirm'])->name('deadlines.confirm');
 
-    // Troškovnik tab; filled in by Phase 7.
     Route::get('predmeti/{matter}/troskovnik', [CostSheetController::class, 'show'])->name('matters.costs');
+    Route::patch('predmeti/{matter}/troskovnik', [CostSheetController::class, 'update'])->name('costs.update');
+    Route::post('predmeti/{matter}/troskovnik/odobri', [CostSheetController::class, 'approve'])->name('costs.approve');
+    Route::get('predmeti/{matter}/troskovnik/pdf', [CostSheetController::class, 'pdf'])->name('costs.pdf');
+    Route::patch('troskovi/stavke/{item}', [CostItemController::class, 'update'])->name('cost-items.update');
+    Route::post('troskovi/stavke/{item}/potvrda', [CostItemController::class, 'confirm'])->name('cost-items.confirm');
+    Route::post('troskovi/stavke/{item}/vrati', [CostItemController::class, 'revert'])->name('cost-items.revert');
+    Route::delete('troskovi/stavke/{item}', [CostItemController::class, 'destroy'])->name('cost-items.destroy');
 
     Route::get('predmeti', [MatterController::class, 'index'])->name('matters.index');
     Route::get('predmeti/{matter}', [MatterController::class, 'show'])->name('matters.show');
