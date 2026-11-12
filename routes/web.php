@@ -3,9 +3,12 @@
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\CostSheetController;
 use App\Http\Controllers\DeadlineController;
+use App\Http\Controllers\DictationController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\MatterController;
+use App\Http\Controllers\NoteController;
 use App\Http\Controllers\ReminderController;
 use App\Http\Controllers\TodayController;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +35,13 @@ Route::middleware('auth')->group(function () {
     Route::post('posta/fotografisi', [MailController::class, 'store'])->name('mail.store');
     Route::get('posta/pregled/{document}', [MailController::class, 'review'])->name('mail.review');
     Route::post('posta/pregled/{document}', [MailController::class, 'save'])->name('mail.save');
+
+    Route::get('diktat', [DictationController::class, 'create'])->name('dictation.create');
+    Route::post('diktat', [DictationController::class, 'store'])->name('dictation.store');
+    Route::get('diktat/{document}', [DictationController::class, 'show'])->name('dictation.show');
+    Route::post('diktat/{document}/sacuvaj', [DictationController::class, 'save'])->name('dictation.save');
+    Route::post('dogadjaji/{event}/potvrda', [EventController::class, 'confirm'])->name('events.confirm');
+    Route::post('biljeske/{note}/potvrda', [NoteController::class, 'confirm'])->name('notes.confirm');
 
     Route::get('dokumenti/{document}', [DocumentController::class, 'show'])->name('documents.show');
     Route::get('dokumenti/{document}/datoteka', [DocumentController::class, 'file'])->name('documents.file');

@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Contracts\DocumentExtractor;
+use App\Contracts\SpeechTranscriber;
 use App\Services\Extraction\FakeDocumentExtractor;
+use App\Services\Speech\FakeSpeechTranscriber;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -19,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // Only fake drivers exist (rule 8): no external AI, OCR or speech service.
         $this->app->bind(DocumentExtractor::class, FakeDocumentExtractor::class);
+        $this->app->bind(SpeechTranscriber::class, FakeSpeechTranscriber::class);
     }
 
     /**

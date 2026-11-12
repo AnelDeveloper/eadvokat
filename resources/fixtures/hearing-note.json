@@ -1,0 +1,28 @@
+{
+    "fictional": true,
+    "text": "Ročište je odgođeno. Novi termin je četrnaesti decembar u deset sati, sudnica 21. Sud je naložio da u roku od osam dana dostavimo podnesak s tačnom adresom svjedoka Dizdara, jer se poziv vratio neuručen. Nalaz vještaka smo primili tek jutros.",
+    "event": {
+        "title": "Nastavak glavne rasprave",
+        "date": "2026-12-14",
+        "time": "10:00",
+        "location_heard": "21",
+        "location_options": ["12", "21"],
+        "venue": "Općinski sud u Sarajevu",
+        "quote": "Novi termin je četrnaesti decembar u deset sati, sudnica 21."
+    },
+    "deadline": {
+        "title": "Podnesak s adresom svjedoka",
+        "rule_text": "Rok naložen na ročištu: 8 dana od ročišta",
+        "days": 8,
+        "basis": "8 dana od ročišta",
+        "quote": "Sud je naložio da u roku od osam dana dostavimo podnesak s tačnom adresom svjedoka Dizdara, jer se poziv vratio neuručen.",
+        "highlight": "u roku od osam dana"
+    },
+    "note": {
+        "body": "Ročište odgođeno jer je nalaz vještaka tužiocu dostavljen tek 11.11.2026. Sud naložio dostavu adrese svjedoka K. Dizdara u roku od 8 dana."
+    },
+    "hearing_outcome": {
+        "title": "Ročište odgođeno",
+        "outcome": "Ročište odgođeno"
+    }
+}

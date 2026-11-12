@@ -320,6 +320,48 @@ export const bs = {
         laterToast: 'Prijedlog ostaje na čekanju. Rok nije aktivan.',
     },
 
+    dictation: {
+        title: 'Bilješka s ročišta',
+        idle: 'Dodirnite i diktirajte',
+        idleHint:
+            'Recite šta se desilo na ročištu, novi termin i šta je sud naložio.',
+        recording: (time: string) => `Snimam… ${time}`,
+        recordingHint:
+            'Dodirnite ponovo da završite. U prototipu se koristi pripremljen diktat.',
+        recordingHintReal: 'Dodirnite ponovo da završite.',
+        processing: 'Obrađujem snimak…',
+        micLabel: 'Diktiraj',
+        noMic: 'Mikrofon nije dostupan. Dozvolite pristup mikrofonu u pregledniku.',
+        useFixture: 'Nastavi s pripremljenim diktatom',
+        noHearing: 'Danas nema ročišta za koje se bilježi bilješka.',
+        transcript: 'Transkript · izvor prijedloga',
+        eventCard: 'Događaj u kalendaru',
+        eventTitle: (title: string) =>
+            `Ročište — ${title.charAt(0).toLowerCase()}${title.slice(1)}`,
+        date: 'Datum',
+        time: 'Vrijeme',
+        roomUnclear: (options: string[]) =>
+            `Sudnica nije jasna u snimku: ${options.join(' ili ')}? Odaberite.`,
+        roomChecked: (room: string) => `Sudnica ${room} — provjerio advokat.`,
+        roomFirst: (options: string[]) =>
+            `Prvo provjerite sudnicu: ${options.join(' ili ')}?`,
+        room: (room: string) => `Sudnica ${room}`,
+        deadlineCard: 'Rok',
+        deadlineSource: (highlight: string, start: string) =>
+            `Izvor: „${highlight}“ · početak ${start} (dan ročišta, ne računa se)`,
+        dueLabel: 'Posljednji dan roka',
+        noteCard: 'Bilješka u predmetu',
+        confirm: 'Potvrdi',
+        confirmed: 'Potvrđeno ✓ — vrati na pregled',
+        reviewDeadline: 'Pregledaj i potvrdi rok ›',
+        costHint: (date: string) =>
+            `U nacrt troškovnika dodaje se prijedlog stavke „Zastupanje na ročištu ${date}“`,
+        save: (n: number) => `Sačuvaj · potvrđeno ${n} od 3`,
+        saveHint: 'Nepotvrđeno ostaje kao prijedlog i nije aktivno.',
+        savedHint:
+            'Bilješka je sačuvana. Nepotvrđeni prijedlozi čekaju vaš pregled.',
+    },
+
     status: {
         proposed: 'Predloženo · čeka pregled',
         confirmed: 'Potvrdio advokat',
