@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#F3F6F7}
+button,input,textarea{font-family:inherit;color:inherit}
+a{color:#173247}
+a:hover{color:#3F776F}
+@keyframes rkPulse{0%,100%{opacity:1}50%{opacity:.25}}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#F3F6F7;color:#173247;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:16px;line-height:1.5">
+
+<header style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;padding:14px clamp(20px,4vw,56px);border-bottom:1px solid #D5DDE2;background:#fff">
+  <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+    <span style="font-family:'Newsreader',serif;font-weight:600;font-size:24px;letter-spacing:-.01em">Rokovnik</span>
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#7A4F17;background:#F7EEDF;border:1px dashed #B27B34;border-radius:4px;padding:2px 7px">Prototip · demo podaci</span>
+  </div>
+  <sc-if value="{{ isLanding }}" hint-placeholder-val="{{ true }}">
+    <nav style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 22px;font-size:15px">
+      <a href="#tok" style="text-decoration:none">Tok</a>
+      <a href="#nadzor" style="text-decoration:none">Nadzor</a>
+      <a href="#pilot" style="text-decoration:none">Pilot</a>
+      <button onClick="{{ goDemo }}" style="height:44px;padding:0 18px;border:0;border-radius:8px;background:#173247;color:#fff;font-size:15px;font-weight:600;cursor:pointer" style-hover="background:#0F2230">Pogledaj prototip</button>
+    </nav>
+  </sc-if>
+  <sc-if value="{{ isDemo }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-wrap:wrap;gap:8px">
+      <button onClick="{{ goLanding }}" style="height:44px;padding:0 16px;border:1px solid #C3CED5;border-radius:8px;background:#fff;font-size:15px;font-weight:500;cursor:pointer">‹ Predstavljanje</button>
+      <button onClick="{{ reset }}" style="height:44px;padding:0 16px;border:1px solid #173247;border-radius:8px;background:#fff;font-size:15px;font-weight:600;cursor:pointer">Vrati demo na početak</button>
+    </div>
+  </sc-if>
+</header>
+
+<main style="display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:center;gap:40px clamp(32px,6vw,96px);padding:clamp(24px,4vw,56px) clamp(20px,4vw,56px)">
+
+  <sc-if value="{{ isLanding }}" hint-placeholder-val="{{ true }}">
+    <div style="flex:1 1 420px;max-width:660px;order:1;padding-top:clamp(0px,3vw,48px)">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4F6676;letter-spacing:.04em;text-transform:uppercase">Asistent za advokatsku kancelariju</div>
+      <h1 style="margin:16px 0 0;font-family:'Newsreader',serif;font-weight:500;font-size:clamp(40px,5.4vw,78px);line-height:1.02;letter-spacing:-.02em;text-wrap:balance">Od primljene pošte do potvrđenog roka. Bez prepisivanja.</h1>
+      <p style="margin:24px 0 0;font-size:clamp(17px,1.5vw,21px);line-height:1.5;color:#2C4A5E;max-width:560px;text-wrap:pretty">Fotografija sudskog pismena postaje prijedlog unosa u knjigu pošte, prijedlog roka i podsjetnik. Advokat sve pregleda, ispravlja i potvrđuje — tek tada rok postaje aktivan.</p>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-top:32px">
+        <button onClick="{{ goDemo }}" style="height:60px;padding:0 30px;border:0;border-radius:10px;background:#173247;color:#fff;font-size:19px;font-weight:600;cursor:pointer" style-hover="background:#0F2230">Pogledaj prototip →</button>
+        <span style="font-size:14px;color:#4F6676;max-width:260px">Telefon desno je već aktivan — možete kliknuti odmah.</span>
+      </div>
+      <div style="margin-top:44px;border-top:2px solid #173247;max-width:560px">
+        <div style="display:flex;justify-content:space-between;gap:12px;padding:8px 0;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#4F6676;border-bottom:1px solid #D5DDE2"><span>Predmet 65 0 P 084512 25 P</span><span>izmišljen</span></div>
+        <div style="display:grid;grid-template-columns:54px minmax(0,1fr) auto;gap:12px;align-items:baseline;padding:10px 0;border-bottom:1px solid #D5DDE2;font-size:15px"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px">08:12</span><span>Fotografisano rješenje suda</span><span style="font-size:12px;font-weight:600;color:#4F6676">Izvor</span></div>
+        <div style="display:grid;grid-template-columns:54px minmax(0,1fr) auto;gap:12px;align-items:baseline;padding:10px 0;border-bottom:1px solid #D5DDE2;font-size:15px"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px">08:13</span><span>Prijedlog roka: 26.11.2026.</span><span style="font-size:12px;font-weight:600;color:#7A4F17">Predloženo</span></div>
+        <div style="display:grid;grid-template-columns:54px minmax(0,1fr) auto;gap:12px;align-items:baseline;padding:10px 0;border-bottom:1px solid #D5DDE2;font-size:15px"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px">08:15</span><span>Rok upisan u rokovnik, podsjetnici postavljeni</span><span style="font-size:12px;font-weight:600;color:#2F5F58">Potvrdio advokat</span></div>
+      </div>
+      <p style="margin:16px 0 0;font-size:13.5px;color:#4F6676">Svi podaci u prototipu su izmišljeni. Sistem nije u upotrebi.</p>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showGuide }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1 1 320px;max-width:460px;order:2">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4F6676;letter-spacing:.04em;text-transform:uppercase">Tok prezentacije · oko 90 sekundi</div>
+      <h2 style="margin:10px 0 18px;font-family:'Newsreader',serif;font-weight:500;font-size:34px;line-height:1.1;letter-spacing:-.01em">Jedan predmet, od pošte do troškovnika</h2>
+      <div style="border-top:2px solid #173247">
+        <sc-for list="{{ steps }}" as="g" hint-placeholder-count="9">
+          <div style="display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;padding:11px 10px;border-bottom:1px solid #D5DDE2;background:{{ g.bg }}">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;color:{{ g.nc }};padding-top:2px">{{ g.n }}</span>
+            <span><span style="display:block;font-size:16px;font-weight:{{ g.w }};color:{{ g.fg }}">{{ g.t }}</span><span style="display:{{ g.hd }};font-size:14px;color:#2C4A5E;margin-top:2px">{{ g.h }}</span></span>
+          </div>
+        </sc-for>
+      </div>
+      <p style="margin:14px 0 0;font-size:13.5px;color:#4F6676">Stanje je lokalno i izmišljeno. „Vrati demo na početak“ briše sve unose.</p>
+    </div>
+  </sc-if>
+
+  <!-- PHONE -->
+  <div style="flex:none;order:{{ phoneOrder }};width:{{ phoneW }};height:{{ phoneH }}" data-screen-label="Telefon">
+  <div style="transform:{{ phoneT }};transform-origin:top left;width:390px;height:844px;box-sizing:content-box;border:11px solid #0F2230;border-radius:56px;background:#F3F6F7;overflow:hidden;position:relative;display:flex;flex-direction:column;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:15px;line-height:1.4;color:#173247;box-shadow:0 34px 60px -34px rgba(23,50,71,.5)">
+
+    <div style="flex:none;height:50px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 26px;background:{{ sbBg }};color:{{ sbFg }}">
+      <span style="font-size:15px;font-weight:600">{{ clock }}</span>
+      <button onClick="{{ openSheet }}" style="min-height:44px;padding:0;border:0;background:transparent;cursor:pointer;display:flex;align-items:center"><span style="font-size:11.5px;font-weight:600;color:#7A4F17;background:#F7EEDF;border:1px dashed #B27B34;border-radius:999px;padding:4px 11px">Demo podaci</span></button>
+      <span style="justify-self:end;display:flex;gap:5px;align-items:center"><span style="width:17px;height:10px;border:1.5px solid currentColor;border-radius:3px;position:relative"><span style="position:absolute;inset:1.5px;right:4px;background:currentColor;border-radius:1px"></span></span></span>
+    </div>
+
+    <!-- DANAS -->
+    <sc-if value="{{ isDanas }}" hint-placeholder-val="{{ true }}">
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column" data-screen-label="Danas">
+      <div style="flex:1;overflow:auto;padding:6px 18px 18px">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:12px">
+          <div><div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#4F6676">srijeda, 11. novembar 2026.</div><h2 style="margin:2px 0 0;font-size:30px;line-height:1.1;font-weight:600">Danas</h2></div>
+          <button onClick="{{ openNotif }}" style="height:44px;padding:0 12px;border:1px solid #C3CED5;border-radius:8px;background:#fff;font-size:13px;font-weight:500;cursor:pointer">Prikaz obavijesti</button>
+        </div>
+        <div style="margin-top:14px;background:#fff;border:1px solid #D5DDE2;border-radius:10px;overflow:hidden">
+          <div style="padding:11px 14px;display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid #173247"><span style="font-size:16px;font-weight:600">Jutarnji pregled</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#4F6676">adv. Lejla Karić</span></div>
+          <sc-for list="{{ brief }}" as="r" hint-placeholder-count="6">
+            <div>
+              <sc-if value="{{ r.head }}" hint-placeholder-val="{{ false }}"><div style="padding:9px 14px 5px;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#4F6676;background:#F3F6F7;border-top:1px solid #D5DDE2">{{ r.head }}</div></sc-if>
+              <sc-if value="{{ r.note }}" hint-placeholder-val="{{ false }}"><div style="padding:10px 14px;font-size:13.5px;color:#4F6676;border-top:1px solid #E6ECEF">{{ r.note }}</div></sc-if>
+              <sc-if value="{{ r.title }}" hint-placeholder-val="{{ true }}">
+                <button onClick="{{ r.go }}" style="width:100%;min-height:56px;display:grid;grid-template-columns:52px minmax(0,1fr) 10px;gap:10px;align-items:start;padding:10px 14px;border:0;border-top:1px solid #E6ECEF;background:#fff;text-align:left;cursor:pointer" style-active="background:#F3F6F7">
+                  <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;padding-top:2px">{{ r.when }}</span>
+                  <span style="min-width:0"><span style="display:block;font-size:15px;font-weight:500;line-height:1.3">{{ r.title }}</span><span style="display:block;font-size:12.5px;color:#4F6676;margin-top:2px">{{ r.sub }}</span><span style="display:inline-block;margin-top:6px;font-size:11px;font-weight:600;line-height:1;padding:4px 7px;border-radius:4px;color:{{ r.fg }};background:{{ r.bg }};border:{{ r.bd }}">{{ r.chip }}</span></span>
+                  <span style="color:#8FA1AD;font-size:18px;line-height:1.2">›</span>
+                </button>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="flex:none;padding:10px 14px 12px;background:#fff;border-top:1px solid #D5DDE2">
+        <div style="font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#4F6676;margin-bottom:7px">Brzi unos</div>
+        <div style="display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:8px">
+          <button onClick="{{ openCapture }}" style="height:56px;border:0;border-radius:10px;background:#173247;color:#fff;font-size:15px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px"><span style="width:20px;height:14px;border:2px solid #fff;border-radius:4px;display:grid;place-items:center;box-sizing:border-box"><span style="width:6px;height:6px;border-radius:50%;background:#fff"></span></span>Fotografiši</button>
+          <button onClick="{{ openVoice }}" style="height:56px;border:1px solid #173247;border-radius:10px;background:#fff;font-size:15px;font-weight:600;cursor:pointer">Diktiraj</button>
+          <button onClick="{{ openOut }}" style="height:56px;border:1px solid #173247;border-radius:10px;background:#fff;font-size:15px;font-weight:600;cursor:pointer">Podnesak</button>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- PREDMETI: LISTA -->
+    <sc-if value="{{ isPredList }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1;overflow:auto;padding:6px 18px 18px" data-screen-label="Predmeti">
+      <h2 style="margin:8px 0 14px;font-size:30px;line-height:1.1;font-weight:600">Predmeti</h2>
+      <button onClick="{{ openHron }}" style="width:100%;text-align:left;padding:0;border:1px solid #D5DDE2;border-radius:10px;background:#fff;cursor:pointer;overflow:hidden">
+        <span style="display:block;padding:12px 14px;border-bottom:2px solid #173247;font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:500">65 0 P 084512 25 P</span>
+        <span style="display:block;padding:12px 14px">
+          <span style="display:block;font-size:17px;font-weight:600;line-height:1.3">Selimović protiv Brezik Gradnja d.o.o.</span>
+          <span style="display:block;font-size:13px;color:#4F6676;margin-top:3px">Radi isplate duga · Općinski sud u Sarajevu · zastupamo tužioca</span>
+          <span style="display:block;margin-top:10px;padding-top:10px;border-top:1px solid #E6ECEF;font-size:13.5px">Naredno: <b style="font-weight:600">{{ nextLine }}</b></span>
+          <span style="display:block;font-size:13.5px;margin-top:3px">Troškovnik: <b style="font-weight:600">{{ costLine }}</b></span>
+        </span>
+      </button>
+      <p style="font-size:13px;color:#4F6676;margin:14px 2px 0">U prototipu je prikazan jedan izmišljen predmet.</p>
+    </div>
+    </sc-if>
+
+    <!-- PREDMET -->
+    <sc-if value="{{ isMatter }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1;overflow:auto" data-screen-label="Predmet">
+      <div style="background:#fff;padding:2px 18px 14px;border-bottom:1px solid #D5DDE2">
+        <button onClick="{{ closeMatter }}" style="height:44px;padding:0;border:0;background:transparent;font-size:15px;font-weight:500;cursor:pointer">‹ Predmeti</button>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:17px;font-weight:500">65 0 P 084512 25 P</div>
+        <div style="font-size:19px;font-weight:600;line-height:1.25;margin-top:4px">Selimović protiv Brezik Gradnja d.o.o.</div>
+        <div style="font-size:13px;color:#4F6676;margin-top:3px">Radi isplate duga · Općinski sud u Sarajevu · {{ jur }} · zastupamo tužioca (Amra Selimović)</div>
+        <button onClick="{{ openTrosk }}" style="width:100%;min-height:56px;margin-top:12px;padding:8px 14px;border:0;border-radius:10px;background:#173247;color:#fff;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px">
+          <span><span style="display:block;font-size:16px;font-weight:600">Troškovnik</span><span style="display:block;font-size:12.5px;color:#D5DDE2">{{ costLine }}</span></span><span style="font-size:20px">›</span>
+        </button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);background:#fff;border-bottom:1px solid #D5DDE2;position:sticky;top:0;z-index:2">
+        <sc-for list="{{ mtabs }}" as="t" hint-placeholder-count="3">
+          <button onClick="{{ t.go }}" style="height:46px;border:0;border-bottom:3px solid {{ t.bar }};background:transparent;font-size:14.5px;font-weight:{{ t.w }};color:{{ t.fg }};cursor:pointer">{{ t.l }}</button>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{ isHron }}" hint-placeholder-val="{{ false }}">
+      <div style="padding:6px 18px 20px">
+        <sc-for list="{{ tl }}" as="r" hint-placeholder-count="6">
+          <div>
+            <sc-if value="{{ r.head }}" hint-placeholder-val="{{ false }}"><div style="padding:14px 0 8px;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#4F6676">{{ r.head }}</div></sc-if>
+            <sc-if value="{{ r.title }}" hint-placeholder-val="{{ true }}">
+              <div onClick="{{ r.go }}" style="display:grid;grid-template-columns:88px 12px minmax(0,1fr);gap:8px;cursor:pointer">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#173247;padding-top:1px;white-space:nowrap">{{ r.when }}<span style="display:block;color:#4F6676">{{ r.time }}</span></span>
+                <span style="position:relative"><span style="position:absolute;left:5px;top:0;bottom:0;width:1px;background:#C3CED5"></span><span style="position:absolute;left:1px;top:4px;width:9px;height:9px;box-sizing:border-box;border-radius:50%;background:{{ r.dot }};border:{{ r.bd }}"></span></span>
+                <span style="min-width:0;padding-bottom:16px">
+                  <span style="display:block;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#4F6676">{{ r.type }}</span>
+                  <span style="display:block;font-size:15px;font-weight:500;line-height:1.3">{{ r.title }}</span>
+                  <span style="display:block;font-size:12.5px;color:#4F6676;margin-top:2px">{{ r.sub }}</span>
+                  <span style="display:inline-block;margin-top:6px;font-size:11px;font-weight:600;line-height:1;padding:4px 7px;border-radius:4px;color:{{ r.fg }};background:{{ r.bg }};border:{{ r.bd }}">{{ r.chip }}</span>
+                  <sc-if value="{{ r.doc }}" hint-placeholder-val="{{ false }}"><button onClick="{{ r.openDoc }}" style="display:block;min-height:36px;margin-top:2px;padding:0;border:0;background:transparent;font-size:13px;font-weight:600;color:#173247;text-decoration:underline;cursor:pointer">Izvorni dokument ›</button></sc-if>
+                </span>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isTrosk }}" hint-placeholder-val="{{ false }}">
+      <div style="padding:14px 18px 22px" data-screen-label="Troškovnik">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><span style="font-size:19px;font-weight:600">Nacrt troškovnika</span><span style="font-size:11px;font-weight:600;line-height:1;padding:4px 7px;border-radius:4px;color:{{ ca.fg }};background:{{ ca.bg }};border:{{ ca.bd }}">{{ ca.chip }}</span></div>
+        <div style="margin-top:10px;padding:10px 12px;border:1px dashed #B27B34;border-radius:8px;background:#F7EEDF;color:#7A4F17;font-size:13px;line-height:1.4">Svi iznosi su <b>demo podaci</b>. Nisu preuzeti iz važeće tarife i nemaju pravnu snagu.</div>
+        <div style="margin-top:14px;font-size:12px;font-weight:500;color:#4F6676">Nadležnost</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:5px">
+          <sc-for list="{{ jurs }}" as="j" hint-placeholder-count="3"><button onClick="{{ j.on }}" style="height:44px;border:1px solid {{ j.bc }};border-radius:8px;background:{{ j.bg }};color:{{ j.fg }};font-size:13.5px;font-weight:600;cursor:pointer">{{ j.l }}</button></sc-for>
+        </div>
+        <label style="display:block;margin-top:12px"><span style="font-size:12px;font-weight:500;color:#4F6676">Izvor i verzija tarife (unosi advokat)</span><input value="{{ tarifa }}" onChange="{{ onTarifa }}" placeholder="Naziv tarife i broj službenog glasila" style="width:100%;box-sizing:border-box;height:44px;margin-top:5px;padding:0 12px;border:1px solid #C3CED5;border-radius:8px;background:#fff;font-size:14px"></label>
+        <div style="font-size:12px;color:#4F6676;margin-top:5px">Prototip ne sadrži važeće tarife. Promjena nadležnosti ne preračunava demo iznose.</div>
+
+        <div style="margin-top:16px;border-top:2px solid #173247">
+          <sc-for list="{{ costs }}" as="c" hint-placeholder-count="4">
+            <div style="padding:12px 0;border-bottom:1px solid #D5DDE2">
+              <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start">
+                <span style="min-width:0"><span style="display:block;font-size:15px;font-weight:500;line-height:1.3">{{ c.t }}</span><span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#4F6676;margin-top:2px">{{ c.d }} · {{ c.src }}</span></span>
+                <span style="flex:none;font-size:11px;font-weight:600;line-height:1;padding:4px 7px;border-radius:4px;color:{{ c.fg }};background:{{ c.bg }};border:{{ c.bd }}">{{ c.chip }}</span>
+              </div>
+              <div style="display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:6px;margin-top:9px;align-items:center">
+                <label style="display:flex;align-items:center;gap:6px;height:44px;padding:0 10px;border:1px solid #C3CED5;border-radius:8px;background:#fff"><input value="{{ c.amt }}" onChange="{{ c.onAmt }}" inputmode="decimal" style="width:100%;min-width:0;border:0;outline:0;background:transparent;font-family:'IBM Plex Mono',monospace;font-size:15px;text-align:right"><span style="font-size:12px;color:#4F6676;white-space:nowrap">KM · demo</span></label>
+                <button onClick="{{ c.onOk }}" style="height:44px;padding:0 12px;border:1px solid #173247;border-radius:8px;background:{{ c.okBg }};color:{{ c.okFg }};font-size:13.5px;font-weight:600;cursor:pointer">{{ c.okL }}</button>
+                <button onClick="{{ c.onDel }}" aria-label="Ukloni stavku" style="width:44px;height:44px;border:1px solid #C3CED5;border-radius:8px;background:#fff;font-size:18px;color:#A34A45;cursor:pointer">×</button>
+              </div>
+            </div>
+          </sc-for>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;padding:12px 0"><span style="font-size:14px;font-weight:600">Ukupno (demo iznosi)</span><span style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:500">{{ total }} KM</span></div>
+        </div>
+        <button onClick="{{ approveCost }}" style="width:100%;min-height:52px;padding:6px 12px;border:0;border-radius:10px;background:{{ apBg }};color:#fff;font-size:15.5px;font-weight:600;cursor:pointer">{{ apL }}</button>
+        <button onClick="{{ exportCost }}" style="width:100%;height:48px;margin-top:8px;border:1px solid #C3CED5;border-radius:10px;background:#fff;font-size:14.5px;font-weight:500;cursor:pointer">Izvezi nacrt (PDF)</button>
+        <div style="font-size:12px;color:#4F6676;margin-top:8px">Ništa se ne šalje sudu ni stranci. Nacrt služi samo za pregled advokata.</div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isAudit }}" hint-placeholder-val="{{ false }}">
+      <div style="padding:14px 18px 22px">
+        <div style="font-size:13px;color:#4F6676;margin-bottom:6px">Dnevnik značajnih izmjena u predmetu.</div>
+        <sc-for list="{{ audit }}" as="a" hint-placeholder-count="4">
+          <div style="padding:10px 0;border-top:1px solid #D5DDE2"><div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#4F6676">{{ a.t }} · L. Karić</div><div style="font-size:14px;line-height:1.4;margin-top:2px">{{ a.x }}</div></div>
+        </sc-for>
+      </div>
+      </sc-if>
+    </div>
+    </sc-if>
+
+    <!-- KALENDAR -->
+    <sc-if value="{{ isKal }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1;overflow:auto;padding:6px 18px 18px" data-screen-label="Kalendar">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
+        <h2 style="margin:0;font-size:26px;line-height:1.1;font-weight:600">{{ monthLabel }}</h2>
+        <div style="display:flex;gap:6px"><button onClick="{{ prevMonth }}" aria-label="Prethodni mjesec" style="width:44px;height:44px;border:1px solid #C3CED5;border-radius:8px;background:#fff;font-size:20px;cursor:pointer;opacity:{{ prevOp }}">‹</button><button onClick="{{ nextMonth }}" aria-label="Naredni mjesec" style="width:44px;height:44px;border:1px solid #C3CED5;border-radius:8px;background:#fff;font-size:20px;cursor:pointer;opacity:{{ nextOp }}">›</button></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);margin-top:10px;font-size:11.5px;font-weight:600;color:#4F6676;text-align:center"><span>pon</span><span>uto</span><span>sri</span><span>čet</span><span>pet</span><span>sub</span><span>ned</span></div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-top:4px">
+        <sc-for list="{{ cells }}" as="c" hint-placeholder-count="35">
+          <button onClick="{{ c.on }}" style="height:46px;padding:0;border:{{ c.bd }};border-radius:8px;background:{{ c.bg }};color:{{ c.fg }};visibility:{{ c.vis }};cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px">
+            <span style="font-size:15px;font-weight:{{ c.w }};line-height:1">{{ c.n }}</span>
+            <span style="display:flex;gap:3px;height:6px"><span style="width:6px;height:6px;box-sizing:border-box;border-radius:50%;background:{{ c.m1 }};border:{{ c.b1 }}"></span><span style="width:6px;height:6px;box-sizing:border-box;border-radius:50%;background:{{ c.m2 }};border:{{ c.b2 }}"></span><span style="width:6px;height:6px;box-sizing:border-box;border-radius:50%;background:{{ c.m3 }};border:{{ c.b3 }}"></span></span>
+          </button>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:10px;font-size:12px;color:#4F6676">
+        <span style="display:flex;align-items:center;gap:5px"><span style="width:7px;height:7px;border-radius:50%;background:#173247"></span>ročište, sastanak</span>
+        <span style="display:flex;align-items:center;gap:5px"><span style="width:7px;height:7px;border-radius:50%;background:#3F776F"></span>potvrđen rok</span>
+        <span style="display:flex;align-items:center;gap:5px"><span style="width:7px;height:7px;box-sizing:border-box;border-radius:50%;border:1.5px solid #B27B34"></span>prijedlog</span>
+        <span style="display:flex;align-items:center;gap:5px"><span style="width:7px;height:7px;border-radius:50%;background:#8FA1AD"></span>podsjetnik</span>
+      </div>
+      <div style="margin-top:14px;background:#fff;border:1px solid #D5DDE2;border-radius:10px;overflow:hidden">
+        <div style="padding:10px 14px;border-bottom:2px solid #173247;font-size:15px;font-weight:600">{{ dayLabel }}</div>
+        <sc-if value="{{ dayEmpty }}" hint-placeholder-val="{{ false }}"><div style="padding:14px;font-size:14px;color:#4F6676">Nema unosa za ovaj dan.</div></sc-if>
+        <sc-for list="{{ dayRows }}" as="r" hint-placeholder-count="2">
+          <button onClick="{{ r.go }}" style="width:100%;min-height:56px;display:grid;grid-template-columns:52px minmax(0,1fr);gap:10px;align-items:start;padding:10px 14px;border:0;border-bottom:1px solid #E6ECEF;background:#fff;text-align:left;cursor:pointer">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;padding-top:2px">{{ r.when }}</span>
+            <span style="min-width:0"><span style="display:block;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#4F6676">{{ r.type }}</span><span style="display:block;font-size:15px;font-weight:500;line-height:1.3">{{ r.title }}</span><span style="display:block;font-size:12.5px;color:#4F6676;margin-top:2px">{{ r.sub }}</span><span style="display:inline-block;margin-top:6px;font-size:11px;font-weight:600;line-height:1;padding:4px 7px;border-radius:4px;color:{{ r.fg }};background:{{ r.bg }};border:{{ r.bd }}">{{ r.chip }}</span></span>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- POŠTA -->
+    <sc-if value="{{ isPosta }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column" data-screen-label="Knjiga pošte">
+      <div style="flex:1;overflow:auto;padding:6px 18px 18px">
+        <h2 style="margin:8px 0 12px;font-size:30px;line-height:1.1;font-weight:600">Knjiga pošte</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <sc-for list="{{ segs }}" as="g" hint-placeholder-count="2"><button onClick="{{ g.on }}" style="height:44px;border:1px solid {{ g.bc }};border-radius:8px;background:{{ g.bg }};color:{{ g.fg }};font-size:14.5px;font-weight:600;cursor:pointer">{{ g.l }}</button></sc-for>
+        </div>
+        <div style="margin-top:12px;border-top:2px solid #173247">
+          <sc-for list="{{ mail }}" as="m" hint-placeholder-count="3">
+            <button onClick="{{ m.go }}" style="width:100%;text-align:left;padding:12px 2px;border:0;border-bottom:1px solid #D5DDE2;background:transparent;cursor:pointer">
+              <span style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#4F6676"><span>{{ m.no }}</span><span>{{ m.d }}</span></span>
+              <span style="display:block;font-size:15.5px;font-weight:500;line-height:1.3;margin-top:3px">{{ m.t }}</span>
+              <span style="display:block;font-size:12.5px;color:#4F6676;margin-top:2px">{{ m.s }}</span>
+              <span style="display:block;font-size:12.5px;color:{{ m.xc }};margin-top:2px">{{ m.x }}</span>
+              <span style="display:block;font-size:13px;font-weight:600;text-decoration:underline;margin-top:6px">Izvorni dokument ›</span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+      <div style="flex:none;padding:10px 14px 12px;background:#fff;border-top:1px solid #D5DDE2"><button onClick="{{ mailAct }}" style="width:100%;height:52px;border:0;border-radius:10px;background:#173247;color:#fff;font-size:15.5px;font-weight:600;cursor:pointer">{{ mailActL }}</button></div>
+    </div>
+    </sc-if>
+
+    <!-- FOTOGRAFISANJE -->
+    <sc-if value="{{ isCapture }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column;background:#0F2230;color:#fff" data-screen-label="Fotografisanje">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:0 12px"><button onClick="{{ back }}" style="height:44px;padding:0 8px;border:0;background:transparent;color:#fff;font-size:15px;cursor:pointer">Odustani</button><span style="font-size:13px;color:#C3CED5;padding-right:8px">Primljeni dokument</span></div>
+      <div style="flex:1;min-height:0;display:grid;place-items:center;padding:10px 34px;position:relative">
+        <div style="width:100%;aspect-ratio:1/1.36;max-height:100%;background:#fff;color:#173247;border-radius:3px;padding:22px 20px;box-sizing:border-box;font-family:'Newsreader',serif;font-size:10.5px;line-height:1.45;transform:rotate(-1.2deg);box-shadow:0 0 0 2px #B27B34,0 0 0 9px rgba(178,123,52,.22)">
+          <div style="text-align:center;font-weight:600">OPĆINSKI SUD U SARAJEVU</div>
+          <div style="margin-top:8px">Broj: 65 0 P 084512 25 P<br>Sarajevo, 06.11.2026. godine</div>
+          <div style="text-align:center;font-weight:600;font-size:13px;margin:14px 0 10px;letter-spacing:.14em">RJEŠENJE</div>
+          <div>Tužiocu se, putem punomoćnika, dostavlja nalaz i mišljenje vještaka finansijske struke od 30.10.2026. godine.</div>
+          <div style="margin-top:7px">Poziva se tužilac da se u roku od 15 dana od dana prijema ovog rješenja pismeno izjasni na nalaz i mišljenje vještaka.</div>
+          <div style="margin-top:7px">Protiv ovog rješenja nije dozvoljena posebna žalba.</div>
+          <div style="margin-top:18px;text-align:right">Sudija</div>
+          <div style="margin-top:14px;font-family:'IBM Plex Mono',monospace;font-size:8.5px;color:#7A4F17">DEMO — izmišljen dokument</div>
+        </div>
+        <sc-if value="{{ busy }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:0;display:grid;place-items:center;background:rgba(15,34,48,.78);font-size:16px;font-weight:500">Čitam dokument…</div></sc-if>
+      </div>
+      <div style="text-align:center;font-size:13px;color:#C3CED5;padding:0 30px">Poravnajte dokument unutar okvira. U prototipu se koristi pripremljeni izmišljeni dokument.</div>
+      <div style="display:grid;place-items:center;padding:16px 0 26px"><button onClick="{{ shoot }}" aria-label="Fotografiši" style="width:74px;height:74px;border-radius:50%;border:4px solid #fff;background:transparent;padding:4px;cursor:pointer"><span style="display:block;width:100%;height:100%;border-radius:50%;background:#fff"></span></button></div>
+    </div>
+    </sc-if>
+
+    <!-- PREGLED UNOSA -->
+    <sc-if value="{{ isReview }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column" data-screen-label="Pregled unosa">
+      <div style="flex:none;display:grid;grid-template-columns:44px 1fr 44px;align-items:center;padding:0 8px;background:#fff;border-bottom:1px solid #D5DDE2"><button onClick="{{ back }}" aria-label="Nazad" style="width:44px;height:48px;border:0;background:transparent;font-size:24px;cursor:pointer">‹</button><span style="text-align:center;font-size:16px;font-weight:600">Pregled unosa</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#4F6676;text-align:center">1/2</span></div>
+      <div style="flex:1;overflow:auto;padding:14px 18px 18px">
+        <div style="font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#4F6676">Izvorni dokument</div>
+        <div style="margin-top:6px;background:#fff;border:1px solid #C3CED5;border-radius:4px;padding:14px 16px;max-height:210px;overflow:auto;font-family:'Newsreader',serif;font-size:13.5px;line-height:1.45">
+          <sc-for list="{{ paper }}" as="p" hint-placeholder-count="6"><div style="margin-bottom:7px;text-align:{{ p.al }};font-weight:{{ p.w }};background:{{ p.hl }};box-shadow:{{ p.sh }}">{{ p.t }}</div></sc-for>
+        </div>
+        <div style="font-size:12px;color:#4F6676;margin-top:5px">Označeni dijelovi su izvor za polja ispod.</div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px"><span style="font-size:17px;font-weight:600">Unos u knjigu pošte</span><span style="font-size:11px;font-weight:600;line-height:1;padding:4px 7px;border-radius:4px;color:#7A4F17;background:#F7EEDF;border:1px dashed #B27B34">Predloženo · čeka pregled</span></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#4F6676;margin-top:3px">U-2026/041 · ulazna pošta</div>
+        <div style="display:grid;gap:10px;margin-top:10px">
+          <sc-for list="{{ rf }}" as="x" hint-placeholder-count="5">
+            <label style="display:block"><span style="font-size:12px;font-weight:500;color:#4F6676">{{ x.l }}</span><input value="{{ x.v }}" onChange="{{ x.on }}" style="width:100%;box-sizing:border-box;height:44px;margin-top:4px;padding:0 12px;border:1px solid {{ x.bc }};border-radius:8px;background:#fff;font-size:15px"><span style="display:block;font-size:12px;color:#7A4F17;margin-top:3px">{{ x.note }}</span></label>
+          </sc-for>
+        </div>
+
+        <div style="margin-top:14px;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#4F6676">Izdvojeni navodi iz dokumenta</div>
+        <div style="margin-top:6px;padding:10px 12px;background:#fff;border:1px solid #D5DDE2;border-radius:8px">
+          <div style="font-family:'Newsreader',serif;font-style:italic;font-size:15px;line-height:1.4">„…da se u roku od 15 dana od dana prijema ovog rješenja pismeno izjasni…“</div>
+          <div style="font-size:12.5px;color:#7A4F17;margin-top:5px">Mogući rok. Pregledate ga u sljedećem koraku — ništa se ne aktivira samo.</div>
+        </div>
+        <div style="margin-top:8px;padding:10px 12px;background:#fff;border:1px solid #D5DDE2;border-radius:8px">
+          <div style="font-family:'Newsreader',serif;font-style:italic;font-size:15px;line-height:1.4">„Protiv ovog rješenja nije dozvoljena posebna žalba.“</div>
+          <div style="font-size:12.5px;color:#7A4F17;margin-top:5px">Samo navod iz dokumenta. Aplikacija ne ocjenjuje pravo na žalbu — to ostaje procjena advokata.</div>
+        </div>
+      </div>
+      <div style="flex:none;padding:10px 14px 12px;background:#fff;border-top:1px solid #D5DDE2"><button onClick="{{ saveMail }}" style="width:100%;height:52px;border:0;border-radius:10px;background:#173247;color:#fff;font-size:15.5px;font-weight:600;cursor:pointer">Potvrdi i sačuvaj u knjigu pošte</button></div>
+    </div>
+    </sc-if>
+
+    <!-- PRIJEDLOG ROKA -->
+    <sc-if value="{{ isDeadline }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column" data-screen-label="Prijedlog roka">
+      <div style="flex:none;display:grid;grid-template-columns:44px 1fr 44px;align-items:center;padding:0 8px;background:#fff;border-bottom:1px solid #D5DDE2"><button onClick="{{ laterDl }}" aria-label="Nazad" style="width:44px;height:48px;border:0;background:transparent;font-size:24px;cursor:pointer">‹</button><span style="text-align:center;font-size:16px;font-weight:600">Prijedlog roka</span><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#4F6676;text-align:center">2/2</span></div>
+      <div style="flex:1;overflow:auto;padding:14px 18px 18px">
+        <div style="padding:10px 12px;border:1px dashed #B27B34;border-radius:8px;background:#F7EEDF;color:#7A4F17;font-size:13.5px;line-height:1.4"><b>Predloženo — rok nije aktivan.</b> U rokovnik ulazi tek kada potvrdite pravilo, početak i posljednji dan.</div>
+
+        <div style="margin-top:14px;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#4F6676">Izvor</div>
+        <div style="margin-top:6px;padding:12px 14px;background:#fff;border:1px solid #C3CED5;border-radius:4px">
+          <div style="font-family:'Newsreader',serif;font-size:16px;line-height:1.4">„Poziva se tužilac da se <span style="background:#F7EEDF;box-shadow:0 1px 0 #B27B34">u roku od 15 dana od dana prijema ovog rješenja</span> pismeno izjasni na nalaz i mišljenje vještaka.“</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:6px"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#4F6676">Rješenje od 06.11.2026. · U-2026/041</span><button onClick="{{ openRj }}" style="min-height:44px;padding:0;border:0;background:transparent;font-size:13px;font-weight:600;text-decoration:underline;cursor:pointer">Otvori ›</button></div>
+        </div>
+
+        <div style="margin-top:12px;background:#fff;border:1px solid #D5DDE2;border-radius:10px;padding:12px 14px">
+          <div style="font-size:12px;font-weight:500;color:#4F6676">1 · Pravilo</div>
+          <div style="font-size:15px;font-weight:500;margin-top:2px">Rok određen u samom dokumentu: 15 dana od dana prijema</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px"><sc-for list="{{ jurs }}" as="j" hint-placeholder-count="3"><button onClick="{{ j.on }}" style="height:44px;border:1px solid {{ j.bc }};border-radius:8px;background:{{ j.bg }};color:{{ j.fg }};font-size:13px;font-weight:600;cursor:pointer">{{ j.l }}</button></sc-for></div>
+          <button onClick="{{ ck1.on }}" style="width:100%;min-height:44px;margin-top:8px;padding:0;border:0;background:transparent;display:flex;align-items:center;gap:10px;text-align:left;font-size:14.5px;font-weight:500;cursor:pointer"><span style="flex:none;width:24px;height:24px;box-sizing:border-box;border-radius:5px;border:2px solid {{ ck1.bc }};background:{{ ck1.bg }};color:#fff;display:grid;place-items:center;font-size:15px">{{ ck1.m }}</span>Pravilo i nadležnost su tačni</button>
+        </div>
+        <div style="margin-top:8px;background:#fff;border:1px solid #D5DDE2;border-radius:10px;padding:12px 14px">
+          <label style="display:block"><span style="font-size:12px;font-weight:500;color:#4F6676">2 · Početak (datum prijema)</span><input value="{{ dlStart }}" onChange="{{ onDlStart }}" style="width:100%;box-sizing:border-box;height:44px;margin-top:4px;padding:0 12px;border:1px solid #C3CED5;border-radius:8px;background:#fff;font-family:'IBM Plex Mono',monospace;font-size:16px"></label>
+          <div style="font-size:12.5px;color:#4F6676;margin-top:4px">Iz knjige pošte. Prvi dan roka je naredni dan.</div>
+          <button onClick="{{ ck2.on }}" style="width:100%;min-height:44px;margin-top:4px;padding:0;border:0;background:transparent;display:flex;align-items:center;gap:10px;text-align:left;font-size:14.5px;font-weight:500;cursor:pointer"><span style="flex:none;width:24px;height:24px;box-sizing:border-box;border-radius:5px;border:2px solid {{ ck2.bc }};background:{{ ck2.bg }};color:#fff;display:grid;place-items:center;font-size:15px">{{ ck2.m }}</span>Datum početka je tačan</button>
+        </div>
+        <div style="margin-top:8px;background:#fff;border:1px solid #D5DDE2;border-radius:10px;padding:12px 14px">
+          <label style="display:block"><span style="font-size:12px;font-weight:500;color:#4F6676">3 · Posljednji dan roka</span><input value="{{ dlDue }}" onChange="{{ onDlDue }}" style="width:100%;box-sizing:border-box;height:44px;margin-top:4px;padding:0 12px;border:1px solid #C3CED5;border-radius:8px;background:#fff;font-family:'IBM Plex Mono',monospace;font-size:16px"></label>
+          <div style="font-size:12.5px;color:{{ dueInfoC }};margin-top:4px">{{ dueInfo }}</div>
+          <button onClick="{{ ck3.on }}" style="width:100%;min-height:44px;margin-top:4px;padding:0;border:0;background:transparent;display:flex;align-items:center;gap:10px;text-align:left;font-size:14.5px;font-weight:500;cursor:pointer"><span style="flex:none;width:24px;height:24px;box-sizing:border-box;border-radius:5px;border:2px solid {{ ck3.bc }};background:{{ ck3.bg }};color:#fff;display:grid;place-items:center;font-size:15px">{{ ck3.m }}</span>Posljednji dan je tačan</button>
+        </div>
+
+        <div style="margin-top:12px;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#4F6676">Pretpostavke obračuna — provjerite</div>
+        <ul style="margin:6px 0 0;padding-left:18px;font-size:13.5px;line-height:1.45;color:#2C4A5E"><li>Dan prijema se ne računa.</li><li>Nije provjereno pada li posljednji dan na praznik ili neradni dan.</li><li>Aplikacija ne ocjenjuje vrstu roka ni posljedice propuštanja.</li></ul>
+
+        <div style="margin-top:12px;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#4F6676">Podsjetnici</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px"><sc-for list="{{ rems }}" as="j" hint-placeholder-count="2"><button onClick="{{ j.on }}" style="min-height:48px;padding:4px 8px;border:1px solid {{ j.bc }};border-radius:8px;background:{{ j.bg }};color:{{ j.fg }};font-size:13px;font-weight:600;cursor:pointer">{{ j.l }}</button></sc-for></div>
+      </div>
+      <div style="flex:none;padding:10px 14px 12px;background:#fff;border-top:1px solid #D5DDE2">
+        <button onClick="{{ confirmDl }}" style="width:100%;height:52px;border:0;border-radius:10px;background:{{ dlBtnBg }};color:#fff;font-size:15.5px;font-weight:600;cursor:pointer">{{ dlBtnL }}</button>
+        <button onClick="{{ laterDl }}" style="width:100%;height:44px;margin-top:4px;border:0;background:transparent;font-size:14px;font-weight:500;cursor:pointer">Ne sada — ostavi kao prijedlog</button>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- GLASOVNA BILJEŠKA -->
+    <sc-if value="{{ isVoice }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column" data-screen-label="Glasovna bilješka">
+      <div style="flex:none;display:grid;grid-template-columns:44px 1fr 44px;align-items:center;padding:0 8px;background:#fff;border-bottom:1px solid #D5DDE2"><button onClick="{{ back }}" aria-label="Nazad" style="width:44px;height:48px;border:0;background:transparent;font-size:24px;cursor:pointer">‹</button><span style="text-align:center;font-size:16px;font-weight:600">Bilješka s ročišta</span><span></span></div>
+      <sc-if value="{{ vsIdle }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:24px;text-align:center">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#4F6676">65 0 P 084512 25 P · ročište 11.11.2026. u 11:00</div>
+          <button onClick="{{ vsToggle }}" aria-label="Diktiraj" style="width:112px;height:112px;border-radius:50%;border:0;background:{{ micBg }};cursor:pointer;display:grid;place-items:center"><span style="display:flex;flex-direction:column;align-items:center"><span style="width:20px;height:34px;border-radius:10px;background:#fff"></span><span style="width:34px;height:12px;border:3px solid #fff;border-top:0;border-radius:0 0 17px 17px;margin-top:-8px;box-sizing:border-box"></span><span style="width:3px;height:8px;background:#fff"></span></span></button>
+          <div style="font-size:18px;font-weight:600;display:flex;align-items:center;gap:8px">{{ recDot }}{{ micL }}</div>
+          <div style="font-size:14px;color:#4F6676;max-width:280px">{{ micHint }}</div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ vsDone }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;min-height:0;display:flex;flex-direction:column">
+        <div style="flex:1;overflow:auto;padding:14px 18px 18px">
+          <div style="font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#4F6676">Transkript · izvor prijedloga</div>
+          <div style="margin-top:6px;padding:12px 14px;background:#fff;border:1px solid #C3CED5;border-radius:4px;font-family:'Newsreader',serif;font-size:15.5px;line-height:1.45">„Ročište je odgođeno. Novi termin je četrnaesti decembar u deset sati, sudnica <span style="background:{{ roomHl }};box-shadow:{{ roomSh }}">{{ room }}</span>. Sud je naložio da u roku od osam dana dostavimo podnesak s tačnom adresom svjedoka Dizdara, jer se poziv vratio neuručen. Nalaz vještaka smo primili tek jutros.“</div>
+
+          <div style="margin-top:12px;background:#fff;border:1px solid #D5DDE2;border-radius:10px;padding:12px 14px">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span style="font-size:12px;font-weight:500;color:#4F6676">Događaj u kalendaru</span><span style="font-size:11px;font-weight:600;line-height:1;padding:4px 7px;border-radius:4px;color:{{ pe.fg }};background:{{ pe.bg }};border:{{ pe.bd }}">{{ pe.chip }}</span></div>
+            <div style="font-size:15.5px;font-weight:500;margin-top:3px">Ročište — nastavak glavne rasprave</div>
+            <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:6px;margin-top:8px">
+              <label><span style="font-size:12px;color:#4F6676">Datum</span><input value="{{ evDate }}" onChange="{{ onEvDate }}" style="width:100%;box-sizing:border-box;height:44px;margin-top:3px;padding:0 10px;border:1px solid #C3CED5;border-radius:8px;font-family:'IBM Plex Mono',monospace;font-size:15px"></label>
+              <label><span style="font-size:12px;color:#4F6676">Vrijeme</span><input value="{{ evTime }}" onChange="{{ onEvTime }}" style="width:100%;box-sizing:border-box;height:44px;margin-top:3px;padding:0 10px;border:1px solid #C3CED5;border-radius:8px;font-family:'IBM Plex Mono',monospace;font-size:15px"></label>
+            </div>
+            <div style="margin-top:8px;font-size:12.5px;color:{{ roomNoteC }}">{{ roomNote }}</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:5px"><sc-for list="{{ rooms }}" as="j" hint-placeholder-count="2"><button onClick="{{ j.on }}" style="height:44px;border:1px solid {{ j.bc }};border-radius:8px;background:{{ j.bg }};color:{{ j.fg }};font-size:14px;font-weight:600;cursor:pointer">{{ j.l }}</button></sc-for></div>
+            <button onClick="{{ pe.on }}" style="width:100%;height:44px;margin-top:8px;border:1px solid #173247;border-radius:8px;background:{{ pe.btnBg }};color:{{ pe.btnFg }};font-size:14px;font-weight:600;cursor:pointer">{{ pe.btnL }}</button>
+          </div>
+
+          <div style="margin-top:8px;background:#fff;border:1px solid #D5DDE2;border-radius:10px;padding:12px 14px">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span style="font-size:12px;font-weight:500;color:#4F6676">Rok</span><span style="font-size:11px;font-weight:600;line-height:1;padding:4px 7px;border-radius:4px;color:{{ pd.fg }};background:{{ pd.bg }};border:{{ pd.bd }}">{{ pd.chip }}</span></div>
+            <div style="font-size:15.5px;font-weight:500;margin-top:3px">Podnesak s adresom svjedoka</div>
+            <div style="font-size:12.5px;color:#4F6676;margin-top:2px">Izvor: „u roku od osam dana“ · početak 11.11.2026. (dan ročišta, ne računa se)</div>
+            <label style="display:block;margin-top:8px"><span style="font-size:12px;color:#4F6676">Posljednji dan roka</span><input value="{{ d2Due }}" onChange="{{ onD2Due }}" style="width:100%;box-sizing:border-box;height:44px;margin-top:3px;padding:0 10px;border:1px solid #C3CED5;border-radius:8px;font-family:'IBM Plex Mono',monospace;font-size:15px"></label>
+            <button onClick="{{ pd.on }}" style="width:100%;height:44px;margin-top:8px;border:1px solid #173247;border-radius:8px;background:{{ pd.btnBg }};color:{{ pd.btnFg }};font-size:14px;font-weight:600;cursor:pointer">{{ pd.btnL }}</button>
+          </div>
+
+          <div style="margin-top:8px;background:#fff;border:1px solid #D5DDE2;border-radius:10px;padding:12px 14px">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span style="font-size:12px;font-weight:500;color:#4F6676">Bilješka u predmetu</span><span style="font-size:11px;font-weight:600;line-height:1;padding:4px 7px;border-radius:4px;color:{{ pn.fg }};background:{{ pn.bg }};border:{{ pn.bd }}">{{ pn.chip }}</span></div>
+            <textarea value="{{ note }}" onChange="{{ onNote }}" rows="4" style="width:100%;box-sizing:border-box;margin-top:8px;padding:10px;border:1px solid #C3CED5;border-radius:8px;font-size:14.5px;line-height:1.4;resize:none"></textarea>
+            <button onClick="{{ pn.on }}" style="width:100%;height:44px;margin-top:6px;border:1px solid #173247;border-radius:8px;background:{{ pn.btnBg }};color:{{ pn.btnFg }};font-size:14px;font-weight:600;cursor:pointer">{{ pn.btnL }}</button>
+          </div>
+          <div style="font-size:12.5px;color:#4F6676;margin-top:10px">U nacrt troškovnika dodaje se prijedlog stavke „Zastupanje na ročištu 11.11.2026.“</div>
+        </div>
+        <div style="flex:none;padding:10px 14px 12px;background:#fff;border-top:1px solid #D5DDE2">
+          <button onClick="{{ saveVoice }}" style="width:100%;height:52px;border:0;border-radius:10px;background:#173247;color:#fff;font-size:15.5px;font-weight:600;cursor:pointer">{{ voiceBtnL }}</button>
+          <div style="font-size:12px;color:#4F6676;text-align:center;margin-top:6px">Nepotvrđeno ostaje kao prijedlog i nije aktivno.</div>
+        </div>
+        </div>
+      </sc-if>
+    </div>
+    </sc-if>
+
+    <!-- IZLAZNI PODNESAK -->
+    <sc-if value="{{ isOut }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column" data-screen-label="Izlazni podnesak">
+      <div style="flex:none;display:grid;grid-template-columns:44px 1fr 44px;align-items:center;padding:0 8px;background:#fff;border-bottom:1px solid #D5DDE2"><button onClick="{{ back }}" aria-label="Nazad" style="width:44px;height:48px;border:0;background:transparent;font-size:24px;cursor:pointer">‹</button><span style="text-align:center;font-size:16px;font-weight:600">Izlazni podnesak</span><span></span></div>
+      <div style="flex:1;overflow:auto;padding:14px 18px 18px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#4F6676">I-2026/029 · 65 0 P 084512 25 P</div>
+        <label style="display:block;margin-top:10px"><span style="font-size:12px;font-weight:500;color:#4F6676">Vrsta podneska</span><input value="{{ outVrsta }}" onChange="{{ onOutVrsta }}" style="width:100%;box-sizing:border-box;height:44px;margin-top:4px;padding:0 12px;border:1px solid #C3CED5;border-radius:8px;background:#fff;font-size:15px"></label>
+        <label style="display:block;margin-top:10px"><span style="font-size:12px;font-weight:500;color:#4F6676">Datum predaje</span><input value="{{ outDat }}" onChange="{{ onOutDat }}" style="width:100%;box-sizing:border-box;height:44px;margin-top:4px;padding:0 12px;border:1px solid #C3CED5;border-radius:8px;background:#fff;font-family:'IBM Plex Mono',monospace;font-size:15px"></label>
+        <div style="margin-top:10px;font-size:12px;font-weight:500;color:#4F6676">Način predaje</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px"><sc-for list="{{ nacini }}" as="j" hint-placeholder-count="2"><button onClick="{{ j.on }}" style="height:44px;border:1px solid {{ j.bc }};border-radius:8px;background:{{ j.bg }};color:{{ j.fg }};font-size:13.5px;font-weight:600;cursor:pointer">{{ j.l }}</button></sc-for></div>
+
+        <div style="margin-top:14px;font-size:12px;font-weight:500;color:#4F6676">Dokaz o predaji</div>
+        <button onClick="{{ takeProof }}" style="width:100%;min-height:64px;margin-top:4px;padding:10px 12px;border:{{ proofBd }};border-radius:8px;background:{{ proofBg }};text-align:left;cursor:pointer;display:flex;align-items:center;gap:12px">
+          <span style="flex:none;width:40px;height:48px;border:1px solid #C3CED5;border-radius:3px;background:#fff;display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:9px;color:{{ proofFg }};text-align:center;line-height:1.1">{{ proofThumb }}</span>
+          <span><span style="display:block;font-size:14.5px;font-weight:600;color:{{ proofFg }}">{{ proofL }}</span><span style="display:block;font-size:12.5px;color:#4F6676">{{ proofSub }}</span></span>
+        </button>
+
+        <sc-if value="{{ canFulfil }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ ckF.on }}" style="width:100%;min-height:48px;margin-top:10px;padding:0;border:0;background:transparent;display:flex;align-items:center;gap:10px;text-align:left;font-size:14px;font-weight:500;cursor:pointer"><span style="flex:none;width:24px;height:24px;box-sizing:border-box;border-radius:5px;border:2px solid {{ ckF.bc }};background:{{ ckF.bg }};color:#fff;display:grid;place-items:center;font-size:15px">{{ ckF.m }}</span>Ovim podneskom ispunjen je rok {{ d2Due }}</button>
+        </sc-if>
+
+        <div style="margin-top:14px;padding-top:14px;border-top:2px solid #173247">
+          <div style="font-size:16px;font-weight:600">Podsjetnik za provjeru</div>
+          <input value="{{ fuTxt }}" onChange="{{ onFuTxt }}" style="width:100%;box-sizing:border-box;height:44px;margin-top:8px;padding:0 12px;border:1px solid #C3CED5;border-radius:8px;background:#fff;font-size:14.5px">
+          <div style="font-size:12.5px;color:#7A4F17;margin-top:6px">Deset dana od 11.11.2026. pada u subotu. Odaberite dan:</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:5px"><sc-for list="{{ fuDays }}" as="j" hint-placeholder-count="2"><button onClick="{{ j.on }}" style="height:44px;border:1px solid {{ j.bc }};border-radius:8px;background:{{ j.bg }};color:{{ j.fg }};font-size:13.5px;font-weight:600;cursor:pointer">{{ j.l }}</button></sc-for></div>
+        </div>
+      </div>
+      <div style="flex:none;padding:10px 14px 12px;background:#fff;border-top:1px solid #D5DDE2"><button onClick="{{ saveOut }}" style="width:100%;height:52px;border:0;border-radius:10px;background:#173247;color:#fff;font-size:15.5px;font-weight:600;cursor:pointer">Sačuvaj i postavi podsjetnik</button></div>
+    </div>
+    </sc-if>
+
+    <!-- IZVORNI DOKUMENT -->
+    <sc-if value="{{ isDoc }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column;background:#DDE4E8" data-screen-label="Izvorni dokument">
+      <div style="flex:none;display:grid;grid-template-columns:44px 1fr 44px;align-items:center;padding:0 8px;background:#fff;border-bottom:1px solid #D5DDE2"><button onClick="{{ closeDoc }}" aria-label="Nazad" style="width:44px;height:48px;border:0;background:transparent;font-size:24px;cursor:pointer">‹</button><span style="text-align:center;font-size:15px;font-weight:600">{{ docName }}</span><span></span></div>
+      <div style="flex:1;overflow:auto;padding:18px">
+        <div style="background:#fff;padding:26px 22px 30px;min-height:440px;font-family:'Newsreader',serif;font-size:14.5px;line-height:1.5;box-shadow:0 1px 3px rgba(23,50,71,.2)">
+          <sc-for list="{{ docParas }}" as="p" hint-placeholder-count="6"><div style="margin-bottom:9px;text-align:{{ p.al }};font-weight:{{ p.w }}">{{ p.t }}</div></sc-for>
+          <div style="margin-top:26px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7A4F17">DEMO — izmišljen dokument</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- OBAVIJEST -->
+    <sc-if value="{{ isNotif }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column;background:#0F2230;color:#fff;padding:20px 16px 22px" data-screen-label="Prikaz obavijesti">
+      <div style="text-align:center;margin-top:26px"><div style="font-size:17px;color:#C3CED5">srijeda, 11. novembar</div><div style="font-size:84px;font-weight:400;line-height:1;margin-top:4px">07:30</div></div>
+      <button onClick="{{ back }}" style="margin-top:48px;padding:14px 16px;border:0;border-radius:16px;background:#F3F6F7;color:#173247;text-align:left;cursor:pointer">
+        <span style="display:flex;justify-content:space-between;font-size:12.5px;color:#4F6676"><span style="font-weight:600;letter-spacing:.04em;text-transform:uppercase">Rokovnik</span><span>sada</span></span>
+        <span style="display:block;font-size:16px;font-weight:600;margin-top:4px">Jutarnji pregled · 1 ročište, 1 rok uskoro</span>
+        <span style="display:block;font-size:14.5px;line-height:1.4;margin-top:4px">11:00 Ročište, sudnica 12 (65 0 P 084512 25 P). Rok za 2 dana: izjašnjenje na podnesak tuženog, 13.11. Provjeriti u pisarnici: dostavnica za svjedoka.</span>
+      </button>
+      <div style="text-align:center;font-size:13.5px;color:#C3CED5;margin-top:14px">Dodirnite obavijest da otvorite „Danas“.</div>
+      <div style="margin-top:auto;text-align:center;font-size:12.5px;color:#C3CED5;line-height:1.4">Ovo je prikaz obavijesti u prototipu.<br>Servis za obavijesti nije pokrenut.</div>
+    </div>
+    </sc-if>
+
+    <!-- TAB BAR -->
+    <sc-if value="{{ showTabs }}" hint-placeholder-val="{{ true }}">
+    <div style="flex:none;display:grid;grid-template-columns:repeat(4,1fr);height:68px;padding-bottom:10px;background:#fff;border-top:1px solid #C3CED5">
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+        <button onClick="{{ t.go }}" style="border:0;border-top:3px solid {{ t.bar }};background:transparent;font-size:14px;font-weight:{{ t.w }};color:{{ t.fg }};cursor:pointer">{{ t.l }}</button>
+      </sc-for>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;left:14px;right:14px;bottom:86px;padding:12px 14px;border-radius:10px;background:#173247;color:#fff;font-size:14px;line-height:1.35;box-shadow:0 8px 20px -8px rgba(15,34,48,.6);z-index:5">{{ toast }}</div>
+    </sc-if>
+
+    <sc-if value="{{ sheet }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;background:rgba(15,34,48,.5);display:flex;align-items:flex-end;z-index:6">
+        <div style="width:100%;background:#fff;border-radius:18px 18px 0 0;padding:20px 18px 26px">
+          <div style="font-size:18px;font-weight:600">Demo podaci</div>
+          <p style="font-size:14.5px;line-height:1.45;color:#2C4A5E;margin:8px 0 14px">Predmet, stranke, dokumenti i iznosi su izmišljeni. Ništa se ne šalje sudu, stranci ni trećim licima. Unosi postoje samo dok je ova stranica otvorena.</p>
+          <button onClick="{{ reset }}" style="width:100%;height:52px;border:0;border-radius:10px;background:#173247;color:#fff;font-size:15.5px;font-weight:600;cursor:pointer">Vrati demo na početak</button>
+          <button onClick="{{ closeSheet }}" style="width:100%;height:48px;margin-top:6px;border:0;background:transparent;font-size:15px;font-weight:500;cursor:pointer">Zatvori</button>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+  </div>
+</main>
+
+<sc-if value="{{ isLanding }}" hint-placeholder-val="{{ true }}">
+<div>
+  <section id="tok" style="padding:clamp(40px,6vw,88px) clamp(20px,4vw,56px);background:#fff;border-top:1px solid #D5DDE2;scroll-margin-top:8px" data-screen-label="Tok">
+    <div style="max-width:1280px;margin:0 auto">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4F6676;letter-spacing:.04em;text-transform:uppercase">Tok na jednom izmišljenom predmetu</div>
+      <h2 style="margin:10px 0 0;font-family:'Newsreader',serif;font-weight:500;font-size:clamp(30px,3.6vw,52px);line-height:1.08;letter-spacing:-.015em;max-width:820px;text-wrap:balance">Jedan dokument postaje radnja kojoj se može ući u trag.</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));margin-top:36px;border-top:2px solid #173247">
+        <div style="padding:16px 18px 22px 0;border-bottom:1px solid #D5DDE2"><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4F6676">01 · 11.11. 08:12</div><div style="font-size:20px;font-weight:600;margin-top:10px">Dokument</div><p style="margin:6px 0 12px;font-size:15px;line-height:1.45;color:#2C4A5E">Rješenje suda od 06.11.2026. fotografisano telefonom.</p><span style="font-size:12px;font-weight:600;padding:4px 8px;border-radius:4px;color:#4F6676;background:#EDF1F3;border:1px solid #C3CED5">Izvor</span></div>
+        <div style="padding:16px 18px 22px 0;border-bottom:1px solid #D5DDE2"><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4F6676">02 · 11.11. 08:13</div><div style="font-size:20px;font-weight:600;margin-top:10px">Knjiga pošte</div><p style="margin:6px 0 12px;font-size:15px;line-height:1.45;color:#2C4A5E">Unos U-2026/041: sud, broj predmeta, vrsta, datum prijema. Advokat pregleda i ispravi polja.</p><span style="font-size:12px;font-weight:600;padding:4px 8px;border-radius:4px;color:#2F5F58;background:#E4EFEC;border:1px solid #3F776F">Potvrdio advokat</span></div>
+        <div style="padding:16px 18px 22px 0;border-bottom:1px solid #D5DDE2"><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4F6676">03 · 11.11. 08:15</div><div style="font-size:20px;font-weight:600;margin-top:10px">Rok</div><p style="margin:6px 0 12px;font-size:15px;line-height:1.45;color:#2C4A5E"><span style="font-family:'Newsreader',serif;font-style:italic">„…u roku od 15 dana od dana prijema…“</span> Prijedlog: 26.11.2026., uz izvor i pretpostavke.</p><span style="font-size:12px;font-weight:600;padding:4px 8px;border-radius:4px;color:#7A4F17;background:#F7EEDF;border:1px dashed #B27B34">Predloženo</span> <span style="font-size:12px;font-weight:600;padding:4px 8px;border-radius:4px;color:#2F5F58;background:#E4EFEC;border:1px solid #3F776F">→ Potvrdio advokat</span></div>
+        <div style="padding:16px 18px 22px 0;border-bottom:1px solid #D5DDE2"><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4F6676">04 · 23.11. i 25.11.</div><div style="font-size:20px;font-weight:600;margin-top:10px">Podsjetnik</div><p style="margin:6px 0 12px;font-size:15px;line-height:1.45;color:#2C4A5E">Rok se javlja u jutarnjem pregledu tri dana i dan prije isteka.</p><span style="font-size:12px;font-weight:600;padding:4px 8px;border-radius:4px;color:#2F5F58;background:#E4EFEC;border:1px solid #3F776F">Postavio advokat</span></div>
+        <div style="padding:16px 18px 22px 0;border-bottom:1px solid #D5DDE2"><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4F6676">05 · 11.11. 11:52</div><div style="font-size:20px;font-weight:600;margin-top:10px">Radnja</div><p style="margin:6px 0 12px;font-size:15px;line-height:1.45;color:#2C4A5E">Ročište zabilježeno glasom, podnesak predat na pisarnici, s dokazom o predaji.</p><span style="font-size:12px;font-weight:600;padding:4px 8px;border-radius:4px;color:#4F6676;background:#EDF1F3;border:1px solid #C3CED5">Evidentirano</span></div>
+        <div style="padding:16px 0 22px 0;border-bottom:1px solid #D5DDE2"><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4F6676">06 · u predmetu</div><div style="font-size:20px;font-weight:600;margin-top:10px">Troškovnik</div><p style="margin:6px 0 12px;font-size:15px;line-height:1.45;color:#2C4A5E">Evidentirane radnje čekaju kao stavke nacrta. Advokat mijenja i odobrava svaku.</p><span style="font-size:12px;font-weight:600;padding:4px 8px;border-radius:4px;color:#7A4F17;background:#F7EEDF;border:1px dashed #B27B34">Nacrt za pregled</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:clamp(40px,6vw,88px) clamp(20px,4vw,56px)" data-screen-label="Zašto">
+    <div style="max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:28px clamp(32px,6vw,96px)">
+      <h2 style="flex:1 1 300px;margin:0;font-family:'Newsreader',serif;font-weight:500;font-size:clamp(30px,3.6vw,52px);line-height:1.08;letter-spacing:-.015em;text-wrap:balance">Šta mala kancelarija dobija</h2>
+      <div style="flex:2 1 460px;border-top:2px solid #173247">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:8px 28px;padding:18px 0;border-bottom:1px solid #D5DDE2"><div style="font-size:20px;font-weight:600">Manje ručnog unosa</div><p style="margin:0;font-size:17px;line-height:1.5;color:#2C4A5E">Podatak se unosi jednom, s dokumenta, i koristi se u knjizi pošte, rokovniku i troškovniku.</p></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:8px 28px;padding:18px 0;border-bottom:1px solid #D5DDE2"><div style="font-size:20px;font-weight:600">Rokovi na vidiku</div><p style="margin:0;font-size:17px;line-height:1.5;color:#2C4A5E">Jutarnji pregled pokazuje današnja ročišta i rokove koji ističu u naredna tri dana.</p></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:8px 28px;padding:18px 0;border-bottom:1px solid #D5DDE2"><div style="font-size:20px;font-weight:600">Trag svake radnje</div><p style="margin:0;font-size:17px;line-height:1.5;color:#2C4A5E">Svaki unos vodi nazad na izvorni dokument, a značajne izmjene ostaju u dnevniku.</p></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:8px 28px;padding:18px 0;border-bottom:1px solid #D5DDE2"><div style="font-size:20px;font-weight:600">Lakša priprema troškova</div><p style="margin:0;font-size:17px;line-height:1.5;color:#2C4A5E">Radnje se bilježe kad se dogode, pa se troškovnik ne rekonstruiše na kraju postupka.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="nadzor" style="padding:clamp(40px,6vw,88px) clamp(20px,4vw,56px);background:#173247;color:#fff;scroll-margin-top:8px" data-screen-label="Nadzor">
+    <div style="max-width:1280px;margin:0 auto">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#C3CED5;letter-spacing:.04em;text-transform:uppercase">Povjerenje i nadzor</div>
+      <h2 style="margin:10px 0 0;font-family:'Newsreader',serif;font-weight:500;font-size:clamp(30px,3.6vw,52px);line-height:1.08;letter-spacing:-.015em;max-width:860px;text-wrap:balance">Pitanja koja ćete prvo postaviti — i šta još nije riješeno.</h2>
+      <p style="margin:16px 0 0;font-size:18px;line-height:1.5;color:#D5DDE2;max-width:760px">Desna kolona nisu ugrađene sigurnosne funkcije. To su uslovi koje treba riješiti prije rada sa stvarnim predmetima.</p>
+      <div style="margin-top:30px;border-top:2px solid #fff">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px 32px;padding:18px 0;border-bottom:1px solid #4F6676"><div style="font-size:20px;font-weight:600">Gdje bi se podaci čuvali?</div><p style="margin:0;font-size:16px;line-height:1.5;color:#D5DDE2"><b style="color:#fff">U prototipu:</b> nigdje. Demo podaci postoje samo u ovom pregledniku.</p><p style="margin:0;font-size:16px;line-height:1.5;color:#D5DDE2"><b style="color:#fff">Uslov za pilot:</b> odabrati mjesto i pružaoca pohrane zajedno s kancelarijom.</p></div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px 32px;padding:18px 0;border-bottom:1px solid #4F6676"><div style="font-size:20px;font-weight:600">Ko bi imao pristup?</div><p style="margin:0;font-size:16px;line-height:1.5;color:#D5DDE2"><b style="color:#fff">U prototipu:</b> samo osoba koja ga gleda.</p><p style="margin:0;font-size:16px;line-height:1.5;color:#D5DDE2"><b style="color:#fff">Uslov za pilot:</b> pisano utvrditi ko, osim advokata, tehnički može doći do podataka i pod kojim uslovima.</p></div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px 32px;padding:18px 0;border-bottom:1px solid #4F6676"><div style="font-size:20px;font-weight:600">Mogu li se dokumenti stranaka koristiti za treniranje modela?</div><p style="margin:0;font-size:16px;line-height:1.5;color:#D5DDE2"><b style="color:#fff">U prototipu:</b> ne obrađuju se stvarni dokumenti.</p><p style="margin:0;font-size:16px;line-height:1.5;color:#D5DDE2"><b style="color:#fff">Uslov za pilot:</b> ugovorom s pružaocem modela isključiti takvu upotrebu. Bez toga pilot ne počinje.</p></div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px 32px;padding:18px 0;border-bottom:1px solid #4F6676"><div style="font-size:20px;font-weight:600">Kako se bilježe izmjene?</div><p style="margin:0;font-size:16px;line-height:1.5;color:#D5DDE2"><b style="color:#fff">U prototipu:</b> dnevnik u predmetu pokazuje ko je i kada potvrdio ili izmijenio rok, unos ili stavku.</p><p style="margin:0;font-size:16px;line-height:1.5;color:#D5DDE2"><b style="color:#fff">Uslov za pilot:</b> odrediti koliko se dnevnik čuva i ko ga može pregledati.</p></div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px 32px;padding:18px 0;border-bottom:1px solid #4F6676"><div style="font-size:20px;font-weight:600">Kako se podaci mogu izvesti?</div><p style="margin:0;font-size:16px;line-height:1.5;color:#D5DDE2"><b style="color:#fff">U prototipu:</b> dugme za izvoz je prikazano, ali ne radi.</p><p style="margin:0;font-size:16px;line-height:1.5;color:#D5DDE2"><b style="color:#fff">Uslov za pilot:</b> dogovoriti formate izvoza i potpuno preuzimanje podataka po završetku.</p></div>
+      </div>
+      <p style="margin:22px 0 0;font-size:17px;line-height:1.5;color:#fff;max-width:760px">Svaki prijedlog aplikacije ostaje prijedlog. Rok, unos i stavka troškovnika vrijede tek kada ih advokat potvrdi.</p>
+    </div>
+  </section>
+
+  <section id="pilot" style="padding:clamp(40px,6vw,88px) clamp(20px,4vw,56px);background:#fff;scroll-margin-top:8px" data-screen-label="Pilot">
+    <div style="max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:28px clamp(32px,6vw,96px)">
+      <div style="flex:1 1 320px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4F6676;letter-spacing:.04em;text-transform:uppercase">Prijedlog</div>
+        <h2 style="margin:10px 0 0;font-family:'Newsreader',serif;font-weight:500;font-size:clamp(30px,3.6vw,52px);line-height:1.08;letter-spacing:-.015em;text-wrap:balance">Jedan mjesec, jedan advokat, četiri funkcije.</h2>
+        <p style="margin:16px 0 0;font-size:17px;line-height:1.5;color:#2C4A5E">Rokovnik, knjiga pošte, podsjetnici i nacrt troškovnika. Postojeći rokovnik se vodi paralelno cijelo vrijeme.</p>
+      </div>
+      <div style="flex:2 1 460px;border-top:2px solid #173247">
+        <div style="display:grid;grid-template-columns:130px minmax(0,1fr);gap:8px 24px;padding:16px 0;border-bottom:1px solid #D5DDE2"><div style="font-family:'IBM Plex Mono',monospace;font-size:14px">Prije početka</div><p style="margin:0;font-size:17px;line-height:1.5">Riješiti uslove iz prethodnog odjeljka: pohrana, pristup, treniranje modela, izvoz.</p></div>
+        <div style="display:grid;grid-template-columns:130px minmax(0,1fr);gap:8px 24px;padding:16px 0;border-bottom:1px solid #D5DDE2"><div style="font-family:'IBM Plex Mono',monospace;font-size:14px">1. sedmica</div><p style="margin:0;font-size:17px;line-height:1.5">Unos tekućih predmeta i zatečenih rokova.</p></div>
+        <div style="display:grid;grid-template-columns:130px minmax(0,1fr);gap:8px 24px;padding:16px 0;border-bottom:1px solid #D5DDE2"><div style="font-family:'IBM Plex Mono',monospace;font-size:14px">2. i 3. sedmica</div><p style="margin:0;font-size:17px;line-height:1.5">Svakodnevni rad: fotografisanje pošte, potvrđivanje rokova, bilješke s ročišta.</p></div>
+        <div style="display:grid;grid-template-columns:130px minmax(0,1fr);gap:8px 24px;padding:16px 0;border-bottom:1px solid #D5DDE2"><div style="font-family:'IBM Plex Mono',monospace;font-size:14px">4. sedmica</div><p style="margin:0;font-size:17px;line-height:1.5">Pregled: gdje je prijedlog bio pogrešan, šta je smetalo, šta je uštedjelo vrijeme.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:clamp(32px,4vw,56px) clamp(20px,4vw,56px);border-top:1px solid #D5DDE2" data-screen-label="Kasnije">
+    <div style="max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px clamp(32px,6vw,96px);align-items:baseline">
+      <h2 style="flex:1 1 220px;margin:0;font-family:'Newsreader',serif;font-weight:500;font-size:28px;line-height:1.15">Kasnije, ne sada</h2>
+      <p style="flex:3 1 460px;margin:0;font-size:17px;line-height:1.6;color:#2C4A5E">Obračun sudskih taksi · fakture i uplate · obavijesti strankama · rokovi zastare · provjera sukoba interesa · raspodjela zadataka u timu · predlošci dokumenata prilagođeni stilu pisanja. Ništa od ovoga nije dio prototipa.</p>
+    </div>
+  </section>
+
+  <footer style="padding:26px clamp(20px,4vw,56px) 40px;border-top:1px solid #D5DDE2;background:#fff">
+    <div style="max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px 32px">
+      <p style="margin:0;font-size:14px;line-height:1.5;color:#4F6676;max-width:760px">„Rokovnik“ je radni naziv. Ovo je prototip, a ne proizvod u upotrebi; advokatska komora ga nije odobrila niti podržala. Svi predmeti, stranke, dokumenti i iznosi su izmišljeni.</p>
+      <button onClick="{{ goDemo }}" style="height:52px;padding:0 24px;border:0;border-radius:10px;background:#173247;color:#fff;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#0F2230">Pogledaj prototip →</button>
+    </div>
+  </footer>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;startInDemo&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Prezentacija&quot;},&quot;showGuide&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Prezentacija&quot;},&quot;phoneFit&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Prezentacija&quot;}}">
+class Component extends DCLogic {
+  T = new Date(2026, 10, 11);
+  CH = {
+    conf: { chip: 'Potvrdio advokat', fg: '#2F5F58', bg: '#E4EFEC', bd: '1px solid #3F776F', dot: '#3F776F' },
+    prop: { chip: 'Predloženo · čeka pregled', fg: '#7A4F17', bg: '#F7EEDF', bd: '1px dashed #B27B34', dot: '#fff' },
+    done: { chip: 'Evidentirano', fg: '#4F6676', bg: '#EDF1F3', bd: '1px solid #C3CED5', dot: '#8FA1AD' },
+    ok: { chip: 'Ispunjeno', fg: '#4F6676', bg: '#EDF1F3', bd: '1px solid #C3CED5', dot: '#8FA1AD' },
+    urg: { chip: 'Potvrdio advokat · ističe uskoro', fg: '#8A3B37', bg: '#F6E9E8', bd: '1px solid #A34A45', dot: '#A34A45' }
+  };
+  state = Object.assign(this.fresh(), { view: (this.props || {}).startInDemo ? 'demo' : 'landing', vh: 900 });
+
+  fresh() {
+    return {
+      tab: 'danas', scr: null, matter: false, mtab: 'hron', seg: 'ul', clock: '08:05', toast: '', sheet: false,
+      busy: false, captured: false, mailSaved: false, chk: false,
+      f: { sud: 'Općinski sud u Sarajevu', broj: '65 0 P 084512 25 P', vrsta: 'Rješenje — dostava nalaza vještaka', dDok: '06.11.2026.', dPrij: '11.11.2026.' },
+      ck: { r: false, s: false, d: false }, dlStart: '11.11.2026.', dlDue: '26.11.2026.', rem3: true, rem1: true, dlConfirmed: false,
+      vs: 0, room: '21', roomOk: false, evDate: '14.12.2026.', evTime: '10:00', d2Due: '19.11.2026.', evOk: false, d2Ok: false, noteOk: false,
+      note: 'Ročište odgođeno jer je nalaz vještaka tužiocu dostavljen tek 11.11.2026. Sud naložio dostavu adrese svjedoka K. Dizdara u roku od 8 dana.', voiceSaved: false,
+      outVrsta: 'Podnesak — dostava adrese svjedoka', outDat: '11.11.2026.', outNacin: 'lic', proof: false, fulfil: true,
+      fuTxt: 'Za deset dana provjeri u pisarnici šta je s podneskom.', fuDay: '23', outSaved: false,
+      jur: 'FBiH', tarifa: 'Demo tarifa (izmišljena, nije zvanični izvor)', costApproved: false, seenCal: false, seenCost: false,
+      costs: [
+        { id: 'c1', t: 'Sastav tužbe', d: '17.11.2025.', src: 'pošta I-2025/044', amt: '480,00', ok: true },
+        { id: 'c2', t: 'Zastupanje na pripremnom ročištu', d: '21.04.2026.', src: 'kalendar', amt: '480,00', ok: true },
+        { id: 'c3', t: 'Zastupanje na glavnoj raspravi', d: '15.09.2026.', src: 'kalendar', amt: '480,00', ok: true },
+        { id: 'c4', t: 'Odlazak u sud — uvid u spis', d: '09.11.2026.', src: 'kalendar', amt: '120,00', ok: false }
+      ],
+      month: 11, day: 11, docId: 'rj', docBack: null,
+      audit: [
+        { t: '09.11.2026. 13:20', x: 'Evidentirana posjeta sudu — uvid u spis.' },
+        { t: '29.10.2026. 15:02', x: 'Rok 13.11.2026. potvrdio advokat. Početak izmijenjen ručno: 28.10. → 29.10.2026.' },
+        { t: '29.10.2026. 14:58', x: 'Unos U-2026/038 sačuvan u knjigu pošte nakon pregleda.' }
+      ]
+    };
+  }
+  componentDidMount() {
+    this._rs = () => this.setState({ vh: window.innerHeight });
+    window.addEventListener('resize', this._rs); this._rs();
+    if (this.props && this.props.startInDemo && this.state.view !== 'demo') this.setState({ view: 'demo' });
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this._rs); clearTimeout(this._t); clearTimeout(this._b); }
+
+  D(s) { const m = /^\s*(\d{1,2})\.\s*(\d{1,2})\.\s*(\d{4})/.exec(s || ''); return m ? new Date(+m[3], +m[2] - 1, +m[1]) : null; }
+  F(d) { const p = n => String(n).padStart(2, '0'); return p(d.getDate()) + '.' + p(d.getMonth() + 1) + '.' + d.getFullYear() + '.'; }
+  W(d) { return ['nedjelja', 'ponedjeljak', 'utorak', 'srijeda', 'četvrtak', 'petak', 'subota'][d.getDay()]; }
+  add(d, n) { const x = new Date(d); x.setDate(x.getDate() + n); return x; }
+  num(a) { return parseFloat(String(a).replace(/\./g, '').replace(',', '.')) || 0; }
+  money(n) { const p = n.toFixed(2).split('.'); return p[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ',' + p[1]; }
+  pl(n) { const a = n % 10, b = n % 100; return n + (a === 1 && b !== 11 ? ' stavka čeka' : a >= 2 && a <= 4 && (b < 12 || b > 14) ? ' stavke čekaju' : ' stavki čeka') + ' pregled'; }
+
+  toast(m) { clearTimeout(this._t); this.setState({ toast: m }); this._t = setTimeout(() => this.setState({ toast: '' }), 3400); }
+  act(clock, txt, patch) {
+    this.setState(s => {
+      const p = typeof patch === 'function' ? patch(s) : (patch || {});
+      const c = clock && clock > s.clock ? clock : s.clock;
+      return Object.assign({}, p, { clock: c, audit: txt ? [{ t: '11.11.2026. ' + c, x: txt }].concat(s.audit) : s.audit });
+    });
+  }
+  openMatter(mt) { this.setState(s => ({ tab: 'predmeti', matter: true, mtab: mt, scr: null, seenCost: s.seenCost || (mt === 'trosk' && s.outSaved) })); }
+  openDoc(id) { this.setState(s => ({ docId: id, docBack: s.scr, scr: 'doc' })); }
+
+  items() {
+    const s = this.state, T = this.T, I = [], F = d => this.F(d), W = d => this.W(d), hron = () => this.openMatter('hron');
+    const due = this.D(s.dlDue) || new Date(2026, 10, 26), ev = this.D(s.evDate) || new Date(2026, 11, 14), d2 = this.D(s.d2Due) || new Date(2026, 10, 19);
+    const P = (dt, time, type, title, sub, st, o) => I.push(Object.assign({ dt, time, type, title, sub, st, go: hron, cal: true }, o || {}));
+    const reVoice = { go: () => this.setState({ scr: 'voice', vs: 2 }) };
+    P(new Date(2025, 10, 17), '', 'Izlazna pošta', 'Tužba predata sudu', 'I-2025/044 · preporučeno poštom', 'done', { doc: 'tuzba', cal: false });
+    P(new Date(2026, 1, 9), '', 'Ulazna pošta', 'Zaprimljen odgovor na tužbu', 'U-2026/007', 'done', { doc: 'odg', cal: false });
+    P(new Date(2026, 3, 21), '09:00', 'Ročište', 'Pripremno ročište održano', 'Sudnica 12', 'done');
+    P(new Date(2026, 8, 15), '10:00', 'Ročište', 'Glavna rasprava — određeno vještačenje', 'Sudnica 12', 'done');
+    P(new Date(2026, 9, 29), '', 'Ulazna pošta', 'Zaprimljen podnesak tuženog', 'U-2026/038 · rok za izjašnjenje 15 dana', 'done', { doc: 'pt', cal: false });
+    P(new Date(2026, 10, 9), '12:30', 'Posjeta sudu', 'Uvid u spis na pisarnici', 'Poziv svjedoku K. Dizdaru još nije vraćen', 'done');
+    if (s.mailSaved) P(T, '08:13', 'Ulazna pošta', 'Zaprimljeno: ' + s.f.vrsta, 'U-2026/041 · polja pregledao advokat', 'conf', { doc: 'rj', cal: false });
+    P(T, '', 'Podsjetnik', 'Provjeriti u pisarnici je li vraćena dostavnica za svjedoka', s.chk ? 'Označeno kao provjereno' : 'Dodirnite kada provjerite', s.chk ? 'done' : 'conf', { go: () => this.setState(x => ({ chk: !x.chk })) });
+    if (s.voiceSaved) P(T, '11:00', 'Ročište', 'Ročište odgođeno', 'Novi termin: ' + F(ev) + ' u ' + s.evTime, 'done');
+    else P(T, '11:00', 'Ročište', 'Nastavak glavne rasprave', 'Sudnica 12 · Općinski sud u Sarajevu', 'conf');
+    if (s.voiceSaved) P(T, '11:52', 'Bilješka', 'Bilješka s ročišta (glasovni unos)', s.note, s.noteOk ? 'conf' : 'prop', Object.assign({ cal: false }, s.noteOk ? {} : reVoice));
+    if (s.outSaved) P(T, '12:20', 'Izlazna pošta', 'Predat: ' + s.outVrsta, 'I-2026/029 · ' + (s.outNacin === 'lic' ? 'lično na pisarnici' : 'preporučeno poštom') + ' · ' + (s.proof ? 'dokaz o predaji priložen' : 'bez dokaza o predaji'), 'conf', { doc: 'pod', cal: false });
+    P(new Date(2026, 10, 12), '14:00', 'Sastanak', 'Sastanak sa strankom A. Selimović', 'Kancelarija', 'conf');
+    P(new Date(2026, 10, 13), '', 'Rok', 'Izjašnjenje na podnesak tuženog', 'petak · za 2 dana · 15 dana od prijema 29.10.2026.', 'urg');
+    if (s.voiceSaved) {
+      const met = s.outSaved && s.fulfil;
+      P(d2, '', 'Rok', 'Podnesak s adresom svjedoka', met ? 'Ispunjeno podneskom I-2026/029 od 11.11.2026.' : W(d2) + ' · 8 dana od ročišta 11.11.2026.', met ? 'ok' : s.d2Ok ? 'conf' : 'prop', met || s.d2Ok ? {} : reVoice);
+    }
+    if (s.outSaved) P(new Date(2026, 10, +s.fuDay), '', 'Podsjetnik', 'Provjeriti u pisarnici šta je s podneskom', 'I-2026/029 · postavljeno 11.11.2026.', 'conf');
+    if (s.dlConfirmed && s.rem3) P(this.add(due, -3), '', 'Podsjetnik', 'Za 3 dana ističe rok: izjašnjenje na nalaz vještaka', 'Rok ' + F(due), 'conf');
+    if (s.dlConfirmed && s.rem1) P(this.add(due, -1), '', 'Podsjetnik', 'Sutra ističe rok: izjašnjenje na nalaz vještaka', 'Rok ' + F(due), 'conf');
+    if (s.mailSaved) P(due, '', 'Rok', 'Izjašnjenje na nalaz i mišljenje vještaka', W(due) + ' · 15 dana od prijema ' + s.dlStart, s.dlConfirmed ? 'conf' : 'prop', s.dlConfirmed ? {} : { go: () => this.setState({ scr: 'deadline' }) });
+    if (s.voiceSaved) P(ev, s.evTime, 'Ročište', 'Nastavak glavne rasprave', 'Sudnica ' + s.room, s.evOk ? 'conf' : 'prop', s.evOk ? {} : reVoice);
+    return I;
+  }
+
+  renderVals() {
+    const s = this.state, p = this.props || {}, CH = this.CH, T = this.T, set = x => this.setState(x);
+    const same = (a, b) => a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+    const its = this.items(), cal = its.filter(i => i.cal);
+    const key = i => i.dt.getTime() + (i.time ? (+i.time.slice(0, 2) * 60 + +i.time.slice(3)) * 60000 : 0);
+    const row = (it, mode) => {
+      const c = CH[it.st], today = same(it.dt, T);
+      return {
+        when: mode === 'tl' ? this.F(it.dt) : mode === 'day' ? (it.time || '—') : today ? (it.time || 'danas') : this.F(it.dt).slice(0, 6),
+        time: mode === 'tl' ? it.time : '', type: mode === 'brief' ? '' : it.type, title: it.title, sub: it.sub,
+        chip: c.chip, fg: c.fg, bg: c.bg, bd: c.bd, dot: c.dot, go: it.go, doc: !!it.doc,
+        openDoc: e => { e.stopPropagation(); this.openDoc(it.doc); }
+      };
+    };
+    const pend = s.costs.filter(c => !c.ok).length;
+    const costLine = s.costApproved ? 'nacrt odobrio advokat' : pend ? this.pl(pend) : 'sve stavke potvrđene — čeka odobrenje';
+
+    // Jutarnji pregled
+    const brief = [], H = h => brief.push({ head: h }), R = l => l.forEach(i => brief.push(row(i, 'brief')));
+    H('Ročišta danas'); R(cal.filter(i => i.type === 'Ročište' && same(i.dt, T)));
+    H('Rokovi u naredna tri dana');
+    const soon = cal.filter(i => i.type === 'Rok' && i.st !== 'ok' && i.dt >= T && i.dt <= this.add(T, 3));
+    soon.length ? R(soon) : brief.push({ note: 'Nema rokova u naredna tri dana.' });
+    H('Provjeriti u sudu'); R(cal.filter(i => i.type === 'Podsjetnik' && same(i.dt, T)));
+    const props = its.filter(i => i.st === 'prop');
+    if (props.length || (pend && !s.costApproved)) {
+      H('Čeka vaš pregled'); R(props);
+      if (pend) brief.push(Object.assign({ when: 'KM', title: 'Troškovnik: ' + this.pl(pend), sub: 'Nacrt u predmetu 65 0 P 084512 25 P', go: () => this.openMatter('trosk') }, CH.prop));
+    }
+    H('Sutra'); R(cal.filter(i => same(i.dt, this.add(T, 1))));
+
+    // Hronologija
+    const upT = ['Ročište', 'Rok', 'Podsjetnik', 'Sastanak'];
+    const isUp = i => i.dt >= T && upT.indexOf(i.type) >= 0 && (i.st === 'conf' || i.st === 'prop' || i.st === 'urg');
+    const tl = [{ head: 'Predstoji' }].concat(its.filter(isUp).sort((a, b) => key(a) - key(b)).map(i => row(i, 'tl')), [{ head: 'Evidentirano' }], its.filter(i => !isUp(i)).sort((a, b) => key(b) - key(a)).map(i => row(i, 'tl')));
+    const nx = its.filter(i => isUp(i) && (i.type === 'Ročište' || i.type === 'Rok') && i.st !== 'prop').sort((a, b) => key(a) - key(b))[0];
+
+    // Kalendar
+    const first = new Date(2026, s.month - 1, 1), off = (first.getDay() + 6) % 7, nd = new Date(2026, s.month, 0).getDate(), cells = [];
+    const mark = (it, sel) => {
+      if (it.st === 'prop') return ['transparent', '1.5px solid ' + (sel ? '#F7EEDF' : '#B27B34')];
+      const c = it.type === 'Podsjetnik' || it.st === 'done' || it.st === 'ok' ? '#8FA1AD' : it.type === 'Rok' ? (it.st === 'urg' ? '#A34A45' : '#3F776F') : (sel ? '#fff' : '#173247');
+      return [sel && c !== '#fff' && it.type === 'Rok' ? '#fff' : c, '0'];
+    };
+    for (let i = 0; i < off; i++) cells.push({ n: '', vis: 'hidden', bd: '0' });
+    for (let d = 1; d <= nd; d++) {
+      const dt = new Date(2026, s.month - 1, d), sel = d === s.day, today = same(dt, T);
+      const ms = cal.filter(i => same(i.dt, dt)).slice(0, 3).map(i => mark(i, sel)), g = k => ms[k] || ['transparent', '0'];
+      cells.push({ n: d, vis: 'visible', bg: sel ? '#173247' : 'transparent', fg: sel ? '#fff' : '#173247', w: today ? 600 : 400, bd: today && !sel ? '1px solid #173247' : '1px solid transparent', m1: g(0)[0], b1: g(0)[1], m2: g(1)[0], b2: g(1)[1], m3: g(2)[0], b3: g(2)[1], on: () => set({ day: d }) });
+    }
+    const selDt = new Date(2026, s.month - 1, s.day);
+    const dayRows = cal.filter(i => same(i.dt, selDt)).sort((a, b) => key(a) - key(b)).map(i => row(i, 'day'));
+
+    // Pošta
+    const dlNote = s.dlConfirmed ? ['Povezan rok ' + s.dlDue + ' — potvrdio advokat', '#2F5F58'] : ['Povezan rok ' + s.dlDue + ' — predloženo, čeka pregled', '#7A4F17'];
+    const ul = [].concat(s.mailSaved ? [{ no: 'U-2026/041', d: s.f.dPrij, t: s.f.vrsta, s: s.f.sud + ' · ' + s.f.broj, x: dlNote[0], xc: dlNote[1], doc: 'rj' }] : [], [
+      { no: 'U-2026/038', d: '29.10.2026.', t: 'Podnesak tuženog', s: 'Općinski sud u Sarajevu · 65 0 P 084512 25 P', x: 'Povezan rok 13.11.2026. — potvrdio advokat', xc: '#2F5F58', doc: 'pt' },
+      { no: 'U-2026/007', d: '09.02.2026.', t: 'Odgovor na tužbu', s: 'Općinski sud u Sarajevu · 65 0 P 084512 25 P', x: '', doc: 'odg' }]);
+    const iz = [].concat(s.outSaved ? [{ no: 'I-2026/029', d: s.outDat, t: s.outVrsta, s: (s.outNacin === 'lic' ? 'Lično na pisarnici' : 'Preporučeno poštom') + ' · 65 0 P 084512 25 P', x: s.proof ? 'Dokaz o predaji: fotografija prijemnog štambilja' : 'Dokaz o predaji nije priložen', xc: s.proof ? '#2F5F58' : '#7A4F17', doc: 'pod' }] : [], [
+      { no: 'I-2025/044', d: '17.11.2025.', t: 'Tužba', s: 'Preporučeno poštom · 65 0 P 084512 25 P', x: 'Dokaz o predaji: potvrda o prijemu pošiljke', xc: '#2F5F58', doc: 'tuzba' }]);
+    const mail = (s.seg === 'ul' ? ul : iz).map(m => Object.assign({ go: () => this.openDoc(m.doc) }, m));
+
+    // Dokumenti
+    const P = (t, al, w, hl) => ({ t, al: al || 'left', w: w || 400, hl: hl ? '#F7EEDF' : 'transparent', sh: hl ? '0 1px 0 #B27B34' : 'none' });
+    const rj = [P('Bosna i Hercegovina · Federacija Bosne i Hercegovine', 'center'), P('OPĆINSKI SUD U SARAJEVU', 'center', 600, 1), P('Broj: 65 0 P 084512 25 P', 'left', 400, 1), P('Sarajevo, 06.11.2026. godine', 'left', 400, 1), P('RJEŠENJE', 'center', 600, 1),
+      P('Tužiocu se, putem punomoćnika, dostavlja nalaz i mišljenje vještaka finansijske struke od 30.10.2026. godine.'), P('Poziva se tužilac da se u roku od 15 dana od dana prijema ovog rješenja pismeno izjasni na nalaz i mišljenje vještaka.', 'left', 400, 1), P('Protiv ovog rješenja nije dozvoljena posebna žalba.', 'left', 400, 1), P('Sudija', 'right')];
+    const hd = [P('OPĆINSKI SUD U SARAJEVU', 'center', 600), P('Broj: 65 0 P 084512 25 P')];
+    const docs = {
+      rj: ['Rješenje · U-2026/041', rj],
+      pt: ['Podnesak tuženog · U-2026/038', hd.concat([P('PODNESAK TUŽENOG', 'center', 600), P('Tuženi Brezik Gradnja d.o.o. Sarajevo osporava visinu potraživanja i predlaže saslušanje svjedoka.'), P('Sud poziva tužioca da se u roku od 15 dana od dana prijema izjasni na navode podneska.')])],
+      odg: ['Odgovor na tužbu · U-2026/007', hd.concat([P('ODGOVOR NA TUŽBU', 'center', 600), P('Tuženi Brezik Gradnja d.o.o. Sarajevo u cijelosti osporava tužbeni zahtjev.')])],
+      tuzba: ['Tužba · I-2025/044', [P('OPĆINSKOM SUDU U SARAJEVU', 'center', 600), P('Tužilac: Amra Selimović, koju zastupa adv. Lejla Karić'), P('Tuženi: Brezik Gradnja d.o.o. Sarajevo'), P('TUŽBA radi isplate duga', 'center', 600), P('Vrijednost spora: 18.400,00 KM (demo podatak)')]],
+      pod: ['Podnesak · I-2026/029', hd.concat([P('PODNESAK TUŽIOCA', 'center', 600), P('Postupajući po nalogu suda s ročišta od 11.11.2026. godine, tužilac dostavlja tačnu adresu svjedoka K. Dizdara.'), P(s.proof ? 'Prijemni štambilj pisarnice: 11.11.2026.' : 'Dokaz o predaji nije priložen.', 'right', 600)])]
+    };
+    const doc = docs[s.docId] || docs.rj;
+
+    // Pregled unosa
+    const fset = k => e => { const v = e.target.value; this.setState(x => ({ f: Object.assign({}, x.f, { [k]: v }) })); };
+    const rf = [['sud', 'Sud'], ['broj', 'Broj predmeta'], ['vrsta', 'Vrsta dokumenta'], ['dDok', 'Datum dokumenta'], ['dPrij', 'Datum prijema', 'Pretpostavljen današnji datum — provjerite s dostavnicom.']]
+      .map(a => ({ l: a[1], v: s.f[a[0]], on: fset(a[0]), note: a[2] || '', bc: a[2] ? '#B27B34' : '#C3CED5' }));
+
+    // Rok
+    const box = (on, fn) => ({ on: fn, bg: on ? '#3F776F' : '#fff', bc: on ? '#3F776F' : '#8FA1AD', m: on ? '✓' : '' });
+    const ckT = k => () => this.setState(x => ({ ck: Object.assign({}, x.ck, { [k]: !x.ck[k] }) }));
+    const flip = k => () => this.setState(x => ({ [k]: !x[k] }));
+    const nck = (s.ck.r ? 1 : 0) + (s.ck.s ? 1 : 0) + (s.ck.d ? 1 : 0);
+    const st = this.D(s.dlStart), du = this.D(s.dlDue), days = st && du ? Math.round((du - st) / 864e5) : null;
+    const dueInfo = !du ? 'Unesite datum u obliku dd.mm.gggg.' : days === 15 ? this.W(du) + ' · 15. dan od početka' : this.W(du) + ' · izmijenjeno ručno (' + days + '. dan od početka; prijedlog je bio 15.)';
+    const opt = (l, on, fn) => ({ l, on: fn, bg: on ? '#173247' : '#fff', fg: on ? '#fff' : '#173247', bc: on ? '#173247' : '#C3CED5' });
+    const jurs = ['FBiH', 'Republika Srpska', 'Brčko distrikt'].map(j => opt(j === 'Republika Srpska' ? 'RS' : j, s.jur === j, () => { if (s.jur !== j) this.act(null, 'Nadležnost predmeta promijenjena: ' + s.jur + ' → ' + j + '.', { jur: j, costApproved: false }); }));
+    const dueD = du || new Date(2026, 10, 26);
+    const rems = [opt('3 dana prije · ' + this.F(this.add(dueD, -3)).slice(0, 6), s.rem3, flip('rem3')), opt('1 dan prije · ' + this.F(this.add(dueD, -1)).slice(0, 6), s.rem1, flip('rem1'))];
+
+    // Glas
+    const prop = (ok, k, guard) => Object.assign({}, ok ? CH.conf : CH.prop, {
+      btnL: ok ? 'Potvrđeno ✓ — vrati na pregled' : 'Potvrdi', btnBg: ok ? '#fff' : '#173247', btnFg: ok ? '#173247' : '#fff',
+      on: () => { if (guard && !ok && guard()) return; this.setState(x => ({ [k]: !x[k] })); }
+    });
+    const nv = (s.evOk ? 1 : 0) + (s.d2Ok ? 1 : 0) + (s.noteOk ? 1 : 0);
+    const fixRoom = v => () => this.act('11:52', s.room !== v ? 'Glasovni unos: sudnica ispravljena ' + s.room + ' → ' + v + '.' : 'Glasovni unos: sudnica ' + v + ' potvrđena.', { room: v, roomOk: true });
+
+    // Troškovnik
+    const upCost = (id, ch) => this.setState(x => ({ costs: x.costs.map(c => c.id === id ? Object.assign({}, c, ch) : c), costApproved: false }));
+    const costs = s.costs.map(c => Object.assign({}, c.ok ? CH.conf : CH.prop, {
+      t: c.t, d: c.d, src: c.src, amt: c.amt, okL: c.ok ? 'Vrati' : 'Potvrdi', okBg: c.ok ? '#fff' : '#173247', okFg: c.ok ? '#173247' : '#fff',
+      onAmt: e => upCost(c.id, { amt: e.target.value, ok: false }),
+      onOk: () => this.act('12:31', c.ok ? 'Stavka troškovnika „' + c.t + '“ vraćena na pregled.' : 'Stavka troškovnika „' + c.t + '“ potvrđena (demo iznos ' + c.amt + ' KM).', x => ({ costs: x.costs.map(y => y.id === c.id ? Object.assign({}, y, { ok: !c.ok }) : y), costApproved: false })),
+      onDel: () => this.act('12:31', 'Stavka troškovnika „' + c.t + '“ uklonjena iz nacrta.', x => ({ costs: x.costs.filter(y => y.id !== c.id), costApproved: false }))
+    }));
+
+    // Vodič
+    const done = [s.captured, s.captured, s.mailSaved, s.dlConfirmed, s.seenCal, s.voiceSaved, s.outSaved, s.seenCost, s.costApproved], cur = done.indexOf(false);
+    const steps = [['Jutarnji pregled', 'Ekran „Danas“: ročište u 11:00, rok 13.11., provjera u pisarnici.'], ['Fotografišite dokument', 'Dodirnite „Fotografiši“, zatim okidač.'], ['Pregledajte unos', 'Provjerite polja i sačuvajte u knjigu pošte.'], ['Potvrdite rok', 'Označite pravilo, početak i posljednji dan, pa „Potvrdi rok“.'], ['Rok u kalendaru', 'Otvorite „Kalendar“: 26.11. i podsjetnici 23. i 25.11.'], ['Bilješka glasom', '„Danas“ → „Diktiraj“. Ispravite sudnicu 21 → 12, potvrdite i sačuvajte.'], ['Podnesak i podsjetnik', '„Danas“ → „Podnesak“. Priložite dokaz i sačuvajte.'], ['Troškovnik', 'U predmetu otvorite „Troškovnik“.'], ['Odobrite nacrt', 'Potvrdite preostale stavke, zatim „Odobri nacrt“.']]
+      .map((a, i) => ({ n: done[i] ? '✓' : String(i + 1).padStart(2, '0'), t: a[0], h: a[1], hd: i === cur ? 'block' : 'none', bg: i === cur ? '#fff' : 'transparent', w: i === cur ? 600 : 400, fg: done[i] ? '#4F6676' : '#173247', nc: done[i] ? '#3F776F' : i === cur ? '#7A4F17' : '#4F6676' }));
+
+    const demo = s.view === 'demo', fit = Math.max(.6, Math.min(demo ? 1.2 : .92, (s.vh - 104) / 866));
+    const z = (p.phoneFit ?? true) ? fit : 1;
+    const dark = s.scr === 'capture' || s.scr === 'notif';
+    const tabDef = [['danas', 'Danas'], ['predmeti', 'Predmeti'], ['kalendar', 'Kalendar'], ['posta', 'Pošta']];
+    const allCk = nck === 3, allCost = pend === 0 && s.costs.length > 0;
+
+    return {
+      isLanding: !demo, isDemo: demo, showGuide: demo && (p.showGuide ?? true), phoneOrder: demo ? 1 : 2, phoneW: Math.round(412 * z) + 'px', phoneH: Math.round(866 * z) + 'px', phoneT: 'scale(' + z + ')', steps,
+      goDemo: () => { set({ view: 'demo' }); window.scrollTo(0, 0); }, goLanding: () => { set({ view: 'landing' }); window.scrollTo(0, 0); },
+      reset: () => { clearTimeout(this._t); this.setState(Object.assign(this.fresh(), { view: s.view, vh: s.vh })); },
+      clock: s.clock, sbBg: dark ? '#0F2230' : s.scr || (s.tab === 'predmeti' && s.matter) ? '#fff' : '#F3F6F7', sbFg: dark ? '#fff' : '#173247',
+      openSheet: () => set({ sheet: true }), closeSheet: () => set({ sheet: false }), sheet: s.sheet, toast: s.toast,
+      isDanas: !s.scr && s.tab === 'danas', isPredList: !s.scr && s.tab === 'predmeti' && !s.matter, isMatter: !s.scr && s.tab === 'predmeti' && s.matter,
+      isKal: !s.scr && s.tab === 'kalendar', isPosta: !s.scr && s.tab === 'posta', isCapture: s.scr === 'capture', isReview: s.scr === 'review', isDeadline: s.scr === 'deadline',
+      isVoice: s.scr === 'voice', isOut: s.scr === 'out', isDoc: s.scr === 'doc', isNotif: s.scr === 'notif', showTabs: !s.scr,
+      tabs: tabDef.map(t => ({ l: t[1], w: s.tab === t[0] ? 600 : 500, fg: s.tab === t[0] ? '#173247' : '#4F6676', bar: s.tab === t[0] ? '#173247' : 'transparent', go: () => this.setState(x => ({ tab: t[0], scr: null, matter: false, seenCal: x.seenCal || (t[0] === 'kalendar' && x.dlConfirmed) })) })),
+      back: () => set({ scr: null, vs: s.voiceSaved ? 2 : 0 }),
+      brief, openNotif: () => set({ scr: 'notif' }),
+      openCapture: () => { if (s.mailSaved) { set({ tab: 'posta', seg: 'ul', scr: null }); this.toast('Dokument je već evidentiran kao U-2026/041.'); } else set({ scr: 'capture' }); },
+      shoot: () => { if (s.busy) return; set({ busy: true }); this._b = setTimeout(() => this.act('08:12', null, { busy: false, captured: true, scr: 'review' }), 900); },
+      busy: s.busy, paper: rj, rf,
+      saveMail: () => this.act('08:13', 'Unos U-2026/041 sačuvan u knjigu pošte. Polja pregledao advokat.', { mailSaved: true, scr: 'deadline', dlStart: s.f.dPrij, dlDue: this.D(s.f.dPrij) ? this.F(this.add(this.D(s.f.dPrij), 15)) : s.dlDue }),
+      openRj: () => this.openDoc('rj'), jurs, rems, jur: s.jur,
+      ck1: box(s.ck.r, ckT('r')), ck2: box(s.ck.s, ckT('s')), ck3: box(s.ck.d, ckT('d')),
+      dlStart: s.dlStart, dlDue: s.dlDue, dueInfo, dueInfoC: days === 15 ? '#4F6676' : '#7A4F17',
+      onDlStart: e => { const v = e.target.value, d = this.D(v); this.setState(x => ({ dlStart: v, dlDue: d ? this.F(this.add(d, 15)) : x.dlDue, ck: Object.assign({}, x.ck, { s: false, d: false }) })); },
+      onDlDue: e => { const v = e.target.value; this.setState(x => ({ dlDue: v, ck: Object.assign({}, x.ck, { d: false }) })); },
+      dlBtnBg: allCk ? '#3F776F' : '#8FA1AD', dlBtnL: allCk ? 'Potvrdi rok ' + s.dlDue : 'Označite sve tri provjere (' + nck + '/3)',
+      confirmDl: () => {
+        if (!allCk) return this.toast('Rok se ne može potvrditi dok ne označite pravilo, početak i posljednji dan.');
+        if (!du) return this.toast('Posljednji dan roka nije ispravan datum.');
+        this.act('08:15', 'Rok ' + s.dlDue + ' potvrdio advokat. Pravilo: rok iz dokumenta, 15 dana; početak ' + s.dlStart + (days === 15 ? '.' : '; posljednji dan izmijenjen ručno.'), { dlConfirmed: true, scr: null, tab: 'predmeti', matter: true, mtab: 'hron', month: du.getFullYear() === 2026 && du.getMonth() === 11 ? 12 : 11, day: du.getDate() });
+        this.toast('Rok ' + s.dlDue + ' je potvrđen i upisan u rokovnik.');
+      },
+      laterDl: () => { set({ scr: null }); if (!s.dlConfirmed) this.toast('Prijedlog ostaje na čekanju. Rok nije aktivan.'); },
+      openVoice: () => set({ scr: 'voice', vs: s.voiceSaved ? 2 : 0 }),
+      vsIdle: s.vs < 2, vsDone: s.vs === 2, micBg: s.vs === 1 ? '#A34A45' : '#173247', micL: s.vs === 1 ? 'Snimam… 0:19' : 'Dodirnite i diktirajte',
+      micHint: s.vs === 1 ? 'Dodirnite ponovo da završite. U prototipu se koristi pripremljen diktat.' : 'Recite šta se desilo na ročištu, novi termin i šta je sud naložio.',
+      recDot: s.vs === 1 ? React.createElement('span', { style: { width: 10, height: 10, borderRadius: '50%', background: '#A34A45', animation: 'rkPulse 1s infinite' } }) : null,
+      vsToggle: () => s.vs === 0 ? set({ vs: 1 }) : this.act('11:52', null, { vs: 2 }),
+      room: s.room, roomHl: s.roomOk ? 'transparent' : '#F7EEDF', roomSh: s.roomOk ? 'none' : '0 1px 0 #B27B34',
+      roomNote: s.roomOk ? 'Sudnica ' + s.room + ' — provjerio advokat.' : 'Sudnica nije jasna u snimku: 12 ili 21? Odaberite.', roomNoteC: s.roomOk ? '#2F5F58' : '#7A4F17',
+      rooms: ['12', '21'].map(v => opt('Sudnica ' + v, s.room === v && s.roomOk, fixRoom(v))),
+      evDate: s.evDate, evTime: s.evTime, d2Due: s.d2Due, note: s.note,
+      onEvDate: e => set({ evDate: e.target.value, evOk: false }), onEvTime: e => set({ evTime: e.target.value, evOk: false }), onD2Due: e => set({ d2Due: e.target.value, d2Ok: false }), onNote: e => set({ note: e.target.value, noteOk: false }),
+      pe: prop(s.evOk, 'evOk', () => { if (!s.roomOk) { this.toast('Prvo provjerite sudnicu: 12 ili 21?'); return true; } }), pd: prop(s.d2Ok, 'd2Ok'), pn: prop(s.noteOk, 'noteOk'),
+      voiceBtnL: 'Sačuvaj · potvrđeno ' + nv + ' od 3',
+      saveVoice: () => {
+        this.act('11:55', 'Glasovna bilješka sačuvana: potvrđeno ' + nv + ' od 3 prijedloga.', x => ({ voiceSaved: true, scr: null, tab: 'danas', costApproved: false, costs: x.costs.some(c => c.id === 'c5') ? x.costs : x.costs.concat([{ id: 'c5', t: 'Zastupanje na ročištu (odgođeno)', d: '11.11.2026.', src: 'glasovna bilješka', amt: '240,00', ok: false }]) }));
+        this.toast(nv === 3 ? 'Ročište, rok i bilješka su upisani u predmet.' : 'Sačuvano. Nepotvrđeni prijedlozi čekaju vaš pregled.');
+      },
+      openOut: () => { if (s.outSaved) { set({ tab: 'posta', seg: 'iz', scr: null }); this.toast('Podnesak je već evidentiran kao I-2026/029.'); } else set({ scr: 'out' }); },
+      outVrsta: s.outVrsta, outDat: s.outDat, fuTxt: s.fuTxt, onOutVrsta: e => set({ outVrsta: e.target.value }), onOutDat: e => set({ outDat: e.target.value }), onFuTxt: e => set({ fuTxt: e.target.value }),
+      nacini: [opt('Lično na pisarnici', s.outNacin === 'lic', () => set({ outNacin: 'lic' })), opt('Preporučeno poštom', s.outNacin === 'pos', () => set({ outNacin: 'pos' }))],
+      takeProof: flip('proof'), proofBd: s.proof ? '1px solid #3F776F' : '1px dashed #8FA1AD', proofBg: s.proof ? '#E4EFEC' : '#fff', proofFg: s.proof ? '#2F5F58' : '#173247',
+      proofThumb: s.proof ? 'PRIM. 11.11.' : '+', proofL: s.proof ? 'Dokaz priložen' : 'Fotografiši prijemni štambilj', proofSub: s.proof ? 'Prijemni štambilj pisarnice, 11.11.2026. (demo)' : 'Ili potvrdu o predaji pošiljke',
+      canFulfil: s.voiceSaved, ckF: box(s.fulfil, flip('fulfil')),
+      fuDays: [opt('sub, 21.11.', s.fuDay === '21', () => set({ fuDay: '21' })), opt('pon, 23.11.', s.fuDay === '23', () => set({ fuDay: '23' }))],
+      saveOut: () => {
+        this.act('12:20', 'Izlazni podnesak I-2026/029 evidentiran' + (s.proof ? ' s dokazom o predaji' : ' bez dokaza o predaji') + '. Podsjetnik postavljen za ' + s.fuDay + '.11.2026.', x => ({ outSaved: true, scr: null, tab: 'predmeti', matter: true, mtab: 'hron', seg: 'iz', costApproved: false, costs: x.costs.concat([{ id: 'c6', t: 'Sastav podneska — adresa svjedoka', d: '11.11.2026.', src: 'pošta I-2026/029', amt: '240,00', ok: false }]) }));
+        this.toast('Podnesak evidentiran. Podsjetnik: ' + s.fuDay + '.11.2026.');
+      },
+      nextLine: nx ? nx.title + ' · ' + this.F(nx.dt) : '—', costLine,
+      openHron: () => this.openMatter('hron'), openTrosk: () => this.openMatter('trosk'), closeMatter: () => set({ matter: false }),
+      mtabs: [['hron', 'Hronologija'], ['trosk', 'Troškovnik'], ['izmjene', 'Izmjene']].map(t => ({ l: t[1], w: s.mtab === t[0] ? 600 : 500, fg: s.mtab === t[0] ? '#173247' : '#4F6676', bar: s.mtab === t[0] ? '#173247' : 'transparent', go: () => this.openMatter(t[0]) })),
+      isHron: s.mtab === 'hron', isTrosk: s.mtab === 'trosk', isAudit: s.mtab === 'izmjene', tl, audit: s.audit,
+      ca: s.costApproved ? Object.assign({}, CH.conf, { chip: 'Nacrt odobrio advokat' }) : Object.assign({}, CH.prop, { chip: 'Nacrt · čeka pregled' }),
+      tarifa: s.tarifa, onTarifa: e => set({ tarifa: e.target.value, costApproved: false }), costs, total: this.money(s.costs.reduce((a, c) => a + this.num(c.amt), 0)),
+      apBg: s.costApproved ? '#3F776F' : allCost ? '#173247' : '#8FA1AD', apL: s.costApproved ? 'Nacrt odobren ✓' : allCost ? 'Odobri nacrt' : 'Prvo potvrdite sve stavke (' + this.pl(pend) + ')',
+      approveCost: () => {
+        if (s.costApproved) return;
+        if (!allCost) return this.toast('Nacrt se može odobriti tek kada pregledate i potvrdite svaku stavku.');
+        if (!s.tarifa.trim()) return this.toast('Unesite izvor i verziju tarife.');
+        this.act('12:34', 'Nacrt troškovnika odobrio advokat. Nadležnost: ' + s.jur + '; izvor tarife: ' + s.tarifa + '.', { costApproved: true });
+        this.toast('Nacrt odobren. Ništa nije poslano.');
+      },
+      exportCost: () => this.toast('Demo: izvoz nije aktivan. Ništa se ne šalje sudu ni stranci.'),
+      monthLabel: s.month === 11 ? 'Novembar 2026.' : 'Decembar 2026.', prevOp: s.month === 11 ? .35 : 1, nextOp: s.month === 12 ? .35 : 1,
+      prevMonth: () => set({ month: 11, day: 11 }), nextMonth: () => set({ month: 12, day: 14 }),
+      cells, dayRows, dayEmpty: dayRows.length === 0, dayLabel: this.W(selDt) + ', ' + this.F(selDt),
+      segs: [opt('Ulazna', s.seg === 'ul', () => set({ seg: 'ul' })), opt('Izlazna', s.seg === 'iz', () => set({ seg: 'iz' }))], mail,
+      mailActL: s.seg === 'ul' ? 'Fotografiši primljeni dokument' : 'Evidentiraj izlazni podnesak',
+      mailAct: () => s.seg === 'ul' ? (s.mailSaved ? this.toast('Dokument je već evidentiran kao U-2026/041.') : set({ scr: 'capture' })) : (s.outSaved ? this.toast('Podnesak je već evidentiran kao I-2026/029.') : set({ scr: 'out' })),
+      docName: doc[0], docParas: doc[1], closeDoc: () => set({ scr: s.docBack })
+    };
+  }
+}
+</script>
+</body>
+</html>
