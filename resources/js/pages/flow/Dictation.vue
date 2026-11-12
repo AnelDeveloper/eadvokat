@@ -8,6 +8,8 @@ import { bs } from '@/i18n/bs';
 const props = defineProps<{
     hearing: { id: number; label: string } | null;
     isDemo: boolean;
+    /** false until a speech service is connected (real offices). */
+    available: boolean;
 }>();
 
 const t = bs.dictation;
@@ -102,7 +104,10 @@ onBeforeUnmount(() => {
         <div
             class="flex flex-1 flex-col items-center justify-center gap-[18px] p-6 text-center"
         >
-            <template v-if="hearing">
+            <p v-if="!available" class="max-w-[320px] text-[15px] text-muted">
+                {{ t.unavailable }}
+            </p>
+            <template v-else-if="hearing">
                 <div class="font-mono text-sub text-muted">
                     {{ hearing.label }}
                 </div>

@@ -35,6 +35,7 @@ final class DictationScreens
                 ]),
             ] : null,
             'isDemo' => $isDemo,
+            'available' => $isDemo,
         ];
     }
 

@@ -29,6 +29,9 @@ const props = defineProps<{
         received_on: string | null;
     };
     receivedOnAssumed: boolean;
+    fileUrl: string | null;
+    isImage: boolean;
+    caseNumbers: string[];
 }>();
 
 const form = useForm({ ...props.fields });
@@ -56,7 +59,30 @@ function save(): void {
 
         <div class="flex-1 px-4.5 pt-3.5 pb-4.5">
             <SectionLabel>{{ bs.review.source }}</SectionLabel>
+            <!-- No automatic reading (real offices): show the uploaded original. -->
+            <template v-if="paragraphs.length === 0">
+                <div
+                    class="mt-1.5 rounded-field border border-dashed border-proposed bg-proposed-bg px-3 py-2.5 text-note text-proposed-text"
+                >
+                    {{ bs.review.noReading }}
+                </div>
+                <img
+                    v-if="fileUrl && isImage"
+                    :src="fileUrl"
+                    :alt="bs.review.original"
+                    class="mt-2 block max-h-[420px] w-full rounded-chip border border-line-strong bg-white object-contain"
+                />
+                <a
+                    v-if="fileUrl"
+                    :href="fileUrl"
+                    target="_blank"
+                    rel="noopener"
+                    class="mt-1 flex min-h-11 items-center text-[14px] font-semibold text-ink underline"
+                    >{{ bs.review.openOriginal }}</a
+                >
+            </template>
             <div
+                v-else
                 class="mt-1.5 max-h-[210px] overflow-auto rounded-chip border border-line-strong bg-white px-4 py-3.5 font-serif text-note leading-[1.45]"
             >
                 <p
@@ -76,7 +102,10 @@ function save(): void {
                     {{ p.text }}
                 </p>
             </div>
-            <div class="mt-[5px] text-field text-muted">
+            <div
+                v-if="paragraphs.length"
+                class="mt-[5px] text-field text-muted"
+            >
                 {{ bs.review.sourceHint }}
             </div>
 
@@ -103,8 +132,12 @@ function save(): void {
                 <TextField
                     v-model="form.case_number"
                     :label="bs.review.caseNumber"
+                    list="office-case-numbers"
                     :error="form.errors.case_number"
                 />
+                <datalist id="office-case-numbers">
+                    <option v-for="n in caseNumbers" :key="n" :value="n" />
+                </datalist>
                 <TextField
                     v-model="form.doc_type"
                     :label="bs.review.docType"
@@ -130,7 +163,9 @@ function save(): void {
                 />
             </form>
 
-            <SectionLabel class="mt-3.5">{{ bs.review.quotes }}</SectionLabel>
+            <SectionLabel v-if="quotes.length" class="mt-3.5">{{
+                bs.review.quotes
+            }}</SectionLabel>
             <SourceQuote
                 v-for="(quote, i) in quotes"
                 :key="i"

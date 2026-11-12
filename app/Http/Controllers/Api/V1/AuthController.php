@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Actions\RegisterOffice;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterOfficeRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -31,6 +33,17 @@ class AuthController extends Controller
 
         return response()->json([
             'token' => $user->createToken($credentials['device_name'])->plainTextToken,
+            'user' => $this->userPayload($user),
+        ]);
+    }
+
+    public function register(RegisterOfficeRequest $request, RegisterOffice $register): JsonResponse
+    {
+        $request->validate(['device_name' => ['required', 'string', 'max:100']]);
+        $user = $register->handle($request->payload());
+
+        return response()->json([
+            'token' => $user->createToken((string) $request->input('device_name'))->plainTextToken,
             'user' => $this->userPayload($user),
         ]);
     }

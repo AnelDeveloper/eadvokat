@@ -17,6 +17,8 @@ const {
     name?: string;
     placeholder?: string;
     autocomplete?: string;
+    /** id of a <datalist> with suggestions */
+    list?: string;
 }>();
 
 const id = useId();
@@ -37,6 +39,7 @@ const id = useId();
             :name="name"
             :placeholder="placeholder"
             :autocomplete="autocomplete"
+            :list="list"
             class="mt-1 block h-11 w-full rounded-field border bg-white px-3 outline-none focus:border-ink"
             :class="[
                 warn ? 'border-proposed' : 'border-line-strong',

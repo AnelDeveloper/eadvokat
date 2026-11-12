@@ -3,12 +3,22 @@ import { Platform } from 'react-native';
 import { api, onApiUnauthorized, setApiToken } from '@/lib/api';
 import { tokenStore } from '@/lib/tokenStore';
 
+export type RegisterInput = {
+    office_name: string;
+    title: string;
+    name: string;
+    email: string;
+    password: string;
+    password_confirmation: string;
+};
+
 export type User = { id: number; name: string; displayName: string; email: string; isDemo: boolean };
 
 type AuthState = {
     ready: boolean;
     user: User | null;
     signIn: (email: string, password: string) => Promise<void>;
+    register: (input: RegisterInput) => Promise<void>;
     signOut: () => Promise<void>;
 };
 
@@ -56,6 +66,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(result.user);
     }, []);
 
+    const register = useCallback(async (input: RegisterInput) => {
+        const result = await api.post<{ token: string; user: User }>('/auth/register', {
+            ...input,
+            email: input.email.trim().toLowerCase(),
+            device_name: `eAdvokat ${Platform.OS}`,
+        });
+
+        setApiToken(result.token);
+        await tokenStore.set(result.token);
+        setUser(result.user);
+    }, []);
+
     const signOut = useCallback(async () => {
         try {
             await api.delete('/auth/token');
@@ -64,7 +86,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
     }, [forget]);
 
-    const value = useMemo(() => ({ ready, user, signIn, signOut }), [ready, user, signIn, signOut]);
+    const value = useMemo(() => ({ ready, user, signIn, register, signOut }), [ready, user, signIn, register, signOut]);
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

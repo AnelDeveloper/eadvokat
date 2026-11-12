@@ -1,6 +1,7 @@
 import { Pressable, RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { bs } from '@shared/i18n/bs';
+import { Button } from '@/components/ui/Button';
 import { ScreenState } from '@/components/ui/ScreenState';
 import { Text } from '@/components/ui/Text';
 import { go } from '@/lib/navigate';
@@ -21,9 +22,19 @@ export default function MattersScreen() {
                 <ScreenState error={error} onRetry={reload} />
             ) : (
                 <ScrollView contentContainerStyle={styles.content} refreshControl={<RefreshControl refreshing={loading} onRefresh={reload} />}>
-                    <Text size={30} weight={600} lineHeight={1.1} style={{ marginTop: 8, marginBottom: 14 }} accessibilityRole="header">
-                        {bs.matters.title}
-                    </Text>
+                    <View style={styles.head}>
+                        <Text size={30} weight={600} lineHeight={1.1} accessibilityRole="header">
+                            {bs.matters.title}
+                        </Text>
+                        <Button label={bs.matters.create} size="sm" onPress={() => go('/predmeti/novi')} />
+                    </View>
+                    {data.matters.length === 0 ? (
+                        <View style={styles.empty}>
+                            <Text size={15} color={colors.muted}>
+                                {bs.matters.emptyList}
+                            </Text>
+                        </View>
+                    ) : null}
                     <View style={{ gap: 10 }}>
                         {data.matters.map((matter) => (
                             <Pressable key={matter.id} accessibilityRole="button" onPress={() => go(`/predmeti/${matter.id}`)} style={styles.card}>
@@ -63,6 +74,8 @@ export default function MattersScreen() {
 }
 
 const styles = StyleSheet.create({
+    head: { marginTop: 8, marginBottom: 14, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12 },
+    empty: { borderWidth: 1, borderStyle: 'dashed', borderColor: colors.lineStrong, borderRadius: radius.card, backgroundColor: colors.white, padding: 16 },
     content: { paddingHorizontal: 18, paddingTop: 6, paddingBottom: 18 },
     card: { backgroundColor: colors.white, borderWidth: 1, borderColor: colors.line, borderRadius: radius.card, overflow: 'hidden' },
     case: { paddingHorizontal: 14, paddingVertical: 12, borderBottomWidth: 2, borderBottomColor: colors.ink },

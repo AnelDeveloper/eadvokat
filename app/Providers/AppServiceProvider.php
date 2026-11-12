@@ -56,7 +56,7 @@ class AppServiceProvider extends ServiceProvider
                 ->letters()
                 ->numbers()
                 ->symbols()
-                ->uncompromised()
+            // No uncompromised() check: it calls an external service (rule 7).
             : null,
         );
     }

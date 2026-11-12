@@ -14,4 +14,5 @@ return [
     'already_saved' => 'Bilješka je već sačuvana.',
     'event_confirmed' => 'Ročište je potvrđeno.',
     'note_confirmed' => 'Bilješka je potvrđena.',
+    'unavailable' => 'Diktiranje će biti dostupno kada kancelarija odabere servis za prepoznavanje govora.',
 ];

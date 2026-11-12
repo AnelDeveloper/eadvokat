@@ -8,6 +8,8 @@ use App\Actions\ConfirmEvent;
 use App\Actions\ConfirmNote;
 use App\Actions\Costs\ManageCostItems;
 use App\Actions\Costs\ManageCostSheet;
+use App\Actions\CreateMatter;
+use App\Actions\ProposeDeadline;
 use App\Actions\RecordDictation;
 use App\Actions\RecordOutgoingSubmission;
 use App\Actions\SaveHearingNote;
@@ -19,6 +21,8 @@ use App\Http\Controllers\CostSheetController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Requests\CaptureDocumentRequest;
 use App\Http\Requests\ConfirmDeadlineRequest;
+use App\Http\Requests\CreateMatterRequest;
+use App\Http\Requests\ProposeDeadlineRequest;
 use App\Http\Requests\RecordSubmissionRequest;
 use App\Http\Requests\SaveHearingNoteRequest;
 use App\Http\Requests\SaveIncomingMailRequest;
@@ -72,8 +76,23 @@ class ActionController extends Controller
 
         return $this->done(
             __('mail.saved', ['number' => $entry->register_number]),
-            $deadline ? "/rokovi/{$deadline->id}/prijedlog" : "/predmeti/{$matter->id}",
+            $deadline ? "/rokovi/{$deadline->id}/prijedlog" : "/predmeti/{$matter->id}/rokovi/novi?unos={$entry->id}",
         );
+    }
+
+    public function createMatter(CreateMatterRequest $request, CreateMatter $action): JsonResponse
+    {
+        $matter = $action->handle($this->user(), $request->payload());
+
+        return $this->done(__('messages.matter_created', ['case' => $matter->case_number]), "/predmeti/{$matter->id}");
+    }
+
+    public function proposeDeadline(ProposeDeadlineRequest $request, Matter $matter, ProposeDeadline $action): JsonResponse
+    {
+        Gate::authorize('update', $matter);
+        $deadline = $action->handle($matter, $request->payload());
+
+        return $this->done(null, "/rokovi/{$deadline->id}/prijedlog");
     }
 
     public function confirmDeadline(ConfirmDeadlineRequest $request, Deadline $deadline, ConfirmDeadline $action): JsonResponse
@@ -97,9 +116,10 @@ class ActionController extends Controller
 
     public function dictate(Request $request, RecordDictation $record): JsonResponse
     {
+        abort_unless($this->office()->is_demo, 422, __('dictation.unavailable'));
         $request->validate([
             'event_id' => ['required', 'integer'],
-            'audio' => [$this->office()->is_demo ? 'nullable' : 'required', 'file', 'mimetypes:audio/webm,audio/ogg,audio/mp4,audio/x-m4a,audio/aac,audio/mpeg,audio/wav,audio/x-wav,video/webm,video/mp4', 'max:51200'],
+            'audio' => ['nullable', 'file', 'mimetypes:audio/webm,audio/ogg,audio/mp4,audio/x-m4a,audio/aac,audio/mpeg,audio/wav,audio/x-wav,video/webm,video/mp4', 'max:51200'],
         ]);
 
         $hearing = Event::query()->where('type', EventType::Hearing)->findOrFail($request->integer('event_id'));

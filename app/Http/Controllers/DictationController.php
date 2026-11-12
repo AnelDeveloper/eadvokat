@@ -24,9 +24,11 @@ class DictationController extends Controller
 
     public function store(Request $request, RecordDictation $record): RedirectResponse
     {
+        // Real offices: no speech service is connected yet, so nothing is transcribed.
+        abort_unless($this->office()->is_demo, 403, __('dictation.unavailable'));
         $validated = $request->validate([
             'event_id' => ['required', 'integer'],
-            'audio' => [$this->office()->is_demo ? 'nullable' : 'required', 'file', 'mimetypes:audio/webm,audio/ogg,audio/mp4,audio/mpeg,audio/wav,audio/x-wav,video/webm', 'max:51200'],
+            'audio' => ['nullable', 'file', 'mimetypes:audio/webm,audio/ogg,audio/mp4,audio/mpeg,audio/wav,audio/x-wav,video/webm', 'max:51200'],
         ]);
 
         $hearing = Event::query()->where('type', EventType::Hearing)->findOrFail($request->integer('event_id'));

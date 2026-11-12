@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
+import Logo from '@/components/ui/Logo.vue';
 import { bs } from '@/i18n/bs';
 import { home } from '@/routes';
 </script>
@@ -11,9 +12,10 @@ import { home } from '@/routes';
         <div class="w-full max-w-[400px]">
             <Link
                 :href="home()"
-                class="mb-6 inline-flex min-h-11 items-center font-serif text-[24px] font-semibold tracking-[-.01em] text-ink no-underline"
-                >{{ bs.appName }}</Link
-            >
+                class="mb-6 inline-flex min-h-11 items-center"
+                :aria-label="bs.appName"
+                ><Logo :height="34"
+            /></Link>
             <slot />
         </div>
     </div>

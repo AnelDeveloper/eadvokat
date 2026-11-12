@@ -15,17 +15,20 @@ export const bs = {
             pilot: 'Početak',
             login: 'Prijava',
             openApp: 'Otvori aplikaciju',
-            cta: 'Pogledaj demo',
+            cta: 'Registrujte se',
             sections: 'Odjeljci stranice',
+            register: 'Registracija',
         },
         hero: {
             kicker: 'Asistent za advokatsku kancelariju',
             title: 'Od primljene pošte do potvrđenog roka. Bez prepisivanja.',
             lead: 'Fotografija sudskog pismena postaje prijedlog unosa u knjigu pošte, prijedlog roka i podsjetnik. Advokat sve pregleda, ispravlja i potvrđuje — tek tada rok postaje aktivan.',
-            cta: 'Pogledaj demo →',
+            cta: 'Registrujte se →',
+            demo: 'Pogledaj demo',
             ctaNote: 'Telefon desno je već aktivan — možete kliknuti odmah.',
             ctaNoteMobile:
                 'Telefon ispod je već aktivan — možete ga dodirnuti.',
+            register: 'Otvorite račun za svoju kancelariju ›',
             tableCase: 'Predmet 65 0 P 084512 25 P',
             tableFictional: 'primjer',
             rows: [
@@ -175,7 +178,7 @@ export const bs = {
         },
         footer: {
             text: 'eAdvokat je aplikacija za advokatske kancelarije u Bosni i Hercegovini. Advokatska komora je nije odobrila niti podržala. Predmet, stranke i iznosi u primjerima na ovoj stranici su izmišljeni.',
-            cta: 'Pogledaj demo →',
+            cta: 'Registrujte se →',
         },
         phoneLabel: 'Otvori demo: ekran „Danas“ u aplikaciji',
     },
@@ -215,6 +218,62 @@ export const bs = {
         recorded: 'Evidentirano',
         auditIntro: 'Dnevnik značajnih izmjena u predmetu.',
         empty: 'Nema unosa.',
+        create: 'Novi predmet',
+        emptyList:
+            'Još nema predmeta. Otvorite prvi predmet da biste mogli evidentirati poštu i rokove.',
+        addDeadline: 'Dodaj rok',
+    },
+
+    register: {
+        title: 'Registracija kancelarije',
+        description:
+            'Otvorite račun za svoju advokatsku kancelariju. Podaci kancelarije vidljivi su samo vašim korisnicima.',
+        officeName: 'Naziv kancelarije',
+        officePlaceholder: 'npr. Advokatska kancelarija Hadžić',
+        titleLabel: 'Titula (neobavezno)',
+        name: 'Ime i prezime',
+        email: 'E-mail',
+        password: 'Lozinka',
+        confirm: 'Ponovite lozinku',
+        submit: 'Otvori račun',
+        haveAccount: 'Već imate račun?',
+        login: 'Prijavite se',
+    },
+
+    newMatter: {
+        title: 'Novi predmet',
+        caseNumber: 'Broj predmeta',
+        caseNumberPlaceholder: 'npr. 65 0 P 123456 26 P',
+        name: 'Naziv predmeta',
+        namePlaceholder: 'npr. Begić protiv Primjer d.o.o.',
+        subject: 'Vrsta spora',
+        subjectPlaceholder: 'npr. Radi naknade štete',
+        court: 'Sud',
+        courtPlaceholder: 'npr. Općinski sud u Sarajevu',
+        side: 'Zastupamo',
+        sidePlaceholder: 'npr. tužioca',
+        client: 'Stranka',
+        jurisdiction: 'Nadležnost',
+        submit: 'Otvori predmet',
+    },
+
+    newDeadline: {
+        title: 'Novi rok',
+        intro: 'Rok se unosi kao prijedlog. Aktivan je tek kada potvrdite pravilo, početak i posljednji dan.',
+        fromEntry: (number: string, type: string) =>
+            `Iz unosa ${number} · ${type}`,
+        name: 'Naziv roka',
+        namePlaceholder: 'npr. Izjašnjenje na nalaz vještaka',
+        rule: 'Pravilo (unosi advokat)',
+        rulePlaceholder: 'npr. Rok određen u rješenju: 15 dana od dana prijema',
+        days: 'Broj dana (neobavezno)',
+        start: 'Početak (datum prijema)',
+        due: 'Posljednji dan roka',
+        computed:
+            'Izračunato kao početak + broj dana; dan prijema se ne računa. Praznici i neradni dani nisu provjereni.',
+        quote: 'Navod iz dokumenta (neobavezno)',
+        submit: 'Nastavi na potvrdu roka',
+        skip: 'Preskoči — bez roka',
     },
 
     document: {
@@ -266,6 +325,10 @@ export const bs = {
             'Pretpostavljen današnji datum — provjerite s dostavnicom.',
         quotes: 'Izdvojeni navodi iz dokumenta',
         save: 'Potvrdi i sačuvaj u knjigu pošte',
+        noReading:
+            'Automatsko čitanje dokumenta nije uključeno. Unesite polja prema učitanom dokumentu.',
+        original: 'Učitani dokument',
+        openOriginal: 'Otvori original ›',
     },
 
     calendar: {
@@ -334,6 +397,8 @@ export const bs = {
         noMic: 'Mikrofon nije dostupan. Dozvolite pristup mikrofonu u pregledniku.',
         useFixture: 'Nastavi s pripremljenim diktatom',
         noHearing: 'Danas nema ročišta za koje se bilježi bilješka.',
+        unavailable:
+            'Diktiranje će biti dostupno kada kancelarija odabere servis za prepoznavanje govora.',
         transcript: 'Transkript · izvor prijedloga',
         eventCard: 'Događaj u kalendaru',
         eventTitle: (title: string) =>
@@ -530,8 +595,8 @@ export const bs = {
         password: 'Lozinka',
         remember: 'Zapamti me na ovom uređaju',
         submit: 'Prijavi se',
-        noAccount:
-            'Račune otvara administrator kancelarije. Javna registracija nije moguća.',
+        noAccount: 'Nemate račun?',
+        registerLink: 'Registrujte kancelariju',
         backHome: '‹ eAdvokat',
     },
 

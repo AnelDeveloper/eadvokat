@@ -1,8 +1,10 @@
+import { Link } from 'expo-router';
 import { useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { bs } from '@shared/i18n/bs';
 import { Button } from '@/components/ui/Button';
+import { Logo } from '@/components/ui/Logo';
 import { Text } from '@/components/ui/Text';
 import { TextField } from '@/components/ui/TextField';
 import { ApiError } from '@/lib/api';
@@ -34,9 +36,9 @@ export default function Login() {
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.app }}>
             <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
                 <ScrollView contentContainerStyle={styles.page} keyboardShouldPersistTaps="handled">
-                    <Text family="serif" weight={600} size={24} style={{ marginBottom: 24 }}>
-                        {bs.appName}
-                    </Text>
+                    <View style={{ marginBottom: 24 }}>
+                        <Logo height={34} />
+                    </View>
                     <View style={styles.card}>
                         <Text size={30} weight={600} accessibilityRole="header">
                             {bs.auth.loginTitle}
@@ -67,9 +69,16 @@ export default function Login() {
                             <Button label={bs.auth.submit} onPress={submit} busy={busy} />
                         </View>
                     </View>
-                    <Text size={13} color={colors.muted} style={{ marginTop: 14 }}>
-                        {bs.auth.noAccount}
-                    </Text>
+                    <View style={styles.registerRow}>
+                        <Text size={14} color={colors.muted}>
+                            {bs.auth.noAccount}
+                        </Text>
+                        <Link href="/registracija" style={styles.registerLink}>
+                            <Text size={14} weight={600} style={{ textDecorationLine: 'underline' }}>
+                                {bs.auth.registerLink}
+                            </Text>
+                        </Link>
+                    </View>
                 </ScrollView>
             </KeyboardAvoidingView>
         </SafeAreaView>
@@ -78,5 +87,7 @@ export default function Login() {
 
 const styles = StyleSheet.create({
     page: { flexGrow: 1, justifyContent: 'center', padding: 20 },
+    registerRow: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', columnGap: 6, marginTop: 10 },
+    registerLink: { minHeight: 44, justifyContent: 'center', paddingVertical: 12 },
     card: { backgroundColor: colors.white, borderWidth: 1, borderColor: colors.line, borderRadius: radius.card, paddingHorizontal: 18, paddingVertical: 20 },
 });

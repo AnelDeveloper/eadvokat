@@ -7,6 +7,7 @@ use App\Enums\MailDirection;
 use App\Models\Deadline;
 use App\Models\Document;
 use App\Models\MailEntry;
+use App\Models\Matter;
 use App\Services\Extraction\Extraction;
 use App\Services\RegisterNumbers;
 use App\Support\Clock;
@@ -70,6 +71,10 @@ final class MailScreens
                 'received_on' => $fields['received_on'],
             ],
             'receivedOnAssumed' => $fields['received_on_assumed'],
+            // Without automatic reading the lawyer types the fields from the original.
+            'fileUrl' => $document->hasFile() ? route('documents.file', $document, false) : null,
+            'isImage' => str_starts_with((string) $document->mime_type, 'image/'),
+            'caseNumbers' => Matter::query()->orderBy('case_number')->pluck('case_number'),
         ];
     }
 

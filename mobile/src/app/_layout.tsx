@@ -45,6 +45,7 @@ function Navigation() {
         <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.app } }}>
             <Stack.Protected guard={!user}>
                 <Stack.Screen name="login" />
+                <Stack.Screen name="registracija" />
             </Stack.Protected>
             <Stack.Protected guard={!!user}>
                 <Stack.Screen name="(tabs)" />

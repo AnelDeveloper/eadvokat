@@ -11,4 +11,6 @@ return [
     'reminder_1' => 'Sutra ističe rok: :title',
     'reminder_detail' => 'Rok :date',
     'source_meta' => ':name od :date',
+    'manual_basis' => ':days dana od početka',
+    'manual_basis_open' => 'od početka',
 ];

@@ -5,9 +5,11 @@ import { bs } from '@shared/i18n/bs';
 import type { AgendaRow, MatterHeader as Header } from '@shared/types/agenda';
 import { MatterHeader } from '@/components/matters/MatterHeader';
 import { TimelineRow } from '@/components/matters/TimelineRow';
+import { Button } from '@/components/ui/Button';
 import { ScreenState } from '@/components/ui/ScreenState';
 import { SectionLabel } from '@/components/ui/SectionLabel';
 import { Text } from '@/components/ui/Text';
+import { go } from '@/lib/navigate';
 import { useScreen } from '@/lib/useScreen';
 import { colors } from '@/theme/tokens';
 
@@ -29,7 +31,10 @@ export default function TimelineScreen() {
                 >
                     <MatterHeader matter={data.matter} active="timeline" />
                     <View style={{ paddingHorizontal: 18, paddingTop: 6, paddingBottom: 20 }}>
-                        <SectionLabel style={{ paddingTop: 14, paddingBottom: 8 }}>{bs.matters.upcoming}</SectionLabel>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingTop: 8, paddingBottom: 8 }}>
+                            <SectionLabel>{bs.matters.upcoming}</SectionLabel>
+                            <Button label={bs.matters.addDeadline} variant="subtle" size="sm" weight={500} onPress={() => go(`/predmeti/${id}/rokovi/novi`)} />
+                        </View>
                         {data.upcoming.map((row) => (
                             <TimelineRow key={row.id} row={row} />
                         ))}

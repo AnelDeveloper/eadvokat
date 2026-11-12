@@ -3,6 +3,7 @@ import { Head, router } from '@inertiajs/vue3';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import BottomSheet from '@/components/ui/BottomSheet.vue';
 import Button from '@/components/ui/Button.vue';
+import Logo from '@/components/ui/Logo.vue';
 import PhoneFrame from '@/components/ui/PhoneFrame.vue';
 import PhoneStatusBar from '@/components/ui/PhoneStatusBar.vue';
 import { bs } from '@/i18n/bs';
@@ -88,10 +89,12 @@ onBeforeUnmount(() => {
             class="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-b border-line bg-white px-[clamp(20px,4vw,56px)] py-3.5"
         >
             <div class="flex flex-wrap items-baseline gap-3">
-                <span
-                    class="font-serif text-[24px] font-semibold tracking-[-.01em]"
-                    >{{ bs.appName }}</span
-                >
+                <a
+                    href="/"
+                    class="flex min-h-11 items-center"
+                    :aria-label="bs.appName"
+                    ><Logo :height="30"
+                /></a>
                 <span
                     class="rounded-chip border border-dashed border-proposed bg-proposed-bg px-[7px] py-0.5 font-mono text-[12px] text-proposed-text"
                     >{{ t.badge }}</span

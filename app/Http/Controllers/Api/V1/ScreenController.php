@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Demo\DemoProgress;
 use App\Enums\DeadlineStatus;
+use App\Enums\Jurisdiction;
 use App\Enums\MailDirection;
 use App\Http\Controllers\Controller;
 use App\Models\Deadline;
@@ -19,6 +20,7 @@ use App\Screens\MailScreens;
 use App\Screens\MatterScreens;
 use App\Screens\SubmissionScreen;
 use App\Screens\TodayScreen;
+use App\Support\Clock;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -47,6 +49,31 @@ class ScreenController extends Controller
     public function matters(MatterScreens $screens): JsonResponse
     {
         return response()->json($screens->index((bool) $this->office()->is_demo));
+    }
+
+    public function matterCreate(): JsonResponse
+    {
+        return response()->json([
+            'jurisdictions' => collect(Jurisdiction::cases())->map(fn (Jurisdiction $j) => ['value' => $j->value, 'label' => $j->shortLabel()]),
+        ]);
+    }
+
+    public function deadlineCreate(Request $request, Matter $matter): JsonResponse
+    {
+        Gate::authorize('update', $matter);
+        $entry = $request->integer('unos') ? MailEntry::query()->where('matter_id', $matter->id)->find($request->integer('unos')) : null;
+
+        return response()->json([
+            'matter' => ['id' => $matter->id, 'caseNumber' => $matter->case_number, 'title' => $matter->title],
+            'entry' => $entry ? [
+                'id' => $entry->id,
+                'number' => $entry->register_number,
+                'docType' => $entry->doc_type,
+                'receivedOn' => $entry->received_or_sent_on->toDateString(),
+                'documentId' => $entry->document_id,
+            ] : null,
+            'today' => Clock::today()->toDateString(),
+        ]);
     }
 
     public function matter(Matter $matter, MatterScreens $screens): JsonResponse
@@ -91,7 +118,11 @@ class ScreenController extends Controller
 
         abort_if($document->extraction === null, 404);
 
-        return response()->json($screens->review($document, $this->user()->office_id));
+        $data = $screens->review($document, $this->user()->office_id);
+        // The app fetches the original with its token through the API.
+        $data['fileUrl'] = $document->hasFile() ? "/api/v1/documents/{$document->id}/file" : null;
+
+        return response()->json($data);
     }
 
     public function deadline(Deadline $deadline, DeadlineScreen $screen): JsonResponse

@@ -15,7 +15,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -77,8 +76,8 @@ class MailController extends Controller
 
         Inertia::flash('toast', __('mail.saved', ['number' => $entry->register_number]));
 
-        return $deadline && Route::has('deadlines.review')
+        return $deadline
             ? to_route('deadlines.review', $deadline)
-            : to_route('matters.show', $matter);
+            : to_route('deadlines.create', ['matter' => $matter, 'unos' => $entry->id]);
     }
 }

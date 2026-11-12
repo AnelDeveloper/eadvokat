@@ -44,7 +44,8 @@ grep -q 'Od primljene pošte do potvrđenog roka' "$OUT/index.html" || { echo "S
 
 mkdir -p "$OUT/build"
 cp -R public/build/assets "$OUT/build/assets"
-cp public/favicon.ico public/favicon.svg public/apple-touch-icon.png public/robots.txt "$OUT/"
+cp public/favicon.ico public/apple-touch-icon.png public/robots.txt "$OUT/"
+cp -R public/brand "$OUT/brand"
 
 cat > "$OUT/vercel.json" <<JSON
 {
@@ -58,7 +59,8 @@ cat > "$OUT/vercel.json" <<JSON
     ],
     "redirects": [
         { "source": "/login", "destination": "$APP_ORIGIN/login", "permanent": false },
-        { "source": "/demo", "destination": "$APP_ORIGIN/demo", "permanent": false }
+        { "source": "/demo", "destination": "$APP_ORIGIN/demo", "permanent": false },
+        { "source": "/registracija", "destination": "$APP_ORIGIN/registracija", "permanent": false }
     ]
 }
 JSON

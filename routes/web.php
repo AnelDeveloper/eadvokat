@@ -11,12 +11,18 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\MatterController;
 use App\Http\Controllers\NoteController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ReminderController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\TodayController;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'Landing')->name('home');
+
+Route::middleware('guest')->group(function () {
+    Route::get('registracija', [RegisterController::class, 'create'])->name('register');
+    Route::post('registracija', [RegisterController::class, 'store'])->middleware('throttle:6,1')->name('register.store');
+});
 
 Route::get('demo', [DemoController::class, 'show'])->middleware('throttle:demo')->name('demo');
 Route::post('demo/reset', [DemoController::class, 'reset'])->middleware('throttle:demo')->name('demo.reset');
@@ -40,6 +46,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('troskovi/stavke/{item}', [CostItemController::class, 'destroy'])->name('cost-items.destroy');
 
     Route::get('predmeti', [MatterController::class, 'index'])->name('matters.index');
+    Route::get('predmeti/novi', [MatterController::class, 'create'])->name('matters.create');
+    Route::post('predmeti', [MatterController::class, 'store'])->name('matters.store');
+    Route::get('predmeti/{matter}/rokovi/novi', [DeadlineController::class, 'create'])->name('deadlines.create');
+    Route::post('predmeti/{matter}/rokovi', [DeadlineController::class, 'store'])->name('deadlines.store');
     Route::get('predmeti/{matter}', [MatterController::class, 'show'])->name('matters.show');
     Route::get('predmeti/{matter}/izmjene', [MatterController::class, 'audit'])->name('matters.audit');
 

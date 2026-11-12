@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, Link, useForm } from '@inertiajs/vue3';
 import Button from '@/components/ui/Button.vue';
 import Checkbox from '@/components/ui/Checkbox.vue';
 import TextField from '@/components/ui/TextField.vue';
@@ -51,5 +51,12 @@ function submit(): void {
             }}</Button>
         </form>
     </div>
-    <p class="mt-3.5 text-[13px] text-muted">{{ bs.auth.noAccount }}</p>
+    <p class="mt-3.5 text-[14px] text-muted">
+        {{ bs.auth.noAccount }}
+        <Link
+            href="/registracija"
+            class="inline-flex min-h-11 items-center font-semibold text-ink underline"
+            >{{ bs.auth.registerLink }}</Link
+        >
+    </p>
 </template>

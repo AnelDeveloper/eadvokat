@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
+import Button from '@/components/ui/Button.vue';
 import { bs } from '@/i18n/bs';
 
 defineProps<{
@@ -19,9 +20,18 @@ defineProps<{
     <Head :title="bs.matters.title" />
 
     <div class="px-4.5 pt-1.5 pb-4.5 lg:px-8">
-        <h1 class="mt-2 mb-3.5 text-title font-semibold">
-            {{ bs.matters.title }}
-        </h1>
+        <div class="mt-2 mb-3.5 flex items-center justify-between gap-3">
+            <h1 class="m-0 text-title font-semibold">{{ bs.matters.title }}</h1>
+            <Button href="/predmeti/novi" size="sm" class="px-4">{{
+                bs.matters.create
+            }}</Button>
+        </div>
+        <div
+            v-if="matters.length === 0"
+            class="rounded-card border border-dashed border-line-strong bg-white px-4 py-6 text-[15px] text-muted"
+        >
+            {{ bs.matters.emptyList }}
+        </div>
         <div class="grid gap-2.5">
             <Link
                 v-for="matter in matters"

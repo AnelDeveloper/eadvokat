@@ -24,4 +24,6 @@ return [
     'cost_removed' => 'Stavka troškovnika „:title“ uklonjena iz nacrta.',
     'tariff_changed' => 'Izvor tarife izmijenjen: :source',
     'cost_sheet_approved' => 'Nacrt troškovnika odobrio advokat. Nadležnost: :jurisdiction; izvor tarife: :source.',
+    'matter_created' => 'Predmet :case otvoren.',
+    'deadline_entered' => 'Rok :date unesen ručno kao prijedlog. Nije aktivan dok ga advokat ne potvrdi.',
 ];

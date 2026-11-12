@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\CreateMatter;
+use App\Enums\Jurisdiction;
+use App\Http\Requests\CreateMatterRequest;
 use App\Models\Matter;
 use App\Screens\MatterScreens;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -15,6 +19,21 @@ class MatterController extends Controller
     public function index(): Response
     {
         return Inertia::render('matters/Index', $this->screens->index((bool) $this->office()->is_demo));
+    }
+
+    public function create(): Response
+    {
+        return Inertia::render('matters/Create', [
+            'jurisdictions' => collect(Jurisdiction::cases())->map(fn (Jurisdiction $j) => ['value' => $j->value, 'label' => $j->shortLabel()]),
+        ]);
+    }
+
+    public function store(CreateMatterRequest $request, CreateMatter $action): RedirectResponse
+    {
+        $matter = $action->handle($this->user(), $request->payload());
+        Inertia::flash('toast', __('messages.matter_created', ['case' => $matter->case_number]));
+
+        return to_route('matters.show', $matter);
     }
 
     public function show(Matter $matter): Response

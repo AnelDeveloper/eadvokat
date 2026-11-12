@@ -10,4 +10,5 @@ return [
     'already_registered' => 'Dokument je već evidentiran kao :number.',
     'unknown_matter' => 'U kancelariji ne postoji predmet s ovim brojem.',
     'saved' => 'Unos :number je sačuvan u knjigu pošte.',
+    'received_document' => 'Primljeni dokument',
 ];

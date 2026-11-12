@@ -183,5 +183,5 @@ it('keeps recordings private to their office', function () {
     $this->actingAs($stranger)->post('/diktat', [
         'event_id' => $hearingId,
         'audio' => UploadedFile::fake()->create('d.webm', 10, 'audio/webm'),
-    ])->assertNotFound();
+    ])->assertForbidden();
 });

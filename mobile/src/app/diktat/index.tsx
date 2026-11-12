@@ -12,7 +12,7 @@ import { useToast } from '@/lib/toast';
 import { useScreen } from '@/lib/useScreen';
 import { colors } from '@/theme/tokens';
 
-type Dictation = { hearing: { id: number; label: string } | null; isDemo: boolean };
+type Dictation = { hearing: { id: number; label: string } | null; isDemo: boolean; available: boolean };
 
 const t = bs.dictation;
 
@@ -83,7 +83,11 @@ export default function DictationScreen() {
                 <ScreenState error={error} onRetry={reload} />
             ) : (
                 <View style={styles.body}>
-                    {data.hearing ? (
+                    {!data.available ? (
+                        <Text size={15} color={colors.muted} align="center" style={{ maxWidth: 320 }}>
+                            {t.unavailable}
+                        </Text>
+                    ) : data.hearing ? (
                         <>
                             <Text family="mono" size={12.5} color={colors.muted} align="center">
                                 {data.hearing.label}

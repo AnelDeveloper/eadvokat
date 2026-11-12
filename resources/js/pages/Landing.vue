@@ -5,6 +5,7 @@ import BriefingCard from '@/components/today/BriefingCard.vue';
 import QuickActions from '@/components/today/QuickActions.vue';
 import TodayHeader from '@/components/today/TodayHeader.vue';
 import Button from '@/components/ui/Button.vue';
+import Logo from '@/components/ui/Logo.vue';
 import PhoneFrame from '@/components/ui/PhoneFrame.vue';
 import PhoneStatusBar from '@/components/ui/PhoneStatusBar.vue';
 import StatusChip from '@/components/ui/StatusChip.vue';
@@ -21,6 +22,7 @@ const signedIn = computed(() => page.props.auth.user !== null);
 // links point to the app's own origin.
 const appOrigin = (import.meta.env.VITE_APP_ORIGIN as string | undefined) ?? '';
 const prototypeHref = `${appOrigin}/demo`;
+const registerHref = `${appOrigin}/registracija`;
 
 const tabs = [
     { key: 'today', label: bs.tabs.today, href: '', active: true },
@@ -48,15 +50,18 @@ const h2 =
         <meta property="og:title" :content="`${bs.appName} · ${t.metaTitle}`" />
         <meta property="og:description" :content="t.metaDescription" />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="/brand/og-image.png" />
     </Head>
 
     <div class="min-h-screen bg-app text-[16px] leading-[1.5] text-ink">
         <header class="border-b border-line bg-white py-3" :class="gutter">
             <div class="flex items-center justify-between gap-x-6 gap-y-2">
-                <span
-                    class="font-serif text-[24px] font-semibold tracking-[-.01em]"
-                    >{{ bs.appName }}</span
-                >
+                <a
+                    href="/"
+                    class="flex min-h-11 items-center"
+                    :aria-label="bs.appName"
+                    ><Logo :height="32"
+                /></a>
                 <div class="flex items-center gap-x-[22px] text-[15px]">
                     <nav
                         class="hidden items-center gap-x-[22px] md:flex"
@@ -83,7 +88,7 @@ const h2 =
                         >{{ signedIn ? t.nav.openApp : t.nav.login }}</Link
                     >
                     <span class="hidden sm:block">
-                        <Button :href="prototypeHref" anchor size="nav">{{
+                        <Button :href="registerHref" anchor size="nav">{{
                             t.nav.cta
                         }}</Button>
                     </span>
@@ -130,10 +135,19 @@ const h2 =
                     {{ t.hero.lead }}
                 </p>
                 <div class="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3.5">
-                    <Button :href="prototypeHref" anchor size="hero">{{
+                    <Button :href="registerHref" anchor size="hero">{{
                         t.hero.cta
                     }}</Button>
-                    <span class="max-w-[260px] text-[14px] text-muted">
+                    <Button
+                        :href="prototypeHref"
+                        anchor
+                        size="hero"
+                        variant="outline"
+                        >{{ t.hero.demo }}</Button
+                    >
+                    <span
+                        class="max-w-[260px] basis-full text-[14px] text-muted"
+                    >
                         <span class="min-[900px]:hidden">{{
                             t.hero.ctaNoteMobile
                         }}</span>
@@ -370,7 +384,7 @@ const h2 =
                 >
                     {{ t.footer.text }}
                 </p>
-                <Button :href="prototypeHref" anchor size="cta">{{
+                <Button :href="registerHref" anchor size="cta">{{
                     t.footer.cta
                 }}</Button>
             </div>

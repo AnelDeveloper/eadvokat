@@ -3,6 +3,7 @@ import { usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import TabBar from '@/components/ui/TabBar.vue';
 import type { TabItem } from '@/components/ui/TabBar.vue';
+import Logo from '@/components/ui/Logo.vue';
 import Toast from '@/components/ui/Toast.vue';
 import { bs } from '@/i18n/bs';
 
@@ -34,10 +35,8 @@ const tabs = computed<TabItem[]>(() =>
         <aside
             class="hidden lg:sticky lg:top-0 lg:block lg:h-svh lg:w-[240px] lg:flex-none lg:border-r lg:border-line lg:bg-white lg:pt-5"
         >
-            <div
-                class="px-4 pb-5 font-serif text-[24px] font-semibold tracking-[-.01em]"
-            >
-                {{ bs.appName }}
+            <div class="px-4 pb-5">
+                <Logo :height="28" />
             </div>
             <TabBar vertical :items="tabs" />
         </aside>

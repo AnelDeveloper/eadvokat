@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
  */
 Route::prefix('v1')->group(function () {
     Route::post('auth/token', [AuthController::class, 'store'])->middleware('throttle:login-api');
+    Route::post('auth/register', [AuthController::class, 'register'])->middleware('throttle:6,1');
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('me', [AuthController::class, 'show']);
@@ -19,7 +20,11 @@ Route::prefix('v1')->group(function () {
         Route::get('today', [ScreenController::class, 'today']);
         Route::get('calendar', [ScreenController::class, 'calendar']);
         Route::get('matters', [ScreenController::class, 'matters']);
+        Route::get('matters/create', [ScreenController::class, 'matterCreate']);
+        Route::post('matters', [ActionController::class, 'createMatter']);
         Route::get('matters/{matter}', [ScreenController::class, 'matter']);
+        Route::get('matters/{matter}/deadlines/create', [ScreenController::class, 'deadlineCreate']);
+        Route::post('matters/{matter}/deadlines', [ActionController::class, 'proposeDeadline']);
         Route::get('matters/{matter}/audit', [ScreenController::class, 'audit']);
         Route::get('matters/{matter}/costs', [ScreenController::class, 'costs']);
         Route::get('mail', [ScreenController::class, 'mail']);
