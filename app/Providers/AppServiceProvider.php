@@ -35,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
         $this->configureDefaults();
 
         // Each new demo office is a database write; cap it per visitor.
+        RateLimiter::for('login-api', fn (Request $request) => Limit::perMinute(5)->by(mb_strtolower((string) $request->input('email')).'|'.$request->ip()));
         RateLimiter::for('demo', fn (Request $request) => Limit::perHour(30)->by($request->ip()));
     }
 
