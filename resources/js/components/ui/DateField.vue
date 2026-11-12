@@ -5,13 +5,19 @@ import { formatDate, parseDate } from '@/lib/format';
 /** ISO date (YYYY-MM-DD), or null while the typed text is not a valid date. */
 const model = defineModel<string | null>({ required: true });
 
-const { warn = false, large = true } = defineProps<{
+const {
+    warn = false,
+    large = true,
+    mono = true,
+} = defineProps<{
     label?: string;
     note?: string;
     error?: string;
     warn?: boolean;
     /** 16px mono as in the deadline proposal; false gives 15px. */
     large?: boolean;
+    /** false renders the sans-serif field style of the mail review form. */
+    mono?: boolean;
     name?: string;
 }>();
 
@@ -50,9 +56,10 @@ function commit(): void {
             inputmode="text"
             autocomplete="off"
             placeholder="dd.mm.gggg."
-            class="mt-1 block h-11 w-full rounded-field border bg-white px-3 font-mono outline-none focus:border-ink"
+            class="mt-1 block h-11 w-full rounded-field border bg-white px-3 outline-none focus:border-ink"
             :class="[
                 warn ? 'border-proposed' : 'border-line-strong',
+                mono && 'font-mono',
                 large ? 'text-[16px]' : 'text-[15px]',
             ]"
             @change="commit"

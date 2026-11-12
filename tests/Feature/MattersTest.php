@@ -111,3 +111,35 @@ it('serves uploaded files only to the owning office', function () {
     auth()->logout();
     $this->get("/dokumenti/{$document->id}/datoteka")->assertRedirect('/login');
 });
+
+it('never offers an off-site back link from the document viewer', function () {
+    [$user] = demoOffice();
+    $document = Document::query()->firstOrFail();
+
+    $this->actingAs($user)
+        ->withHeader('referer', 'http://127.0.0.1.evil.test/phish')
+        ->get("/dokumenti/{$document->id}")
+        ->assertInertia(fn ($page) => $page->where('backUrl', "/predmeti/{$document->matter_id}"));
+});
+
+it('downloads non-image uploads instead of rendering them inline', function () {
+    Storage::fake('local');
+    [$user, $matter] = demoOffice();
+    $path = UploadedFile::fake()->createWithContent('x.html', '<script>alert(1)</script>')->store('documents', 'local');
+    $document = Document::query()->create([
+        'office_id' => $user->office_id,
+        'matter_id' => $matter->id,
+        'kind' => 'court_document',
+        'name' => 'X',
+        'disk' => 'local',
+        'path' => $path,
+        'original_name' => 'x.html',
+        'mime_type' => 'text/html',
+    ]);
+
+    $response = $this->actingAs($user)->get("/dokumenti/{$document->id}/datoteka")->assertOk();
+
+    expect($response->headers->get('Content-Type'))->toBe('application/octet-stream')
+        ->and($response->headers->get('Content-Disposition'))->toStartWith('attachment')
+        ->and($response->headers->get('Content-Security-Policy'))->toContain('sandbox');
+});

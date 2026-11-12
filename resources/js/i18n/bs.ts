@@ -230,6 +230,43 @@ export const bs = {
         openFile: 'Otvori originalnu datoteku ›',
     },
 
+    mail: {
+        title: 'Knjiga pošte',
+        incoming: 'Ulazna',
+        outgoing: 'Izlazna',
+        captureIncoming: 'Fotografiši primljeni dokument',
+        recordOutgoing: 'Evidentiraj izlazni podnesak',
+        empty: 'Nema unosa.',
+    },
+
+    capture: {
+        cancel: 'Odustani',
+        heading: 'Primljeni dokument',
+        hint: 'Poravnajte dokument unutar okvira. U prototipu se koristi pripremljeni izmišljeni dokument.',
+        hintReal: 'Poravnajte dokument unutar okvira ili odaberite PDF.',
+        shutter: 'Fotografiši',
+        reading: 'Čitam dokument…',
+        fictional: 'DEMO — izmišljen dokument',
+    },
+
+    review: {
+        title: 'Pregled unosa',
+        step: '1/2',
+        source: 'Izvorni dokument',
+        sourceHint: 'Označeni dijelovi su izvor za polja ispod.',
+        heading: 'Unos u knjigu pošte',
+        incoming: 'ulazna pošta',
+        court: 'Sud',
+        caseNumber: 'Broj predmeta',
+        docType: 'Vrsta dokumenta',
+        documentDate: 'Datum dokumenta',
+        receivedOn: 'Datum prijema',
+        receivedAssumed:
+            'Pretpostavljen današnji datum — provjerite s dostavnicom.',
+        quotes: 'Izdvojeni navodi iz dokumenta',
+        save: 'Potvrdi i sačuvaj u knjigu pošte',
+    },
+
     status: {
         proposed: 'Predloženo · čeka pregled',
         confirmed: 'Potvrdio advokat',

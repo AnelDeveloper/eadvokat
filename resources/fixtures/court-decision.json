@@ -1,0 +1,62 @@
+{
+    "name": "Rješenje",
+    "fictional": true,
+    "paragraphs": [
+        {
+            "text": "Bosna i Hercegovina · Federacija Bosne i Hercegovine",
+            "align": "center"
+        },
+        {
+            "text": "OPĆINSKI SUD U SARAJEVU",
+            "align": "center",
+            "bold": true,
+            "highlighted": true
+        },
+        { "text": "Broj: 65 0 P 084512 25 P", "highlighted": true },
+        { "text": "Sarajevo, 06.11.2026. godine", "highlighted": true },
+        {
+            "text": "RJEŠENJE",
+            "align": "center",
+            "bold": true,
+            "highlighted": true
+        },
+        {
+            "text": "Tužiocu se, putem punomoćnika, dostavlja nalaz i mišljenje vještaka finansijske struke od 30.10.2026. godine."
+        },
+        {
+            "text": "Poziva se tužilac da se u roku od 15 dana od dana prijema ovog rješenja pismeno izjasni na nalaz i mišljenje vještaka.",
+            "highlighted": true
+        },
+        {
+            "text": "Protiv ovog rješenja nije dozvoljena posebna žalba.",
+            "highlighted": true
+        },
+        { "text": "Sudija", "align": "right" }
+    ],
+    "fields": {
+        "court": "Općinski sud u Sarajevu",
+        "case_number": "65 0 P 084512 25 P",
+        "doc_type": "Rješenje — dostava nalaza vještaka",
+        "document_date": "2026-11-06",
+        "received_on": null,
+        "received_on_assumed": true
+    },
+    "quotes": [
+        {
+            "text": "…da se u roku od 15 dana od dana prijema ovog rješenja pismeno izjasni…",
+            "note": "Mogući rok. Pregledate ga u sljedećem koraku — ništa se ne aktivira samo."
+        },
+        {
+            "text": "Protiv ovog rješenja nije dozvoljena posebna žalba.",
+            "note": "Samo navod iz dokumenta. Aplikacija ne ocjenjuje pravo na žalbu — to ostaje procjena advokata."
+        }
+    ],
+    "deadline": {
+        "title": "Izjašnjenje na nalaz i mišljenje vještaka",
+        "rule_text": "Rok određen u samom dokumentu: 15 dana od dana prijema",
+        "days": 15,
+        "basis": "15 dana od prijema",
+        "quote": "Poziva se tužilac da se u roku od 15 dana od dana prijema ovog rješenja pismeno izjasni na nalaz i mišljenje vještaka.",
+        "highlight": "u roku od 15 dana od dana prijema ovog rješenja"
+    }
+}
