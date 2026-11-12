@@ -15,6 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Railway and Vercel terminate TLS in front of the app.
+        $middleware->trustProxies(at: '*');
+
         $middleware->redirectUsersTo(fn () => route('today'));
 
         $middleware->web(append: [
