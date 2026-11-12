@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Document;
+use App\Screens\DocumentScreen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
@@ -14,7 +15,7 @@ class DocumentController extends Controller
 {
     private const INLINE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'];
 
-    public function show(Request $request, Document $document): Response
+    public function show(Request $request, Document $document, DocumentScreen $screen): Response
     {
         Gate::authorize('view', $document);
 
@@ -22,15 +23,7 @@ class DocumentController extends Controller
             ?? ($document->matter_id ? route('matters.show', $document->matter_id, false) : route('today', [], false));
 
         return Inertia::render('flow/DocumentViewer', [
-            'document' => [
-                'id' => $document->id,
-                'name' => $document->name,
-                'paragraphs' => $document->paragraphs ?? collect(explode("\n", str_replace("\r", '', (string) $document->extracted_text)))
-                    ->filter()->map(fn ($text) => ['text' => $text])->values(),
-                'isFictional' => $document->is_fictional,
-                'fileUrl' => $document->hasFile() ? route('documents.file', $document) : null,
-                'isImage' => str_starts_with((string) $document->mime_type, 'image/'),
-            ],
+            'document' => $screen->data($document),
             'backUrl' => $back,
         ]);
     }
