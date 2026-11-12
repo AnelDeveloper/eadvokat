@@ -33,7 +33,7 @@ function commit(): void {
             v-model="text"
             inputmode="decimal"
             :aria-label="label"
-            class="w-full min-w-0 border-0 bg-transparent text-right font-mono text-[15px] outline-none"
+            class="h-full w-full min-w-0 border-0 bg-transparent text-right font-mono text-[15px] outline-none"
             @change="commit"
         />
         <span class="text-field whitespace-nowrap text-muted">{{

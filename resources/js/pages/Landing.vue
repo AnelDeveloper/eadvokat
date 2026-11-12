@@ -51,41 +51,63 @@ const h2 =
     </Head>
 
     <div class="min-h-screen bg-app text-[16px] leading-[1.5] text-ink">
-        <header
-            class="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-b border-line bg-white py-3.5"
-            :class="gutter"
-        >
-            <div class="flex flex-wrap items-baseline gap-3">
+        <header class="border-b border-line bg-white py-3" :class="gutter">
+            <div class="flex items-center justify-between gap-x-6 gap-y-2">
                 <span
                     class="font-serif text-[24px] font-semibold tracking-[-.01em]"
                     >{{ bs.appName }}</span
                 >
-                <span
-                    class="rounded-chip border border-dashed border-proposed bg-proposed-bg px-[7px] py-0.5 font-mono text-[12px] text-proposed-text"
-                    >{{ t.badge }}</span
-                >
+                <div class="flex items-center gap-x-[22px] text-[15px]">
+                    <nav
+                        class="hidden items-center gap-x-[22px] md:flex"
+                        :aria-label="t.nav.sections"
+                    >
+                        <a href="#tok" class="no-underline">{{ t.nav.flow }}</a>
+                        <a href="#nadzor" class="no-underline">{{
+                            t.nav.oversight
+                        }}</a>
+                        <a href="#pilot" class="no-underline">{{
+                            t.nav.pilot
+                        }}</a>
+                    </nav>
+                    <a
+                        v-if="appOrigin"
+                        :href="`${appOrigin}/login`"
+                        class="inline-flex min-h-11 items-center no-underline"
+                        >{{ t.nav.login }}</a
+                    >
+                    <Link
+                        v-else
+                        :href="signedIn ? today() : login()"
+                        class="inline-flex min-h-11 items-center no-underline"
+                        >{{ signedIn ? t.nav.openApp : t.nav.login }}</Link
+                    >
+                    <span class="hidden sm:block">
+                        <Button :href="prototypeHref" anchor size="nav">{{
+                            t.nav.cta
+                        }}</Button>
+                    </span>
+                </div>
             </div>
             <nav
-                class="flex flex-wrap items-center gap-x-[22px] gap-y-2 text-[15px]"
+                class="-mb-1 flex gap-x-6 text-[15px] md:hidden"
+                :aria-label="t.nav.sections"
             >
-                <a href="#tok" class="no-underline">{{ t.nav.flow }}</a>
-                <a href="#nadzor" class="no-underline">{{ t.nav.oversight }}</a>
-                <a href="#pilot" class="no-underline">{{ t.nav.pilot }}</a>
                 <a
-                    v-if="appOrigin"
-                    :href="`${appOrigin}/login`"
+                    href="#tok"
                     class="inline-flex min-h-11 items-center no-underline"
-                    >{{ t.nav.login }}</a
+                    >{{ t.nav.flow }}</a
                 >
-                <Link
-                    v-else
-                    :href="signedIn ? today() : login()"
+                <a
+                    href="#nadzor"
                     class="inline-flex min-h-11 items-center no-underline"
-                    >{{ signedIn ? t.nav.openApp : t.nav.login }}</Link
+                    >{{ t.nav.oversight }}</a
                 >
-                <Button :href="prototypeHref" anchor size="nav">{{
-                    t.nav.cta
-                }}</Button>
+                <a
+                    href="#pilot"
+                    class="inline-flex min-h-11 items-center no-underline"
+                    >{{ t.nav.pilot }}</a
+                >
             </nav>
         </header>
 
@@ -111,9 +133,14 @@ const h2 =
                     <Button :href="prototypeHref" anchor size="hero">{{
                         t.hero.cta
                     }}</Button>
-                    <span class="max-w-[260px] text-[14px] text-muted">{{
-                        t.hero.ctaNote
-                    }}</span>
+                    <span class="max-w-[260px] text-[14px] text-muted">
+                        <span class="min-[900px]:hidden">{{
+                            t.hero.ctaNoteMobile
+                        }}</span>
+                        <span class="hidden min-[900px]:inline">{{
+                            t.hero.ctaNote
+                        }}</span>
+                    </span>
                 </div>
                 <div class="mt-11 max-w-[560px] border-t-2 border-ink">
                     <div
@@ -138,9 +165,6 @@ const h2 =
                         >
                     </div>
                 </div>
-                <p class="mt-4 mb-0 text-note text-muted">
-                    {{ t.hero.disclaimer }}
-                </p>
             </div>
 
             <a
@@ -230,7 +254,7 @@ const h2 =
                     <div
                         v-for="item in t.benefits.items"
                         :key="item.title"
-                        class="grid grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)] gap-x-7 gap-y-2 border-b border-line py-[18px]"
+                        class="grid gap-x-7 gap-y-2 border-b border-line py-[18px] sm:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]"
                     >
                         <div class="text-[20px] font-semibold">
                             {{ item.title }}
@@ -266,22 +290,13 @@ const h2 =
                     <div
                         v-for="item in t.oversight.items"
                         :key="item.question"
-                        class="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-x-8 gap-y-2 border-b border-muted py-[18px]"
+                        class="grid gap-x-8 gap-y-2 border-b border-muted py-[18px] md:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]"
                     >
                         <div class="text-[20px] font-semibold">
                             {{ item.question }}
                         </div>
                         <p class="m-0 text-[16px] leading-[1.5] text-line">
-                            <b class="text-white">{{
-                                t.oversight.inPrototype
-                            }}</b>
-                            {{ item.prototype }}
-                        </p>
-                        <p class="m-0 text-[16px] leading-[1.5] text-line">
-                            <b class="text-white">{{
-                                t.oversight.pilotCondition
-                            }}</b>
-                            {{ item.pilot }}
+                            {{ item.answer }}
                         </p>
                     </div>
                 </div>
@@ -312,7 +327,7 @@ const h2 =
                     <div
                         v-for="week in t.pilot.weeks"
                         :key="week.when"
-                        class="grid grid-cols-[130px_minmax(0,1fr)] gap-x-6 gap-y-2 border-b border-line py-4"
+                        class="grid gap-x-6 gap-y-1 border-b border-line py-4 sm:grid-cols-[130px_minmax(0,1fr)]"
                     >
                         <div class="font-mono text-[14px]">{{ week.when }}</div>
                         <p class="m-0 text-[17px] leading-[1.5]">

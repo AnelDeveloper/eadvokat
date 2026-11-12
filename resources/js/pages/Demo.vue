@@ -14,6 +14,9 @@ const progress = ref<boolean[]>(props.progress);
 const frameKey = ref(0);
 const sheetOpen = ref(false);
 const clock = ref('');
+const narrow = ref(false);
+let narrowQuery: MediaQueryList | undefined;
+const onNarrow = () => (narrow.value = narrowQuery?.matches ?? false);
 
 watch(
     () => props.progress,
@@ -61,12 +64,16 @@ function tick(): void {
 
 onMounted(() => {
     window.addEventListener('message', onMessage);
+    narrowQuery = window.matchMedia('(max-width: 639px)');
+    onNarrow();
+    narrowQuery.addEventListener('change', onNarrow);
     tick();
     timer = setInterval(tick, 15_000);
 });
 
 onBeforeUnmount(() => {
     window.removeEventListener('message', onMessage);
+    narrowQuery?.removeEventListener('change', onNarrow);
     clearInterval(timer);
 });
 </script>
@@ -87,7 +94,7 @@ onBeforeUnmount(() => {
                 >
                 <span
                     class="rounded-chip border border-dashed border-proposed bg-proposed-bg px-[7px] py-0.5 font-mono text-[12px] text-proposed-text"
-                    >{{ bs.landing.badge }}</span
+                    >{{ t.badge }}</span
                 >
             </div>
             <div class="flex flex-wrap gap-2">
@@ -123,8 +130,21 @@ onBeforeUnmount(() => {
             </div>
 
             <template v-else>
-                <PhoneFrame fit="demo" class="order-1">
-                    <PhoneStatusBar :clock="clock">
+                <!-- On phones the app fills the width; a phone-in-a-phone is too small to use. -->
+                <component
+                    :is="narrow ? 'div' : PhoneFrame"
+                    v-bind="
+                        narrow
+                            ? {
+                                  class: 'relative order-1 flex h-[calc(100svh-150px)] min-h-[560px] w-full flex-col overflow-hidden rounded-card border border-line bg-app',
+                              }
+                            : { fit: 'demo', class: 'order-1' }
+                    "
+                >
+                    <PhoneStatusBar
+                        :clock="narrow ? '' : clock"
+                        :tone="narrow ? 'surface' : 'app'"
+                    >
                         <button
                             type="button"
                             class="flex min-h-11 items-center border-0 bg-transparent p-0"
@@ -163,7 +183,7 @@ onBeforeUnmount(() => {
                             >{{ bs.common.close }}</Button
                         >
                     </BottomSheet>
-                </PhoneFrame>
+                </component>
 
                 <section class="order-2 max-w-[460px] flex-[1_1_320px]">
                     <div

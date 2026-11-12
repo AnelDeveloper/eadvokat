@@ -17,7 +17,7 @@ const dot: Record<DisplayStatus, string> = {
 </script>
 
 <template>
-    <div class="grid grid-cols-[88px_12px_minmax(0,1fr)] gap-2">
+    <div class="relative grid grid-cols-[88px_12px_minmax(0,1fr)] gap-2">
         <span class="pt-px font-mono text-[12px] whitespace-nowrap text-ink"
             >{{ row.when
             }}<span v-if="row.time" class="block text-muted">{{
@@ -42,6 +42,7 @@ const dot: Record<DisplayStatus, string> = {
                 :is="row.href ? Link : 'span'"
                 :href="row.href ?? undefined"
                 class="block text-row font-medium text-ink no-underline hover:text-ink"
+                :class="row.href && 'after:absolute after:inset-0'"
                 >{{ row.title }}</component
             >
             <span class="mt-0.5 block text-sub text-muted">{{ row.sub }}</span>
@@ -49,7 +50,7 @@ const dot: Record<DisplayStatus, string> = {
             <Link
                 v-if="row.documentId"
                 :href="`/dokumenti/${row.documentId}`"
-                class="mt-0.5 flex min-h-11 items-center text-[13px] font-semibold text-ink underline"
+                class="relative z-[1] mt-0.5 flex min-h-11 items-center text-[13px] font-semibold text-ink underline"
                 >{{ bs.common.sourceDocument }}</Link
             >
         </span>

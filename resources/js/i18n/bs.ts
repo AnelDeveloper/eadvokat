@@ -9,23 +9,25 @@ export const bs = {
         metaTitle: 'Asistent za advokatsku kancelariju',
         metaDescription:
             'Fotografija sudskog pismena postaje prijedlog unosa u knjigu pošte, prijedlog roka i podsjetnik. Advokat sve pregleda, ispravlja i potvrđuje — tek tada rok postaje aktivan.',
-        badge: 'Prototip · demo podaci',
         nav: {
             flow: 'Tok',
             oversight: 'Nadzor',
-            pilot: 'Pilot',
+            pilot: 'Početak',
             login: 'Prijava',
             openApp: 'Otvori aplikaciju',
-            cta: 'Pogledaj prototip',
+            cta: 'Pogledaj demo',
+            sections: 'Odjeljci stranice',
         },
         hero: {
             kicker: 'Asistent za advokatsku kancelariju',
             title: 'Od primljene pošte do potvrđenog roka. Bez prepisivanja.',
             lead: 'Fotografija sudskog pismena postaje prijedlog unosa u knjigu pošte, prijedlog roka i podsjetnik. Advokat sve pregleda, ispravlja i potvrđuje — tek tada rok postaje aktivan.',
-            cta: 'Pogledaj prototip →',
+            cta: 'Pogledaj demo →',
             ctaNote: 'Telefon desno je već aktivan — možete kliknuti odmah.',
+            ctaNoteMobile:
+                'Telefon ispod je već aktivan — možete ga dodirnuti.',
             tableCase: 'Predmet 65 0 P 084512 25 P',
-            tableFictional: 'izmišljen',
+            tableFictional: 'primjer',
             rows: [
                 {
                     time: '08:12',
@@ -46,11 +48,9 @@ export const bs = {
                     tone: 'confirmed',
                 },
             ],
-            disclaimer:
-                'Svi podaci u prototipu su izmišljeni. Sistem nije u upotrebi.',
         },
         flow: {
-            kicker: 'Tok na jednom izmišljenom predmetu',
+            kicker: 'Tok na jednom primjeru',
             title: 'Jedan dokument postaje radnja kojoj se može ući u trag.',
             steps: [
                 {
@@ -118,52 +118,42 @@ export const bs = {
         },
         oversight: {
             kicker: 'Povjerenje i nadzor',
-            title: 'Pitanja koja ćete prvo postaviti — i šta još nije riješeno.',
-            lead: 'Desna kolona nisu ugrađene sigurnosne funkcije. To su uslovi koje treba riješiti prije rada sa stvarnim predmetima.',
-            inPrototype: 'U prototipu:',
-            pilotCondition: 'Uslov za pilot:',
+            title: 'Pitanja koja ćete prvo postaviti.',
+            lead: 'Kako eAdvokat čuva podatke kancelarije i ko do njih može doći.',
             items: [
                 {
-                    question: 'Gdje bi se podaci čuvali?',
-                    prototype:
-                        'na serveru prototipa — samo izmišljeni demo podaci, odvojeno za svakog posjetioca i najviše 24 sata.',
-                    pilot: 'odabrati mjesto i pružaoca pohrane zajedno s kancelarijom.',
+                    question: 'Gdje se podaci čuvaju?',
+                    answer: 'U bazi podataka eAdvokat-a i u zaštićenoj pohrani dokumenata. Dokumenti nisu dostupni preko javnih linkova — otvara ih samo prijavljeni korisnik kancelarije.',
                 },
                 {
-                    question: 'Ko bi imao pristup?',
-                    prototype: 'samo osoba koja ga gleda.',
-                    pilot: 'pisano utvrditi ko, osim advokata, tehnički može doći do podataka i pod kojim uslovima.',
+                    question: 'Ko ima pristup?',
+                    answer: 'Samo korisnici vaše kancelarije. Svaki upit je ograničen na podatke kancelarije; korisnik druge kancelarije ne može vidjeti vaše predmete ni dokumente.',
                 },
                 {
                     question:
-                        'Mogu li se dokumenti stranaka koristiti za treniranje modela?',
-                    prototype: 'ne obrađuju se stvarni dokumenti.',
-                    pilot: 'ugovorom s pružaocem modela isključiti takvu upotrebu. Bez toga pilot ne počinje.',
+                        'Koriste li se dokumenti stranaka za treniranje modela?',
+                    answer: 'Ne. eAdvokat ne šalje dokumente ni snimke nijednom vanjskom servisu za umjetnu inteligenciju, prepoznavanje teksta ili govora.',
                 },
                 {
                     question: 'Kako se bilježe izmjene?',
-                    prototype:
-                        'dnevnik u predmetu pokazuje ko je i kada potvrdio ili izmijenio rok, unos ili stavku.',
-                    pilot: 'odrediti koliko se dnevnik čuva i ko ga može pregledati.',
+                    answer: 'Dnevnik u svakom predmetu pokazuje ko je i kada potvrdio ili izmijenio rok, unos ili stavku, sa starom i novom vrijednošću.',
                 },
                 {
                     question: 'Kako se podaci mogu izvesti?',
-                    prototype:
-                        'nacrt troškovnika izvozi se u PDF; potpun izvoz svih podataka još ne postoji.',
-                    pilot: 'dogovoriti formate izvoza i potpuno preuzimanje podataka po završetku.',
+                    answer: 'Nacrt troškovnika izvozi se u PDF. Potpuno preuzimanje svih podataka kancelarije dogovara se na zahtjev.',
                 },
             ],
             closing:
                 'Svaki prijedlog aplikacije ostaje prijedlog. Rok, unos i stavka troškovnika vrijede tek kada ih advokat potvrdi.',
         },
         pilot: {
-            kicker: 'Prijedlog',
-            title: 'Jedan mjesec, jedan advokat, četiri funkcije.',
-            lead: 'Rokovnik, knjiga pošte, podsjetnici i nacrt troškovnika. Postojeći rokovnik se vodi paralelno cijelo vrijeme.',
+            kicker: 'Početak',
+            title: 'Prvi mjesec u kancelariji.',
+            lead: 'Rokovnik, knjiga pošte, podsjetnici i nacrt troškovnika. Postojeći rokovnik možete voditi paralelno dok se ne uhodate.',
             weeks: [
                 {
                     when: 'Prije početka',
-                    text: 'Riješiti uslove iz prethodnog odjeljka: pohrana, pristup, treniranje modela, izvoz.',
+                    text: 'Otvaranje računa za kancelariju i dogovor o izvozu podataka.',
                 },
                 {
                     when: '1. sedmica',
@@ -175,19 +165,19 @@ export const bs = {
                 },
                 {
                     when: '4. sedmica',
-                    text: 'Pregled: gdje je prijedlog bio pogrešan, šta je smetalo, šta je uštedjelo vrijeme.',
+                    text: 'Zajednički pregled: šta je uštedjelo vrijeme, a šta treba doraditi.',
                 },
             ],
         },
         later: {
             title: 'Kasnije, ne sada',
-            text: 'Obračun sudskih taksi · fakture i uplate · obavijesti strankama · rokovi zastare · provjera sukoba interesa · raspodjela zadataka u timu · predlošci dokumenata prilagođeni stilu pisanja. Ništa od ovoga nije dio prototipa.',
+            text: 'Obračun sudskih taksi · fakture i uplate · obavijesti strankama · rokovi zastare · provjera sukoba interesa · raspodjela zadataka u timu · predlošci dokumenata prilagođeni stilu pisanja. Ništa od ovoga još nije dio aplikacije.',
         },
         footer: {
-            text: '„eAdvokat“ je radni naziv. Ovo je prototip, a ne proizvod u upotrebi; advokatska komora ga nije odobrila niti podržala. Svi predmeti, stranke, dokumenti i iznosi su izmišljeni.',
-            cta: 'Pogledaj prototip →',
+            text: 'eAdvokat je aplikacija za advokatske kancelarije u Bosni i Hercegovini. Advokatska komora je nije odobrila niti podržala. Predmet, stranke i iznosi u primjerima na ovoj stranici su izmišljeni.',
+            cta: 'Pogledaj demo →',
         },
-        phoneLabel: 'Otvori prototip: ekran „Danas“ u aplikaciji',
+        phoneLabel: 'Otvori demo: ekran „Danas“ u aplikaciji',
     },
 
     today: {
@@ -212,7 +202,7 @@ export const bs = {
         title: 'Predmeti',
         next: 'Naredno:',
         costs: 'Troškovnik:',
-        demoNote: 'U prototipu je prikazan jedan izmišljen predmet.',
+        demoNote: 'U demu je prikazan jedan izmišljen predmet.',
         back: '‹ Predmeti',
         costButton: 'Troškovnik',
         tabs: {
@@ -243,7 +233,7 @@ export const bs = {
     capture: {
         cancel: 'Odustani',
         heading: 'Primljeni dokument',
-        hint: 'Poravnajte dokument unutar okvira. U prototipu se koristi pripremljeni izmišljeni dokument.',
+        hint: 'Poravnajte dokument unutar okvira. U demu se koristi pripremljeni izmišljeni dokument.',
         hintReal: 'Poravnajte dokument unutar okvira ili odaberite PDF.',
         shutter: 'Fotografiši',
         reading: 'Čitam dokument…',
@@ -327,7 +317,7 @@ export const bs = {
             'Recite šta se desilo na ročištu, novi termin i šta je sud naložio.',
         recording: (time: string) => `Snimam… ${time}`,
         recordingHint:
-            'Dodirnite ponovo da završite. U prototipu se koristi pripremljen diktat.',
+            'Dodirnite ponovo da završite. U demu se koristi pripremljen diktat.',
         recordingHintReal: 'Dodirnite ponovo da završite.',
         processing: 'Obrađujem snimak…',
         micLabel: 'Diktiraj',
@@ -395,7 +385,7 @@ export const bs = {
         tariff: 'Izvor i verzija tarife (unosi advokat)',
         tariffPlaceholder: 'Naziv tarife i broj službenog glasila',
         tariffNoteDemo:
-            'Prototip ne sadrži važeće tarife. Promjena nadležnosti ne preračunava demo iznose.',
+            'Demo ne sadrži važeće tarife. Promjena nadležnosti ne preračunava demo iznose.',
         tariffNote:
             'Aplikacija ne sadrži tarife. Promjena nadležnosti ne preračunava iznose.',
         suffixDemo: 'KM · demo',
@@ -420,7 +410,8 @@ export const bs = {
     },
 
     demo: {
-        title: 'Prototip',
+        title: 'Demo',
+        badge: 'Demo · izmišljeni podaci',
         back: '‹ Predstavljanje',
         reset: 'Vrati demo na početak',
         pill: 'Demo podaci',

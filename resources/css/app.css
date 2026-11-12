@@ -69,7 +69,7 @@
 
     /* App type scale (px values from the README). */
     --text-chip: 11px;
-    --text-chip--line-height: 1;
+    --text-chip--line-height: 1.2;
     --text-label: 11.5px;
     --text-field: 12px;
     --text-sub: 12.5px;

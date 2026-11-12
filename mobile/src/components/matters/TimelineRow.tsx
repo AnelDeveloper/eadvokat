@@ -20,7 +20,8 @@ export function TimelineRow({ row }: { row: AgendaRow }) {
     const d = dot[row.status];
 
     return (
-        <View style={styles.row}>
+        // The whole row opens the item (as in the prototype); the document link stays separate.
+        <Pressable style={styles.row} disabled={!row.href} onPress={() => go(row.href)} accessibilityRole={row.href ? 'link' : undefined}>
             <View style={{ width: 88 }}>
                 <Text family="mono" size={12}>
                     {row.when}
@@ -39,11 +40,9 @@ export function TimelineRow({ row }: { row: AgendaRow }) {
                 <Text size={11} weight={600} color={colors.muted} uppercase tracking={0.05}>
                     {row.type}
                 </Text>
-                <Pressable disabled={!row.href} onPress={() => go(row.href)} accessibilityRole={row.href ? 'link' : undefined}>
-                    <Text size={15} weight={500} lineHeight={1.3}>
-                        {row.title}
-                    </Text>
-                </Pressable>
+                <Text size={15} weight={500} lineHeight={1.3}>
+                    {row.title}
+                </Text>
                 <Text size={12.5} color={colors.muted} style={{ marginTop: 2 }}>
                     {row.sub}
                 </Text>
@@ -56,7 +55,7 @@ export function TimelineRow({ row }: { row: AgendaRow }) {
                     </Pressable>
                 ) : null}
             </View>
-        </View>
+        </Pressable>
     );
 }
 
