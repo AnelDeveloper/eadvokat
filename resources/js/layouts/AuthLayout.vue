@@ -1,14 +1,20 @@
 <script setup lang="ts">
-import AuthLayout from '@/layouts/auth/AuthSimpleLayout.vue';
-
-const { title = '', description = '' } = defineProps<{
-    title?: string;
-    description?: string;
-}>();
+import { Link } from '@inertiajs/vue3';
+import { bs } from '@/i18n/bs';
+import { home } from '@/routes';
 </script>
 
 <template>
-    <AuthLayout :title="title" :description="description">
-        <slot />
-    </AuthLayout>
+    <div
+        class="flex min-h-svh flex-col items-center justify-center bg-app px-5 py-10"
+    >
+        <div class="w-full max-w-[400px]">
+            <Link
+                :href="home()"
+                class="mb-6 inline-flex min-h-11 items-center font-serif text-[24px] font-semibold tracking-[-.01em] text-ink no-underline"
+                >{{ bs.appName }}</Link
+            >
+            <slot />
+        </div>
+    </div>
 </template>

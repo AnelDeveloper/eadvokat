@@ -1,110 +1,55 @@
 <script setup lang="ts">
-import { Form, Head } from '@inertiajs/vue3';
-import InputError from '@/components/InputError.vue';
-import PasswordInput from '@/components/PasswordInput.vue';
-import TextLink from '@/components/TextLink.vue';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Spinner } from '@/components/ui/spinner';
-import { register } from '@/routes';
+import { Head, useForm } from '@inertiajs/vue3';
+import Button from '@/components/ui/Button.vue';
+import Checkbox from '@/components/ui/Checkbox.vue';
+import TextField from '@/components/ui/TextField.vue';
+import { bs } from '@/i18n/bs';
 import { store } from '@/routes/login';
-import { request } from '@/routes/password';
-import PasskeyVerify from '@/components/PasskeyVerify.vue';
 
-defineOptions({
-    layout: {
-        title: 'Log in to your account',
-        description: 'Enter your email and password below to log in',
-    },
-});
+defineProps<{ status?: string }>();
 
-defineProps<{
-    status?: string;
-    canResetPassword: boolean;
-}>();
+const form = useForm({ email: '', password: '', remember: false });
+
+function submit(): void {
+    form.submit(store(), { onFinish: () => form.reset('password') });
+}
 </script>
 
 <template>
-    <Head title="Log in" />
+    <Head :title="bs.auth.loginTitle" />
 
-    <div
-        v-if="status"
-        class="mb-4 text-center text-sm font-medium text-green-600"
-    >
-        {{ status }}
+    <div class="rounded-card border border-line bg-white px-4.5 py-5">
+        <h1 class="m-0 text-title font-semibold">{{ bs.auth.loginTitle }}</h1>
+        <p class="mt-1.5 mb-0 text-[14px] text-muted">
+            {{ bs.auth.loginDescription }}
+        </p>
+
+        <p v-if="status" class="mt-3 text-[14px] text-confirmed-text">
+            {{ status }}
+        </p>
+
+        <form class="mt-4 grid gap-3" @submit.prevent="submit">
+            <TextField
+                v-model="form.email"
+                :label="bs.auth.email"
+                type="email"
+                name="email"
+                autocomplete="email"
+                :error="form.errors.email"
+            />
+            <TextField
+                v-model="form.password"
+                :label="bs.auth.password"
+                type="password"
+                name="password"
+                autocomplete="current-password"
+                :error="form.errors.password"
+            />
+            <Checkbox v-model="form.remember">{{ bs.auth.remember }}</Checkbox>
+            <Button type="submit" block :disabled="form.processing">{{
+                bs.auth.submit
+            }}</Button>
+        </form>
     </div>
-
-    <PasskeyVerify />
-
-    <Form
-        v-bind="store.form()"
-        :reset-on-success="['password']"
-        v-slot="{ errors, processing }"
-        class="flex flex-col gap-6"
-    >
-        <div class="grid gap-6">
-            <div class="grid gap-2">
-                <Label for="email">Email address</Label>
-                <Input
-                    id="email"
-                    type="email"
-                    name="email"
-                    required
-                    v-focus
-                    :tabindex="1"
-                    autocomplete="email"
-                    placeholder="email@example.com"
-                />
-                <InputError :message="errors.email" />
-            </div>
-
-            <div class="grid gap-2">
-                <div class="flex items-center justify-between">
-                    <Label for="password">Password</Label>
-                    <TextLink
-                        v-if="canResetPassword"
-                        :href="request()"
-                        class="text-sm"
-                        :tabindex="5"
-                    >
-                        Forgot your password?
-                    </TextLink>
-                </div>
-                <PasswordInput
-                    id="password"
-                    name="password"
-                    required
-                    :tabindex="2"
-                    autocomplete="current-password"
-                    placeholder="Password"
-                />
-                <InputError :message="errors.password" />
-            </div>
-
-            <div class="flex items-center justify-between">
-                <Label for="remember" class="flex items-center space-x-3">
-                    <Checkbox id="remember" name="remember" :tabindex="3" />
-                    <span>Remember me</span>
-                </Label>
-            </div>
-
-            <Button
-                type="submit"
-                class="mt-4 w-full"
-                :tabindex="4"
-                :disabled="processing"
-                data-test="login-button"
-            >
-                <Spinner v-if="processing" />
-                Log in
-            </Button>
-        </div>
-
-        <div class="text-center text-sm text-muted-foreground">
-            Don't have an account?
-            <TextLink :href="register()" :tabindex="5">Sign up</TextLink>
-        </div>
-    </Form>
+    <p class="mt-3.5 text-[13px] text-muted">{{ bs.auth.noAccount }}</p>
 </template>

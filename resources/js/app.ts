@@ -1,22 +1,19 @@
-import { createInertiaApp } from '@inertiajs/vue3';
-import { initializeTheme } from '@/composables/useAppearance';
+import { createInertiaApp, router } from '@inertiajs/vue3';
+import { showToast } from '@/composables/useToast';
 import AppLayout from '@/layouts/AppLayout.vue';
 import AuthLayout from '@/layouts/AuthLayout.vue';
-import SettingsLayout from '@/layouts/settings/Layout.vue';
-import { initializeFlashToast } from '@/lib/flashToast';
-
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+import FlowLayout from '@/layouts/FlowLayout.vue';
 
 void createInertiaApp({
-    title: (title) => (title ? `${title} - ${appName}` : appName),
+    title: (title) => (title ? `${title} · Rokovnik` : 'Rokovnik'),
     layout: (name) => {
         switch (true) {
-            case name === 'Welcome':
+            case name === 'Landing':
                 return null;
             case name.startsWith('auth/'):
                 return AuthLayout;
-            case name.startsWith('settings/'):
-                return [AppLayout, SettingsLayout];
+            case name.startsWith('flow/'):
+                return FlowLayout;
             default:
                 return AppLayout;
         }
@@ -31,12 +28,16 @@ void createInertiaApp({
         });
     },
     progress: {
-        color: '#4B5563',
+        color: 'var(--color-ink)',
     },
 });
 
-// This will set light / dark mode on page load...
-initializeTheme();
+if (typeof window !== 'undefined') {
+    router.on('flash', (event) => {
+        const toast = event.detail.flash.toast;
 
-// This will listen for flash toast data from the server...
-initializeFlashToast();
+        if (typeof toast === 'string' && toast !== '') {
+            showToast(toast);
+        }
+    });
+}

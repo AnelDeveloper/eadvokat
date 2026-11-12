@@ -3,7 +3,6 @@ import { wayfinder } from '@laravel/vite-plugin-wayfinder';
 import tailwindcss from '@tailwindcss/vite';
 import vue from '@vitejs/plugin-vue';
 import laravel from 'laravel-vite-plugin';
-import { bunny } from 'laravel-vite-plugin/fonts';
 import { defineConfig, lazyPlugins } from 'vite-plus';
 
 export default defineConfig({
@@ -11,11 +10,6 @@ export default defineConfig({
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.ts'],
             refresh: true,
-            fonts: [
-                bunny('Instrument Sans', {
-                    weights: [400, 500, 600],
-                }),
-            ],
         }),
         inertia(),
         tailwindcss(),
@@ -31,6 +25,10 @@ export default defineConfig({
             formVariants: true,
         }),
     ]),
+    test: {
+        include: ['resources/js/**/*.test.ts'],
+        environment: 'node',
+    },
     server: {
         watch: {
             ignored: [
@@ -44,13 +42,13 @@ export default defineConfig({
     },
     lint: {
         ignorePatterns: [
+            'design_handoff_rokovnik/**',
             'vendor/**',
             'node_modules/**',
             'public/**',
             'bootstrap/ssr/**',
             'tailwind.config.js',
             'resources/js/actions/**',
-            'resources/js/components/ui/*',
             'resources/js/routes/**',
             'resources/js/wayfinder/**',
         ],
@@ -67,9 +65,9 @@ export default defineConfig({
         singleAttributePerLine: false,
         htmlWhitespaceSensitivity: 'css',
         ignorePatterns: [
+            'design_handoff_rokovnik/**',
             '.github/**',
             'composer.json',
-            'resources/js/components/ui/*',
             'resources/views/mail/*',
         ],
         sortTailwindcss: {
