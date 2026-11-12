@@ -1,0 +1,63 @@
+{
+  "expo": {
+    "name": "Rokovnik",
+    "slug": "rokovnik",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "rokovnik",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "icon": "./assets/expo.icon",
+      "bundleIdentifier": "ba.rokovnik.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#F3F6F7",
+        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "backgroundImage": "./assets/images/android-icon-background.png",
+        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "ba.rokovnik.app"
+    },
+    "web": {
+      "output": "single",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#F3F6F7",
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 76
+        }
+      ],
+      "expo-secure-store",
+      [
+        "expo-audio",
+        {
+          "microphonePermission": "Rokovnik koristi mikrofon za diktiranje bilješke s ročišta."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "Rokovnik koristi kameru za fotografisanje primljenih dokumenata i dokaza o predaji.",
+          "photosPermission": "Rokovnik otvara fotografije dokumenata koje odaberete."
+        }
+      ],
+      "expo-sharing",
+      "expo-font"
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    },
+    "extra": {
+      "router": {}
+    }
+  }
+}

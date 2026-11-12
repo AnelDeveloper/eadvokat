@@ -472,6 +472,25 @@ export const bs = {
         openApp: 'Otvori aplikaciju',
     },
 
+    mobile: {
+        offline:
+            'Nema veze sa serverom. Provjerite internet i pokušajte ponovo.',
+        genericError: 'Došlo je do greške. Pokušajte ponovo.',
+        retry: 'Pokušaj ponovo',
+        loading: 'Učitavam…',
+        cameraDenied:
+            'Kamera nije dozvoljena. Dozvolite pristup u postavkama telefona.',
+        micDenied:
+            'Mikrofon nije dozvoljen. Dozvolite pristup u postavkama telefona.',
+        chooseFile: 'Odaberi datoteku (PDF ili slika)',
+        chooseFromLibrary: 'Odaberi iz galerije',
+        captureProof: 'Fotografiši',
+        signedInAs: 'Prijavljeni ste kao',
+        server: 'Server',
+        exportFailed: 'Izvoz nije uspio. Pokušajte ponovo.',
+        uploading: 'Šaljem dokument…',
+    },
+
     status: {
         proposed: 'Predloženo · čeka pregled',
         confirmed: 'Potvrdio advokat',

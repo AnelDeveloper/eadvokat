@@ -30,14 +30,21 @@ Sign in with the seeded demo account: `lejla.karic@rokovnik.test` /
 "today" so the seeded scenario matches the prototype; remove it to use the
 real date.
 
-| URL | What |
-|---|---|
-| `/` | Public landing page (Inertia SSR) |
-| `/demo` | Live demo: a private 24-hour demo office per visitor |
-| `/danas`, `/predmeti`, `/kalendar`, `/posta` | The app (after sign-in) |
+| URL                                          | What                                                 |
+| -------------------------------------------- | ---------------------------------------------------- |
+| `/`                                          | Public landing page (Inertia SSR)                    |
+| `/demo`                                      | Live demo: a private 24-hour demo office per visitor |
+| `/danas`, `/predmeti`, `/kalendar`, `/posta` | The app (after sign-in)                              |
 
 Run `php artisan schedule:work` (or a cron entry for `schedule:run`) so expired
 demo offices are pruned hourly (`php artisan demo:prune`).
+
+## Mobile app
+
+`mobile/` is an Expo (React Native) app using the same backend through the
+JSON API `/api/v1` (Sanctum tokens). Screen data comes from the same
+`App\Screens` classes and every change runs the same domain actions as the web
+app. See `mobile/README.md`.
 
 ## Rules the code enforces
 

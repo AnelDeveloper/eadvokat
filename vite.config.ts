@@ -43,6 +43,7 @@ export default defineConfig({
     lint: {
         ignorePatterns: [
             'design_handoff_rokovnik/**',
+            'mobile/**',
             'vendor/**',
             'node_modules/**',
             'public/**',
@@ -66,6 +67,7 @@ export default defineConfig({
         htmlWhitespaceSensitivity: 'css',
         ignorePatterns: [
             'design_handoff_rokovnik/**',
+            'mobile/**',
             '.github/**',
             'composer.json',
             'resources/views/mail/*',
