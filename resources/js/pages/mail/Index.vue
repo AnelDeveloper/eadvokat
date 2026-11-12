@@ -38,7 +38,7 @@ const options = [
     <Head :title="bs.mail.title" />
 
     <div class="flex flex-1 flex-col">
-        <div class="flex-1 px-4.5 pt-1.5 pb-4.5">
+        <div class="flex-1 px-4.5 pt-1.5 pb-4.5 lg:px-8">
             <h1 class="mt-2 mb-3 text-title font-semibold">
                 {{ bs.mail.title }}
             </h1>

@@ -40,7 +40,7 @@ function markerClass(marker: Marker, selected: boolean): string {
 
 <template>
     <Head :title="bs.tabs.calendar" />
-    <div class="px-4.5 pt-1.5 pb-4.5">
+    <div class="px-4.5 pt-1.5 pb-4.5 lg:px-8">
         <div class="mt-1.5 flex items-center justify-between">
             <h1 class="m-0 text-[26px] leading-[1.1] font-semibold">
                 {{ monthLabel }}

@@ -7,7 +7,7 @@ defineProps<{ matter: MatterHeader; active: 'timeline' | 'costs' | 'audit' }>();
 </script>
 
 <template>
-    <div class="border-b border-line bg-white px-4.5 pt-0.5 pb-3.5">
+    <div class="border-b border-line bg-white px-4.5 pt-0.5 pb-3.5 lg:px-8">
         <Link
             href="/predmeti"
             class="inline-flex h-11 items-center text-[15px] font-medium text-ink no-underline"

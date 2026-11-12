@@ -122,7 +122,7 @@ function approve(): void {
     <Head :title="`${bs.matters.tabs.costs} · ${matter.title}`" />
     <MatterHeader :matter="matter" active="costs" />
 
-    <div class="px-4.5 pt-3.5 pb-[22px]">
+    <div class="px-4.5 pt-3.5 pb-[22px] lg:px-8">
         <div class="flex items-center justify-between gap-2.5">
             <h2 class="m-0 text-matter font-semibold">{{ t.title }}</h2>
             <StatusChip

@@ -8,7 +8,7 @@ const { message } = useToast();
     <div
         role="status"
         aria-live="polite"
-        class="pointer-events-none fixed inset-x-3.5 bottom-[86px] z-40 mx-auto max-w-[692px] lg:bottom-6"
+        class="pointer-events-none fixed inset-x-3.5 bottom-[86px] z-40 mx-auto max-w-[692px] lg:bottom-6 lg:left-[240px]"
     >
         <div
             v-if="message"

@@ -19,7 +19,7 @@ defineProps<{
     <Head :title="`${bs.matters.tabs.audit} · ${matter.title}`" />
     <MatterHeader :matter="matter" active="audit" />
 
-    <div class="px-4.5 pt-3.5 pb-[22px]">
+    <div class="px-4.5 pt-3.5 pb-[22px] lg:px-8">
         <div class="mb-1.5 text-[13px] text-muted">
             {{ bs.matters.auditIntro }}
         </div>

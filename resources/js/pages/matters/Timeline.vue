@@ -13,7 +13,7 @@ defineProps<{ matter: Header; upcoming: AgendaRow[]; recorded: AgendaRow[] }>();
     <Head :title="matter.title" />
     <MatterHeader :matter="matter" active="timeline" />
 
-    <div class="px-4.5 pt-1.5 pb-5">
+    <div class="px-4.5 pt-1.5 pb-5 lg:px-8">
         <SectionLabel class="pt-3.5 pb-2">{{
             bs.matters.upcoming
         }}</SectionLabel>

@@ -27,12 +27,12 @@ const tabs = computed<TabItem[]>(() =>
 </script>
 
 <template>
-    <!-- Mobile-first: bottom tab bar; from 1024px the same tabs move to a left sidebar. -->
+    <!-- Mobile-first: bottom tab bar; from 1024px the same tabs move to a left sidebar and the content uses the full remaining width. -->
     <div
-        class="min-h-svh bg-app [--rk-bar-offset:68px] lg:flex lg:justify-center lg:[--rk-bar-offset:0px]"
+        class="min-h-svh bg-app [--rk-bar-offset:68px] lg:flex lg:[--rk-bar-offset:0px]"
     >
         <aside
-            class="hidden lg:sticky lg:top-0 lg:block lg:h-svh lg:w-[220px] lg:flex-none lg:border-r lg:border-line lg:bg-white lg:pt-5"
+            class="hidden lg:sticky lg:top-0 lg:block lg:h-svh lg:w-[240px] lg:flex-none lg:border-r lg:border-line lg:bg-white lg:pt-5"
         >
             <div
                 class="px-4 pb-5 font-serif text-[24px] font-semibold tracking-[-.01em]"
@@ -42,7 +42,7 @@ const tabs = computed<TabItem[]>(() =>
             <TabBar vertical :items="tabs" />
         </aside>
         <main
-            class="flex min-h-svh flex-col pb-17 lg:w-full lg:max-w-[720px] lg:pb-0"
+            class="flex min-h-svh flex-col pb-17 lg:min-w-0 lg:flex-1 lg:pb-0"
         >
             <slot />
         </main>

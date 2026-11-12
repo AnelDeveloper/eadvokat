@@ -18,7 +18,7 @@ defineProps<{
 <template>
     <Head :title="bs.matters.title" />
 
-    <div class="px-4.5 pt-1.5 pb-4.5">
+    <div class="px-4.5 pt-1.5 pb-4.5 lg:px-8">
         <h1 class="mt-2 mb-3.5 text-title font-semibold">
             {{ bs.matters.title }}
         </h1>

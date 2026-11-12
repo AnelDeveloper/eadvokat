@@ -19,7 +19,7 @@ function toggle(row: BriefingRow): void {
 <template>
     <Head :title="bs.today.title" />
     <div class="flex flex-1 flex-col">
-        <div class="flex-1 px-4.5 pt-1.5 pb-4.5">
+        <div class="flex-1 px-4.5 pt-1.5 pb-4.5 lg:px-8">
             <TodayHeader :date="date">
                 <Button
                     href="/postavke"

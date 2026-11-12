@@ -32,7 +32,7 @@ function savePassword(): void {
 <template>
     <Head :title="bs.settings.title" />
 
-    <div class="px-4.5 pt-3.5 pb-6">
+    <div class="px-4.5 pt-3.5 pb-6 lg:px-8">
         <h1 class="m-0 text-title font-semibold">{{ bs.settings.title }}</h1>
 
         <form
