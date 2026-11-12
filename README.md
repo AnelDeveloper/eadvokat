@@ -39,6 +39,18 @@ real date.
 Run `php artisan schedule:work` (or a cron entry for `schedule:run`) so expired
 demo offices are pruned hourly (`php artisan demo:prune`).
 
+## Deployment
+
+- **Web app → Railway** (`Dockerfile`, `docker/start.sh`): FrankenPHP + PHP 8.4,
+  Railway Postgres (`DB_URL=${{Postgres.DATABASE_URL}}`), a volume on
+  `/app/storage/app` for uploaded documents. Migrations run on start; the
+  scheduler (`demo:prune`) runs in the same container. Deploy with
+  `railway up --service web`.
+- **Landing page → Vercel** as a static, server-rendered page (no JavaScript):
+  `scripts/export-landing.sh <railway-app-url> <out-dir>`, then
+  `vercel deploy --prod` in the output folder. "Prijava" and "Pogledaj
+  prototip" link to the Railway app.
+
 ## Mobile app
 
 `mobile/` is an Expo (React Native) app using the same backend through the
