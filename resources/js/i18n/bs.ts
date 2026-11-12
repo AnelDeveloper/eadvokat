@@ -193,6 +193,7 @@ export const bs = {
         noDeadlines: 'Nema rokova u naredna tri dana.',
         quickInput: 'Brzi unos',
         capture: 'Fotografiši',
+        upload: 'Učitaj dokument',
         dictate: 'Diktiraj',
         submission: 'Podnesak',
         settings: 'Postavke',
@@ -226,6 +227,7 @@ export const bs = {
         incoming: 'Ulazna',
         outgoing: 'Izlazna',
         captureIncoming: 'Fotografiši primljeni dokument',
+        uploadIncoming: 'Učitaj primljeni dokument',
         recordOutgoing: 'Evidentiraj izlazni podnesak',
         empty: 'Nema unosa.',
     },
@@ -238,6 +240,14 @@ export const bs = {
         shutter: 'Fotografiši',
         reading: 'Čitam dokument…',
         fictional: 'DEMO — izmišljen dokument',
+        uploadTitle: 'Učitaj primljeni dokument',
+        drop: 'Prevucite fotografiju ili PDF ovdje',
+        dropActive: 'Pustite datoteku',
+        or: 'ili',
+        choose: 'Odaberi datoteku',
+        formats: 'JPG, PNG, HEIC ili PDF, najviše 20 MB.',
+        uploadHint:
+            'Dokument se čuva u zaštićenoj pohrani kancelarije. Polja i mogući rok predlažu se za pregled — ništa se ne aktivira samo.',
     },
 
     review: {
@@ -362,6 +372,9 @@ export const bs = {
         proof: 'Dokaz o predaji',
         proofEmpty: 'Fotografiši prijemni štambilj',
         proofEmptySub: 'Ili potvrdu o predaji pošiljke',
+        proofUpload: 'Učitaj dokaz o predaji',
+        proofUploadSub:
+            'Fotografija prijemnog štambilja ili PDF potvrde o predaji',
         proofAttached: 'Dokaz priložen',
         proofThumb: (date: string) => `PRIM. ${date}`,
         fulfils: (date: string) => `Ovim podneskom ispunjen je rok ${date}`,

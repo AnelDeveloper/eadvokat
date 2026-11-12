@@ -8,6 +8,7 @@ const { interactive = true } = defineProps<{
     captureHref?: string;
     dictateHref?: string;
     submissionHref?: string;
+    /** false: static mock-up (landing page phone), always with the phone wording. */
     interactive?: boolean;
 }>();
 
@@ -25,12 +26,22 @@ const base =
                 :href="captureHref"
                 :class="[base, 'gap-[9px] bg-ink text-white hover:text-white']"
             >
+                <!-- Camera on touch devices; on a computer the document is uploaded. -->
                 <span
-                    class="box-border grid h-3.5 w-5 place-items-center rounded-chip border-2 border-white"
+                    class="box-border h-3.5 w-5 place-items-center rounded-chip border-2 border-white"
+                    :class="interactive ? 'hidden pointer-coarse:grid' : 'grid'"
                     aria-hidden="true"
                     ><span class="size-1.5 rounded-full bg-white"
                 /></span>
-                {{ bs.today.capture }}
+                <template v-if="interactive">
+                    <span class="hidden pointer-coarse:inline">{{
+                        bs.today.capture
+                    }}</span>
+                    <span class="pointer-coarse:hidden">{{
+                        bs.today.upload
+                    }}</span>
+                </template>
+                <template v-else>{{ bs.today.capture }}</template>
             </component>
             <component
                 :is="tag"

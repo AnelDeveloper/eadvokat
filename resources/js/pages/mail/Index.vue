@@ -104,12 +104,18 @@ const options = [
                         ? '/posta/fotografisi'
                         : '/posta/podnesak'
                 "
-                >{{
-                    direction === 'in'
-                        ? bs.mail.captureIncoming
-                        : bs.mail.recordOutgoing
-                }}</Button
             >
+                <!-- Camera wording on touch devices; "upload" on a computer. -->
+                <template v-if="direction === 'in'">
+                    <span class="hidden pointer-coarse:inline">{{
+                        bs.mail.captureIncoming
+                    }}</span>
+                    <span class="pointer-coarse:hidden">{{
+                        bs.mail.uploadIncoming
+                    }}</span>
+                </template>
+                <template v-else>{{ bs.mail.recordOutgoing }}</template>
+            </Button>
         </StickyActionBar>
     </div>
 </template>

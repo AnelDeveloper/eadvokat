@@ -192,11 +192,31 @@ function save(): void {
                     <span
                         class="block text-[14.5px] font-semibold"
                         :class="form.proof ? 'text-confirmed-text' : 'text-ink'"
-                        >{{ form.proof ? t.proofAttached : t.proofEmpty }}</span
+                        ><template v-if="form.proof">{{
+                            t.proofAttached
+                        }}</template
+                        ><template v-else
+                            ><span class="hidden pointer-coarse:inline">{{
+                                t.proofEmpty
+                            }}</span
+                            ><span class="pointer-coarse:hidden">{{
+                                t.proofUpload
+                            }}</span></template
+                        ></span
                     >
-                    <span class="block text-sub text-muted">{{
-                        form.proof ? form.proof.name : t.proofEmptySub
-                    }}</span>
+                    <span class="block text-sub text-muted"
+                        ><template v-if="form.proof">{{
+                            form.proof.name
+                        }}</template
+                        ><template v-else
+                            ><span class="hidden pointer-coarse:inline">{{
+                                t.proofEmptySub
+                            }}</span
+                            ><span class="pointer-coarse:hidden">{{
+                                t.proofUploadSub
+                            }}</span></template
+                        ></span
+                    >
                 </span>
             </button>
             <div

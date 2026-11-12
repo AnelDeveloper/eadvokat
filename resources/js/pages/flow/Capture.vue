@@ -1,12 +1,30 @@
 <script setup lang="ts">
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
+import Button from '@/components/ui/Button.vue';
+import ScreenBar from '@/components/ui/ScreenBar.vue';
 import { bs } from '@/i18n/bs';
 
 defineProps<{ isDemo: boolean }>();
 
 const input = ref<HTMLInputElement | null>(null);
+const picker = ref<HTMLInputElement | null>(null);
+const dragging = ref(false);
 const form = useForm<{ file: File | null }>({ file: null });
+
+function send(file: File | undefined): void {
+    if (!file || form.processing) {
+        return;
+    }
+
+    form.file = file;
+    form.post('/posta/fotografisi', { forceFormData: true });
+}
+
+function drop(event: DragEvent): void {
+    dragging.value = false;
+    send(event.dataTransfer?.files?.[0]);
+}
 
 function choose(): void {
     if (!form.processing) {
@@ -15,20 +33,77 @@ function choose(): void {
 }
 
 function upload(event: Event): void {
-    const file = (event.target as HTMLInputElement).files?.[0];
-
-    if (!file) {
-        return;
-    }
-
-    form.file = file;
-    form.post('/posta/fotografisi', { forceFormData: true });
+    send((event.target as HTMLInputElement).files?.[0]);
 }
 </script>
 
 <template>
     <Head :title="bs.capture.heading" />
-    <div class="flex min-h-svh flex-col bg-ink-deep text-white">
+
+    <!-- Computer: upload a photo or PDF (drag and drop or file picker). -->
+    <div class="flex min-h-svh flex-col pointer-coarse:hidden">
+        <ScreenBar :title="bs.capture.uploadTitle" back-url="/posta" />
+        <div class="flex-1 px-4.5 pt-6 pb-8">
+            <div
+                class="relative grid min-h-[320px] place-items-center rounded-card border-2 border-dashed px-6 py-10 text-center transition-colors"
+                :class="
+                    dragging
+                        ? 'border-ink bg-white'
+                        : 'border-line-strong bg-white/60'
+                "
+                @dragover.prevent="dragging = true"
+                @dragleave.prevent="dragging = false"
+                @drop.prevent="drop"
+            >
+                <div>
+                    <div class="text-card font-semibold">
+                        {{ dragging ? bs.capture.dropActive : bs.capture.drop }}
+                    </div>
+                    <div class="mt-2 text-[14px] text-muted">
+                        {{ bs.capture.or }}
+                    </div>
+                    <Button
+                        class="mt-3 px-6"
+                        :disabled="form.processing"
+                        @click="picker?.click()"
+                        >{{ bs.capture.choose }}</Button
+                    >
+                    <div class="mt-3 text-field text-muted">
+                        {{ bs.capture.formats }}
+                    </div>
+                </div>
+                <div
+                    v-if="form.processing"
+                    class="absolute inset-0 grid place-items-center rounded-card bg-ink-deep/78 text-card font-medium text-white"
+                    role="status"
+                >
+                    {{ bs.capture.reading }}
+                </div>
+            </div>
+            <div
+                v-if="form.errors.file"
+                class="mt-2 text-[14px] text-urgent-text"
+            >
+                {{ form.errors.file }}
+            </div>
+            <p class="mt-3 text-[13px] leading-[1.45] text-muted">
+                {{ bs.capture.uploadHint }}
+            </p>
+            <input
+                ref="picker"
+                type="file"
+                accept="image/*,application/pdf"
+                class="sr-only"
+                tabindex="-1"
+                @change="upload"
+            />
+        </div>
+    </div>
+
+    <!-- Phone or tablet: the camera screen from the prototype. -->
+    <div
+        class="hidden min-h-svh flex-col bg-ink-deep text-white pointer-coarse:flex"
+    >
         <div class="flex items-center justify-between px-3">
             <Link
                 href="/posta"
