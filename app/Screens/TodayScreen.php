@@ -24,7 +24,8 @@ final class TodayScreen
         $agenda = new Agenda;
         $today = $agenda->today;
         $tomorrow = $today->addDay();
-        $items = $agenda->items();
+        // Only the days on screen, plus every proposal still waiting for review.
+        $items = $agenda->items(from: $today, to: $today->addDays(Agenda::URGENT_DAYS), withProposed: true);
         $calendar = $items->filter(fn (AgendaItem $i) => $i->onCalendar);
 
         $rows = fn (Collection $list) => $list

@@ -4,6 +4,7 @@ import BriefingCard from '@/components/today/BriefingCard.vue';
 import QuickActions from '@/components/today/QuickActions.vue';
 import TodayHeader from '@/components/today/TodayHeader.vue';
 import Button from '@/components/ui/Button.vue';
+import Icon from '@/components/ui/Icon.vue';
 import { bs } from '@/i18n/bs';
 import type { BriefingGroup, BriefingRow } from '@/types';
 
@@ -26,8 +27,10 @@ function toggle(row: BriefingRow): void {
                     variant="subtle"
                     size="sm"
                     weight="medium"
-                    class="text-[13px]"
-                    >{{ bs.today.settings }}</Button
+                    class="text-[13px] lg:hidden"
+                    ><Icon name="settings" :size="17" class="text-muted" />{{
+                        bs.today.settings
+                    }}</Button
                 >
             </TodayHeader>
             <BriefingCard

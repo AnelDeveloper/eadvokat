@@ -58,7 +58,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const result = await api.post<{ token: string; user: User }>('/auth/token', {
             email: email.trim().toLowerCase(),
             password,
-            device_name: `eAdvokat ${Platform.OS}`,
+            device_name: `Ročište ${Platform.OS}`,
         });
 
         setApiToken(result.token);
@@ -70,7 +70,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const result = await api.post<{ token: string; user: User }>('/auth/register', {
             ...input,
             email: input.email.trim().toLowerCase(),
-            device_name: `eAdvokat ${Platform.OS}`,
+            device_name: `Ročište ${Platform.OS}`,
         });
 
         setApiToken(result.token);

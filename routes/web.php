@@ -18,6 +18,7 @@ use App\Http\Controllers\TodayController;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'Landing')->name('home');
+Route::redirect('cijene', '/#cijene')->name('pricing');
 
 Route::middleware('guest')->group(function () {
     Route::get('registracija', [RegisterController::class, 'create'])->name('register');

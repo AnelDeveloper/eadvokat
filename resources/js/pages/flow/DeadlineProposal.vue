@@ -181,7 +181,7 @@ function later(): void {
             </template>
 
             <div
-                class="mt-3 rounded-card border border-line bg-white px-3.5 py-3"
+                class="mt-3 rounded-card border border-line bg-white px-3.5 py-3 shadow-card"
             >
                 <div class="text-field font-medium text-muted">
                     {{ t.rule }}
@@ -202,7 +202,7 @@ function later(): void {
             </div>
 
             <div
-                class="mt-2 rounded-card border border-line bg-white px-3.5 py-3"
+                class="mt-2 rounded-card border border-line bg-white px-3.5 py-3 shadow-card"
             >
                 <DateField
                     v-model="form.start_date"
@@ -216,7 +216,7 @@ function later(): void {
             </div>
 
             <div
-                class="mt-2 rounded-card border border-line bg-white px-3.5 py-3"
+                class="mt-2 rounded-card border border-line bg-white px-3.5 py-3 shadow-card"
             >
                 <DateField
                     v-model="form.due_date"
@@ -256,7 +256,7 @@ function later(): void {
                     class="min-h-12 rounded-field border px-2 py-1 text-[13px] font-semibold"
                     :class="
                         form[option.key]
-                            ? 'border-ink bg-ink text-white'
+                            ? 'border-accent bg-accent text-white'
                             : 'border-line-strong bg-white text-ink'
                     "
                     @click="form[option.key] = !form[option.key]"

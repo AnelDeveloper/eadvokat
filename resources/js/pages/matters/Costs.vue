@@ -157,7 +157,7 @@ function approve(): void {
             <input
                 v-model="tariff"
                 :placeholder="t.tariffPlaceholder"
-                class="mt-[5px] box-border block h-11 w-full rounded-field border border-line-strong bg-white px-3 text-[14px] outline-none focus:border-ink"
+                class="mt-[5px] box-border block h-11 w-full rounded-field border border-line-strong bg-white px-3 text-[14px] outline-none focus:border-accent focus:ring-3 focus:ring-accent/15"
                 @change="saveTariff"
             />
         </label>
@@ -165,7 +165,7 @@ function approve(): void {
             {{ isDemo ? t.tariffNoteDemo : t.tariffNote }}
         </div>
 
-        <div class="mt-4 border-t-2 border-ink">
+        <div class="mt-4 border-t border-line">
             <div
                 v-for="item in sheet.items"
                 :key="item.id"
@@ -197,11 +197,11 @@ function approve(): void {
                     />
                     <button
                         type="button"
-                        class="h-11 rounded-field border border-ink px-3 text-[13.5px] font-semibold"
+                        class="h-11 rounded-field border px-3 text-[13.5px] font-semibold"
                         :class="
                             item.confirmed
-                                ? 'bg-white text-ink'
-                                : 'bg-ink text-white'
+                                ? 'border-line-strong bg-white text-ink'
+                                : 'border-accent bg-accent text-white'
                         "
                         @click="toggle(item)"
                     >

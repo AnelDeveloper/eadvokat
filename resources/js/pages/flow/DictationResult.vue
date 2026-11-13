@@ -242,7 +242,9 @@ const noteConfirmed = computed(() =>
 );
 
 const toggleClass = (on: boolean) =>
-    on ? 'border-ink bg-white text-ink' : 'border-ink bg-ink text-white';
+    on
+        ? 'border-line-strong bg-white text-ink'
+        : 'border-accent bg-accent text-white';
 </script>
 
 <template>
@@ -270,7 +272,7 @@ const toggleClass = (on: boolean) =>
 
             <!-- Događaj u kalendaru -->
             <section
-                class="mt-3 rounded-card border border-line bg-white px-3.5 py-3"
+                class="mt-3 rounded-card border border-line bg-white px-3.5 py-3 shadow-card"
             >
                 <div class="flex items-center justify-between gap-2">
                     <span class="text-field font-medium text-muted">{{
@@ -319,7 +321,7 @@ const toggleClass = (on: boolean) =>
                             class="h-11 rounded-field border text-[14px] font-semibold"
                             :class="
                                 draft.event.room === room
-                                    ? 'border-ink bg-ink text-white'
+                                    ? 'border-accent bg-accent text-white'
                                     : 'border-line-strong bg-white text-ink'
                             "
                             @click="chooseRoom(room)"
@@ -339,7 +341,7 @@ const toggleClass = (on: boolean) =>
                     <button
                         v-else
                         type="button"
-                        class="mt-2 h-11 w-full rounded-field border border-ink bg-ink text-[14px] font-semibold text-white"
+                        class="mt-2 h-11 w-full rounded-field border border-accent bg-accent text-[14px] font-semibold text-white"
                         :disabled="eventForm.processing"
                         @click="confirmSavedEvent"
                     >
@@ -350,7 +352,7 @@ const toggleClass = (on: boolean) =>
 
             <!-- Rok -->
             <section
-                class="mt-2 rounded-card border border-line bg-white px-3.5 py-3"
+                class="mt-2 rounded-card border border-line bg-white px-3.5 py-3 shadow-card"
             >
                 <div class="flex items-center justify-between gap-2">
                     <span class="text-field font-medium text-muted">{{
@@ -411,7 +413,7 @@ const toggleClass = (on: boolean) =>
 
             <!-- Bilješka u predmetu -->
             <section
-                class="mt-2 rounded-card border border-line bg-white px-3.5 py-3"
+                class="mt-2 rounded-card border border-line bg-white px-3.5 py-3 shadow-card"
             >
                 <div class="flex items-center justify-between gap-2">
                     <span class="text-field font-medium text-muted">{{
@@ -426,7 +428,7 @@ const toggleClass = (on: boolean) =>
                         v-model="draft.note.body"
                         rows="4"
                         :aria-label="t.noteCard"
-                        class="mt-2 box-border w-full resize-none rounded-field border border-line-strong p-2.5 text-[14.5px] leading-[1.4] outline-none focus:border-ink"
+                        class="mt-2 box-border w-full resize-none rounded-field border border-line-strong p-2.5 text-[14.5px] leading-[1.4] outline-none focus:border-accent focus:ring-3 focus:ring-accent/15"
                     />
                     <button
                         type="button"

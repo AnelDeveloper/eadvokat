@@ -2,6 +2,7 @@
 import { Head, Link, router } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import Button from '@/components/ui/Button.vue';
+import Icon from '@/components/ui/Icon.vue';
 import SegmentedControl from '@/components/ui/SegmentedControl.vue';
 import StickyActionBar from '@/components/ui/StickyActionBar.vue';
 import { bs } from '@/i18n/bs';
@@ -18,6 +19,8 @@ const props = defineProps<{
         linkTone: 'confirmed' | 'proposed' | null;
         documentId: number | null;
     }>;
+    hasMore: boolean;
+    nextLimit: number;
 }>();
 
 const direction = computed({
@@ -48,7 +51,7 @@ const options = [
                 text-size="text-[14.5px]"
                 :label="bs.mail.title"
             />
-            <div class="mt-3 border-t-2 border-ink">
+            <div class="mt-3 border-t border-line">
                 <component
                     :is="entry.documentId ? Link : 'div'"
                     v-for="entry in entries"
@@ -88,6 +91,17 @@ const options = [
                         >{{ bs.common.sourceDocument }}</span
                     >
                 </component>
+                <Link
+                    v-if="hasMore"
+                    :href="
+                        direction === 'out'
+                            ? `/posta?smjer=izlazna&broj=${nextLimit}`
+                            : `/posta?broj=${nextLimit}`
+                    "
+                    preserve-scroll
+                    class="mt-3 flex min-h-11 items-center justify-center rounded-field border border-line-strong bg-white text-[14.5px] font-medium text-ink no-underline hover:border-ink hover:text-ink"
+                    >{{ bs.mail.older }}</Link
+                >
                 <p
                     v-if="entries.length === 0"
                     class="py-3 text-[14px] text-muted"
@@ -107,6 +121,8 @@ const options = [
             >
                 <!-- Camera wording on touch devices; "upload" on a computer. -->
                 <template v-if="direction === 'in'">
+                    <Icon name="camera" class="hidden pointer-coarse:block" />
+                    <Icon name="upload" class="pointer-coarse:hidden" />
                     <span class="hidden pointer-coarse:inline">{{
                         bs.mail.captureIncoming
                     }}</span>
@@ -114,7 +130,9 @@ const options = [
                         bs.mail.uploadIncoming
                     }}</span>
                 </template>
-                <template v-else>{{ bs.mail.recordOutgoing }}</template>
+                <template v-else
+                    ><Icon name="send" />{{ bs.mail.recordOutgoing }}</template
+                >
             </Button>
         </StickyActionBar>
     </div>

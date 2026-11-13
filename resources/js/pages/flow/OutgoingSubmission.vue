@@ -4,6 +4,7 @@ import { computed, ref, watch } from 'vue';
 import Button from '@/components/ui/Button.vue';
 import Checkbox from '@/components/ui/Checkbox.vue';
 import DateField from '@/components/ui/DateField.vue';
+import Icon from '@/components/ui/Icon.vue';
 import ScreenBar from '@/components/ui/ScreenBar.vue';
 import SegmentedControl from '@/components/ui/SegmentedControl.vue';
 import StickyActionBar from '@/components/ui/StickyActionBar.vue';
@@ -172,22 +173,25 @@ function save(): void {
                 :class="
                     form.proof
                         ? 'border border-confirmed bg-confirmed-bg'
-                        : 'border border-dashed border-faint bg-white'
+                        : 'border border-dashed border-line-strong bg-white hover:border-accent'
                 "
                 @click="proofInput?.click()"
             >
                 <span
-                    class="grid h-12 w-10 flex-none place-items-center rounded-[3px] border border-line-strong bg-white text-center font-mono text-[9px] leading-[1.1]"
-                    :class="form.proof ? 'text-confirmed-text' : 'text-ink'"
+                    v-if="form.proof"
+                    class="grid h-12 w-10 flex-none place-items-center rounded-[3px] border border-line-strong bg-white text-center font-mono text-[9px] leading-[1.1] text-confirmed-text"
                     aria-hidden="true"
                     >{{
-                        form.proof
-                            ? t.proofThumb(
-                                  formatDayMonth(form.sent_on ?? today),
-                              )
-                            : '+'
+                        t.proofThumb(formatDayMonth(form.sent_on ?? today))
                     }}</span
                 >
+                <span
+                    v-else
+                    class="grid size-11 flex-none place-items-center rounded-field bg-accent-bg text-accent"
+                    aria-hidden="true"
+                >
+                    <Icon name="upload" :size="20" />
+                </span>
                 <span>
                     <span
                         class="block text-[14.5px] font-semibold"
@@ -235,7 +239,7 @@ function save(): void {
                 >{{ t.fulfils(d.due) }}</Checkbox
             >
 
-            <div class="mt-3.5 border-t-2 border-ink pt-3.5">
+            <div class="mt-3.5 border-t border-line pt-3.5">
                 <div class="text-card font-semibold">{{ t.reminder }}</div>
                 <TextField
                     v-model="form.reminder_text"

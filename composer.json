@@ -2,7 +2,7 @@
     "$schema": "https://getcomposer.org/schema.json",
     "name": "aneldeveloper/eadvokat",
     "type": "project",
-    "description": "eAdvokat: mail register, deadlines, reminders and draft cost sheet for a small law office.",
+    "description": "Ročište: mail register, deadlines, reminders and draft cost sheet for a small law office.",
     "keywords": [
         "laravel",
         "framework"

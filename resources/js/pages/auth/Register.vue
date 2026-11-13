@@ -24,7 +24,9 @@ function submit(): void {
 <template>
     <Head :title="t.title" />
 
-    <div class="rounded-card border border-line bg-white px-4.5 py-5">
+    <div
+        class="rounded-card border border-line bg-white px-4.5 py-5 shadow-card"
+    >
         <h1 class="m-0 text-[26px] leading-[1.15] font-semibold">
             {{ t.title }}
         </h1>

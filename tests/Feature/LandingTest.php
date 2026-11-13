@@ -19,3 +19,7 @@ it('serves the landing page to signed-in users too', function () {
 it('renders the page shell in Bosnian', function () {
     $this->get('/')->assertSee('<html lang="bs">', false);
 });
+
+it('sends /cijene to the pricing section of the landing page', function () {
+    $this->get('/cijene')->assertRedirect('/#cijene');
+});

@@ -3,7 +3,7 @@
  * prototype are verbatim; do not reword them.
  */
 export const bs = {
-    appName: 'eAdvokat',
+    appName: 'Ročište',
 
     landing: {
         metaTitle: 'Asistent za advokatsku kancelariju',
@@ -13,6 +13,7 @@ export const bs = {
             flow: 'Tok',
             oversight: 'Nadzor',
             pilot: 'Početak',
+            pricing: 'Cijene',
             login: 'Prijava',
             openApp: 'Otvori aplikaciju',
             cta: 'Registrujte se',
@@ -122,11 +123,11 @@ export const bs = {
         oversight: {
             kicker: 'Povjerenje i nadzor',
             title: 'Pitanja koja ćete prvo postaviti.',
-            lead: 'Kako eAdvokat čuva podatke kancelarije i ko do njih može doći.',
+            lead: 'Kako Ročište čuva podatke kancelarije i ko do njih može doći.',
             items: [
                 {
                     question: 'Gdje se podaci čuvaju?',
-                    answer: 'U bazi podataka eAdvokat-a i u zaštićenoj pohrani dokumenata. Dokumenti nisu dostupni preko javnih linkova — otvara ih samo prijavljeni korisnik kancelarije.',
+                    answer: 'U bazi podataka aplikacije Ročište i u zaštićenoj pohrani dokumenata. Dokumenti nisu dostupni preko javnih linkova — otvara ih samo prijavljeni korisnik kancelarije.',
                 },
                 {
                     question: 'Ko ima pristup?',
@@ -135,7 +136,7 @@ export const bs = {
                 {
                     question:
                         'Koriste li se dokumenti stranaka za treniranje modela?',
-                    answer: 'Ne. eAdvokat ne šalje dokumente ni snimke nijednom vanjskom servisu za umjetnu inteligenciju, prepoznavanje teksta ili govora.',
+                    answer: 'Ne. Ročište ne šalje dokumente ni snimke nijednom vanjskom servisu za umjetnu inteligenciju, prepoznavanje teksta ili govora.',
                 },
                 {
                     question: 'Kako se bilježe izmjene?',
@@ -172,12 +173,40 @@ export const bs = {
                 },
             ],
         },
+        pricing: {
+            kicker: 'Cijene',
+            title: 'Jedan paket sa svim funkcijama.',
+            lead: 'Jedna cijena za sve što aplikacija radi.',
+            plan: 'Ročište',
+            badge: 'Sve funkcije',
+            price: '14,99 €',
+            period: 'mjesečno',
+            cta: 'Registrujte se →',
+            includedTitle: 'Šta je uključeno',
+            included: [
+                'Rokovnik s podsjetnicima u jutarnjem pregledu',
+                'Knjiga ulazne i izlazne pošte s automatskim brojevima',
+                'Kalendar ročišta, rokova i podsjetnika',
+                'Svaki rok povezan s izvornim dokumentom i citiranim odlomkom',
+                'Nacrt troškovnika s izvozom u PDF',
+                'Hronologija predmeta i dnevnik svih izmjena',
+                'Pristup iz pretraživača na računaru i telefonu',
+                'Podaci vidljivi samo korisnicima vaše kancelarije',
+                'Šifrovana veza (SSL/TLS)',
+            ],
+            notTitle: 'Šta aplikacija ne radi',
+            not: [
+                'Ne šalje ništa sudovima, strankama ni trećim licima.',
+                'Ne šalje dokumente vanjskim servisima za umjetnu inteligenciju.',
+                'Ne određuje rokove umjesto advokata: svaki rok potvrđuje advokat.',
+            ],
+        },
         later: {
             title: 'Kasnije, ne sada',
             text: 'Obračun sudskih taksi · fakture i uplate · obavijesti strankama · rokovi zastare · provjera sukoba interesa · raspodjela zadataka u timu · predlošci dokumenata prilagođeni stilu pisanja. Ništa od ovoga još nije dio aplikacije.',
         },
         footer: {
-            text: 'eAdvokat je aplikacija za advokatske kancelarije u Bosni i Hercegovini. Advokatska komora je nije odobrila niti podržala. Predmet, stranke i iznosi u primjerima na ovoj stranici su izmišljeni.',
+            text: 'Ročište je aplikacija za advokatske kancelarije u Bosni i Hercegovini. Advokatska komora je nije odobrila niti podržala. Predmet, stranke i iznosi u primjerima na ovoj stranici su izmišljeni.',
             cta: 'Registrujte se →',
         },
         phoneLabel: 'Otvori demo: ekran „Danas“ u aplikaciji',
@@ -288,6 +317,7 @@ export const bs = {
         captureIncoming: 'Fotografiši primljeni dokument',
         uploadIncoming: 'Učitaj primljeni dokument',
         recordOutgoing: 'Evidentiraj izlazni podnesak',
+        older: 'Prikaži starije unose',
         empty: 'Nema unosa.',
     },
 
@@ -535,7 +565,7 @@ export const bs = {
         sheetTitle: 'Demo podaci',
         sheetText:
             'Predmet, stranke, dokumenti i iznosi su izmišljeni. Ništa se ne šalje sudu, stranci ni trećim licima. Unosi se brišu nakon 24 sata ili kada vratite demo na početak.',
-        phoneLabel: 'Aplikacija eAdvokat s demo podacima',
+        phoneLabel: 'Aplikacija Ročište s demo podacima',
         blocked:
             'Prijavljeni ste kao korisnik kancelarije. Demo se otvara samo bez prijave, da se vaši podaci ne bi miješali s demo podacima.',
         openApp: 'Otvori aplikaciju',
@@ -597,7 +627,7 @@ export const bs = {
         submit: 'Prijavi se',
         noAccount: 'Nemate račun?',
         registerLink: 'Registrujte kancelariju',
-        backHome: '‹ eAdvokat',
+        backHome: '‹ Ročište',
     },
 
     settings: {

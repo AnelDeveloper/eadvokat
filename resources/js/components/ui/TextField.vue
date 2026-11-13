@@ -40,7 +40,7 @@ const id = useId();
             :placeholder="placeholder"
             :autocomplete="autocomplete"
             :list="list"
-            class="mt-1 block h-11 w-full rounded-field border bg-white px-3 outline-none focus:border-ink"
+            class="mt-1 block h-11 w-full rounded-field border bg-white px-3 outline-none focus:border-accent focus:ring-3 focus:ring-accent/15"
             :class="[
                 warn ? 'border-proposed' : 'border-line-strong',
                 mono ? 'font-mono text-[15px]' : 'text-[15px]',

@@ -102,7 +102,7 @@ class ScreenController extends Controller
     {
         $direction = $request->query('smjer') === 'izlazna' ? MailDirection::Out : MailDirection::In;
 
-        return response()->json($screens->index($direction));
+        return response()->json($screens->index($direction, $request->integer('broj', MailScreens::PAGE)));
     }
 
     public function mailReview(Document $document, MailScreens $screens): JsonResponse

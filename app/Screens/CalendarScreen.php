@@ -31,7 +31,11 @@ final class CalendarScreen
         $selectedDay = max(1, min($selectedDay, $month->daysInMonth));
         $selected = $month->setDay($selectedDay);
 
-        $items = $agenda->items()->filter(fn (AgendaItem $i) => $i->onCalendar);
+        $items = $agenda->items(
+            from: $month,
+            to: $month->endOfMonth()->startOfDay(),
+            kinds: [AgendaItem::KIND_EVENT, AgendaItem::KIND_DEADLINE, AgendaItem::KIND_REMINDER],
+        )->filter(fn (AgendaItem $i) => $i->onCalendar);
 
         $days = [];
         for ($day = 1; $day <= $month->daysInMonth; $day++) {

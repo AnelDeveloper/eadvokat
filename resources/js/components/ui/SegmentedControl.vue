@@ -29,12 +29,12 @@ const {
             type="button"
             role="radio"
             :aria-checked="model === option.value"
-            class="rounded-field border px-2 font-semibold"
+            class="rounded-field border px-2 leading-tight font-semibold transition-colors"
             :class="[
-                tall ? 'min-h-12 py-1' : 'h-11',
+                tall ? 'min-h-12 py-1' : 'min-h-11 py-1',
                 textSize,
                 model === option.value
-                    ? 'border-ink bg-ink text-white'
+                    ? 'border-accent bg-accent text-white'
                     : 'border-line-strong bg-white text-ink',
             ]"
             @click="model = option.value"

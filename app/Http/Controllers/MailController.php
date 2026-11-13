@@ -24,7 +24,7 @@ class MailController extends Controller
     {
         $direction = $request->query('smjer') === 'izlazna' ? MailDirection::Out : MailDirection::In;
 
-        return Inertia::render('mail/Index', $screens->index($direction));
+        return Inertia::render('mail/Index', $screens->index($direction, $request->integer('broj', MailScreens::PAGE)));
     }
 
     public function capture(): Response

@@ -65,7 +65,7 @@ watch([() => form.start_date, days], ([start, n]) => {
         </div>
 
         <form
-            class="mt-3 grid max-w-[720px] gap-3 rounded-card border border-line bg-white px-3.5 py-4"
+            class="mt-3 grid max-w-[720px] gap-3 rounded-card border border-line bg-white px-3.5 py-4 shadow-card"
             @submit.prevent="
                 form
                     .transform((d) => ({ ...d, days: days }))
@@ -111,7 +111,7 @@ watch([() => form.start_date, days], ([start, n]) => {
                 <textarea
                     v-model="form.source_quote"
                     rows="3"
-                    class="mt-1 box-border block w-full resize-y rounded-field border border-line-strong bg-white p-2.5 font-serif text-[15px] leading-[1.4] outline-none focus:border-ink"
+                    class="mt-1 box-border block w-full resize-y rounded-field border border-line-strong bg-white p-2.5 font-serif text-[15px] leading-[1.4] outline-none focus:border-accent focus:ring-3 focus:ring-accent/15"
                 />
             </label>
             <Button type="submit" block :disabled="form.processing">{{

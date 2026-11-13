@@ -5,7 +5,7 @@ import AuthLayout from '@/layouts/AuthLayout.vue';
 import FlowLayout from '@/layouts/FlowLayout.vue';
 
 void createInertiaApp({
-    title: (title) => (title ? `${title} · eAdvokat` : 'eAdvokat'),
+    title: (title) => (title ? `${title} · Ročište` : 'Ročište'),
     layout: (name) => {
         switch (true) {
             case name === 'Landing' || name === 'Demo':
@@ -42,6 +42,14 @@ if (typeof window !== 'undefined') {
             ),
         );
     }
+
+    // Navigation links prefetch on hover. Any change (POST/PUT/DELETE) drops
+    // those cached pages so deadlines and statuses are never shown stale.
+    router.on('before', (event) => {
+        if (event.detail.visit.method !== 'get') {
+            router.flushAll();
+        }
+    });
 
     router.on('flash', (event) => {
         const toast = event.detail.flash.toast;

@@ -29,7 +29,7 @@ const form = useForm({
         >
         <h1 class="m-0 text-title font-semibold">{{ t.title }}</h1>
         <form
-            class="mt-3.5 grid max-w-[720px] gap-3 rounded-card border border-line bg-white px-3.5 py-4"
+            class="mt-3.5 grid max-w-[720px] gap-3 rounded-card border border-line bg-white px-3.5 py-4 shadow-card"
             @submit.prevent="form.post('/predmeti')"
         >
             <TextField

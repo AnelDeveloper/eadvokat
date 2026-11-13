@@ -126,7 +126,7 @@ onBeforeUnmount(() => {
         >
             <div
                 v-if="blocked"
-                class="max-w-[520px] rounded-card border border-line bg-white px-4.5 py-4"
+                class="max-w-[520px] rounded-card border border-line bg-white px-4.5 py-4 shadow-card"
             >
                 <p class="m-0 text-[15px] leading-[1.5]">{{ t.blocked }}</p>
                 <Button href="/danas" class="mt-3">{{ t.openApp }}</Button>

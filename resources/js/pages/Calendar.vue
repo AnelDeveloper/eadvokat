@@ -78,10 +78,10 @@ function markerClass(marker: Marker, selected: boolean): string {
                 class="flex h-[46px] flex-col items-center justify-center gap-1 rounded-field border no-underline"
                 :class="[
                     d.day === selectedDay
-                        ? 'border-transparent bg-ink text-white hover:text-white'
-                        : 'text-ink hover:text-ink',
+                        ? 'border-transparent bg-accent text-white shadow-card hover:text-white'
+                        : 'text-ink hover:bg-white hover:text-ink',
                     d.isToday && d.day !== selectedDay
-                        ? 'border-ink'
+                        ? 'border-accent bg-accent-bg'
                         : d.day !== selectedDay
                           ? 'border-transparent'
                           : '',
@@ -129,10 +129,10 @@ function markerClass(marker: Marker, selected: boolean): string {
         </div>
 
         <section
-            class="mt-3.5 overflow-hidden rounded-card border border-line bg-white"
+            class="mt-3.5 overflow-hidden rounded-card border border-line bg-white shadow-card"
         >
             <h2
-                class="m-0 border-b-2 border-ink px-3.5 py-2.5 text-[15px] font-semibold"
+                class="m-0 border-b border-line px-3.5 py-2.5 text-[15px] font-semibold"
             >
                 {{ selectedLabel }}
             </h2>

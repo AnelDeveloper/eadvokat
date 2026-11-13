@@ -58,6 +58,7 @@ cat > "$OUT/vercel.json" <<JSON
         ] }
     ],
     "redirects": [
+        { "source": "/cijene", "destination": "/#cijene", "permanent": false },
         { "source": "/login", "destination": "$APP_ORIGIN/login", "permanent": false },
         { "source": "/demo", "destination": "$APP_ORIGIN/demo", "permanent": false },
         { "source": "/registracija", "destination": "$APP_ORIGIN/registracija", "permanent": false }

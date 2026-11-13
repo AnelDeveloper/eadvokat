@@ -116,7 +116,7 @@ onBeforeUnmount(() => {
                     :aria-label="t.micLabel"
                     :aria-pressed="state === 'recording'"
                     class="grid size-[112px] place-items-center rounded-full border-0"
-                    :class="state === 'recording' ? 'bg-urgent' : 'bg-ink'"
+                    :class="state === 'recording' ? 'bg-urgent' : 'bg-accent'"
                     :disabled="form.processing"
                     @click="toggle"
                 >

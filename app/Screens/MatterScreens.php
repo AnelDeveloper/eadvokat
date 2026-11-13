@@ -9,6 +9,7 @@ use App\Presenters\MatterPresenter;
 use App\Queries\Agenda;
 use App\Queries\AgendaItem;
 use App\Support\Format;
+use Illuminate\Support\Collection;
 
 /**
  * Predmeti list, Hronologija and Izmjene.
@@ -21,17 +22,18 @@ final class MatterScreens
     public function index(bool $isDemo): array
     {
         $agenda = new Agenda;
-        $items = $agenda->items();
+        // Next hearing or confirmed deadline per matter: only today onwards is needed.
+        $next = $agenda->items(from: $agenda->today, kinds: [AgendaItem::KIND_EVENT, AgendaItem::KIND_DEADLINE])
+            ->filter(fn (AgendaItem $i) => $agenda->isUpcoming($i)
+                && ($i->kind === AgendaItem::KIND_DEADLINE || $i->eventType === EventType::Hearing->value)
+                && $i->status->value !== 'proposed')
+            ->sortBy(fn (AgendaItem $i) => $i->sortKey())
+            ->groupBy(fn (AgendaItem $i) => $i->matterId)
+            ->map(fn (Collection $group) => $group->first());
 
         $matters = Matter::query()->with('costSheet.items')->orderBy('title')->get()
-            ->map(function (Matter $matter) use ($agenda, $items) {
-                $next = $items
-                    ->filter(fn (AgendaItem $i) => $i->matterId === $matter->id
-                        && $agenda->isUpcoming($i)
-                        && ($i->kind === AgendaItem::KIND_DEADLINE || $i->eventType === EventType::Hearing->value)
-                        && $i->status->value !== 'proposed')
-                    ->sortBy(fn (AgendaItem $i) => $i->sortKey())
-                    ->first();
+            ->map(function (Matter $matter) use ($next) {
+                $next = $next->get($matter->id);
 
                 return [
                     'id' => $matter->id,

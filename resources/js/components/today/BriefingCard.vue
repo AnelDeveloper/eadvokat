@@ -15,11 +15,11 @@ const emit = defineEmits<{ toggle: [row: BriefingRow] }>();
 
 <template>
     <section
-        class="overflow-hidden rounded-card border border-line bg-white"
+        class="overflow-hidden rounded-card border border-line bg-white shadow-card"
         :aria-label="bs.today.briefing"
     >
         <div
-            class="flex items-baseline justify-between border-b-2 border-ink px-3.5 py-[11px]"
+            class="flex items-baseline justify-between border-b border-line px-3.5 py-[11px]"
         >
             <span class="text-card font-semibold">{{ bs.today.briefing }}</span>
             <span class="font-mono text-[12px] text-muted">{{ lawyer }}</span>

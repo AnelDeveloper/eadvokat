@@ -22,7 +22,7 @@ defineProps<{ matter: MatterHeader; active: 'timeline' | 'costs' | 'audit' }>();
         <div class="mt-[3px] text-[13px] text-muted">{{ matter.meta }}</div>
         <Link
             :href="`/predmeti/${matter.id}/troskovnik`"
-            class="mt-3 flex min-h-14 w-full items-center justify-between gap-2.5 rounded-card bg-ink px-3.5 py-2 text-left text-white no-underline hover:text-white"
+            class="mt-3 flex min-h-14 w-full items-center justify-between gap-2.5 rounded-card bg-gradient-to-br from-ink to-[#1d4f86] px-4 py-2.5 text-left text-white no-underline shadow-card hover:text-white"
         >
             <span>
                 <span class="block text-card font-semibold">{{

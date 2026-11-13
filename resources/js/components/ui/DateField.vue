@@ -56,7 +56,7 @@ function commit(): void {
             inputmode="text"
             autocomplete="off"
             placeholder="dd.mm.gggg."
-            class="mt-1 block h-11 w-full rounded-field border bg-white px-3 outline-none focus:border-ink"
+            class="mt-1 block h-11 w-full rounded-field border bg-white px-3 outline-none focus:border-accent focus:ring-3 focus:ring-accent/15"
             :class="[
                 warn ? 'border-proposed' : 'border-line-strong',
                 mono && 'font-mono',

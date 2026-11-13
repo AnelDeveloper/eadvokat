@@ -37,10 +37,10 @@ defineProps<{
                 v-for="matter in matters"
                 :key="matter.id"
                 :href="`/predmeti/${matter.id}`"
-                class="block overflow-hidden rounded-card border border-line bg-white text-left text-ink no-underline hover:text-ink"
+                class="block overflow-hidden rounded-card border border-line bg-white text-left text-ink no-underline shadow-card hover:text-ink"
             >
                 <span
-                    class="block border-b-2 border-ink px-3.5 py-3 font-mono text-[15px] font-medium"
+                    class="block border-b border-line px-3.5 py-3 font-mono text-[15px] font-medium"
                     >{{ matter.caseNumber }}</span
                 >
                 <span class="block px-3.5 py-3">

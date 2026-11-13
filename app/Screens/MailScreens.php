@@ -18,19 +18,28 @@ use App\Support\Format;
  */
 final class MailScreens
 {
+    /** Register rows shown per step; "Prikaži starije" adds another step. */
+    public const PAGE = 100;
+
     public function __construct(private readonly RegisterNumbers $numbers) {}
 
     /**
      * @return array<string, mixed>
      */
-    public function index(MailDirection $direction): array
+    public function index(MailDirection $direction, int $limit = self::PAGE): array
     {
-        $entries = MailEntry::query()
+        $limit = max(self::PAGE, min($limit, 2000));
+
+        // Newest first; one extra row tells whether older entries exist.
+        $rows = MailEntry::query()
             ->where('direction', $direction)
-            ->with(['deadlines', 'matter'])
+            ->with('deadlines')
             ->orderByDesc('received_or_sent_on')
             ->orderByDesc('register_sequence')
-            ->get()
+            ->limit($limit + 1)
+            ->get();
+
+        $entries = $rows->take($limit)
             ->map(fn (MailEntry $entry) => [
                 'id' => $entry->id,
                 'number' => $entry->register_number,
@@ -45,7 +54,9 @@ final class MailScreens
 
         return [
             'direction' => $direction === MailDirection::In ? 'in' : 'out',
-            'entries' => $entries,
+            'entries' => $entries->values(),
+            'hasMore' => $rows->count() > $limit,
+            'nextLimit' => $limit + self::PAGE,
         ];
     }
 

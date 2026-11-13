@@ -29,13 +29,19 @@
     --color-body: #2c4a5e;
     --color-muted: #4f6676;
     --color-faint: #8fa1ad;
-    --color-line-strong: #c3ced5;
-    --color-line: #d5dde2;
-    --color-hairline: #e6ecef;
-    --color-app: #f3f6f7;
+    --color-line-strong: #c9d3dc;
+    --color-line: #e0e6ec;
+    --color-hairline: #edf1f5;
+    --color-app: #f4f6f9;
     --color-neutral-bg: #edf1f3;
     --color-viewer: #dde4e8;
     --color-surface: #ffffff;
+
+    /* Brand blue accent for actions, selection and focus. */
+    --color-accent: #2366d1;
+    --color-accent-hover: #1b54b0;
+    --color-accent-bg: #e9f1fc;
+    --color-accent-text: #1a4fa3;
 
     --color-confirmed: #3f776f;
     --color-confirmed-text: #2f5f58;
@@ -49,20 +55,35 @@
     --color-urgent-text: #8a3b37;
     --color-urgent-bg: #f6e9e8;
 
+    /* Navigation accents: one colour per section, never used for statuses. */
+    --color-nav-today: #d9752b;
+    --color-nav-today-bg: #fcebdc;
+    --color-nav-matters: #2f6fb0;
+    --color-nav-matters-bg: #e1ecf8;
+    --color-nav-calendar: #6a58b8;
+    --color-nav-calendar-bg: #ebe7f8;
+    --color-nav-mail: #18857f;
+    --color-nav-mail-bg: #dcf1ef;
+    --color-nav-settings: #4f6676;
+    --color-nav-settings-bg: #e8edf0;
+
     --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
     --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
     --font-serif: 'Newsreader', Georgia, serif;
 
-    --radius-chip: 4px;
+    --radius-chip: 6px;
     --radius-checkbox: 5px;
-    --radius-field: 8px;
-    --radius-card: 10px;
+    --radius-field: 10px;
+    --radius-card: 14px;
     --radius-notification: 16px;
     --radius-sheet: 18px;
     --radius-phone: 56px;
 
     --shadow-toast: 0 8px 20px -8px rgb(15 34 48 / 0.6);
     --shadow-page: 0 1px 3px rgb(23 50 71 / 0.2);
+    --shadow-card:
+        0 1px 2px rgb(16 32 48 / 0.04), 0 4px 12px -4px rgb(16 32 48 / 0.08);
+    --shadow-bar: 0 -6px 16px -10px rgb(16 32 48 / 0.18);
     --shadow-phone: 0 34px 60px -34px rgb(23 50 71 / 0.5);
     --shadow-capture: 0 0 0 2px #b27b34, 0 0 0 9px rgb(178 123 52 / 0.22);
     --shadow-highlight: 0 1px 0 #b27b34;

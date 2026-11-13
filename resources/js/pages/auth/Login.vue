@@ -18,7 +18,9 @@ function submit(): void {
 <template>
     <Head :title="bs.auth.loginTitle" />
 
-    <div class="rounded-card border border-line bg-white px-4.5 py-5">
+    <div
+        class="rounded-card border border-line bg-white px-4.5 py-5 shadow-card"
+    >
         <h1 class="m-0 text-title font-semibold">{{ bs.auth.loginTitle }}</h1>
         <p class="mt-1.5 mb-0 text-[14px] text-muted">
             {{ bs.auth.loginDescription }}

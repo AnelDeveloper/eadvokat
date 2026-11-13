@@ -17,6 +17,8 @@ use App\Models\Reminder;
 use App\Support\Clock;
 use App\Support\Format;
 use Carbon\CarbonImmutable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Route;
 
@@ -37,19 +39,48 @@ final class Agenda
     }
 
     /**
+     * Agenda rows, optionally limited to a date window so screens that only
+     * show a few days never load the office's whole history.
+     *
+     * @param  CarbonImmutable|null  $from  first day (inclusive), office time zone
+     * @param  CarbonImmutable|null  $to  last day (inclusive), office time zone
+     * @param  bool  $withProposed  also include proposals outside the window
+     * @param  list<string>|null  $kinds  AgendaItem::KIND_* to load; null = all
      * @return Collection<int, AgendaItem>
      */
-    public function items(?Matter $matter = null): Collection
-    {
-        $scope = fn ($query) => $matter ? $query->where('matter_id', $matter->id) : $query;
+    public function items(
+        ?Matter $matter = null,
+        ?CarbonImmutable $from = null,
+        ?CarbonImmutable $to = null,
+        bool $withProposed = false,
+        ?array $kinds = null,
+    ): Collection {
+        $wants = fn (string $kind): bool => $kinds === null || in_array($kind, $kinds, true);
 
-        return collect()
-            ->concat($scope(Event::query())->get()->map(fn (Event $e) => $this->event($e)))
-            ->concat($scope(Deadline::query()->with('fulfilledBy'))->get()->map(fn (Deadline $d) => $this->deadline($d)))
-            ->concat($scope(Reminder::query())->get()->map(fn (Reminder $r) => $this->reminder($r)))
-            ->concat($scope(MailEntry::query())->get()->map(fn (MailEntry $m) => $this->mail($m)))
-            ->concat($scope(Note::query())->get()->map(fn (Note $n) => $this->note($n)))
-            ->values();
+        $items = collect();
+
+        if ($wants(AgendaItem::KIND_EVENT)) {
+            $items = $items->concat($this->window(Event::query(), $matter, $from, $to, $withProposed, column: 'starts_at', timestamp: true, proposed: ItemStatus::Proposed->value)
+                ->get()->map(fn (Event $e) => $this->event($e)));
+        }
+        if ($wants(AgendaItem::KIND_DEADLINE)) {
+            $items = $items->concat($this->window(Deadline::query()->with('fulfilledBy'), $matter, $from, $to, $withProposed, column: 'due_date', timestamp: false, proposed: DeadlineStatus::Proposed->value)
+                ->get()->map(fn (Deadline $d) => $this->deadline($d)));
+        }
+        if ($wants(AgendaItem::KIND_REMINDER)) {
+            $items = $items->concat($this->window(Reminder::query(), $matter, $from, $to, $withProposed, column: 'remind_on', timestamp: false, proposed: null)
+                ->get()->map(fn (Reminder $r) => $this->reminder($r)));
+        }
+        if ($wants(AgendaItem::KIND_MAIL)) {
+            $items = $items->concat($this->window(MailEntry::query(), $matter, $from, $to, $withProposed, column: 'received_or_sent_on', timestamp: false, proposed: ItemStatus::Proposed->value)
+                ->get()->map(fn (MailEntry $m) => $this->mail($m)));
+        }
+        if ($wants(AgendaItem::KIND_NOTE)) {
+            $items = $items->concat($this->window(Note::query(), $matter, $from, $to, $withProposed, column: 'created_at', timestamp: true, proposed: ItemStatus::Proposed->value)
+                ->get()->map(fn (Note $n) => $this->note($n)));
+        }
+
+        return $items->values();
     }
 
     /**
@@ -220,6 +251,51 @@ final class Agenda
                 ? $this->route('dictation.show', $note->source_document_id)
                 : $this->route('matters.show', $note->matter_id),
         );
+    }
+
+    /**
+     * Restricts a source query to the matter and date window. $column holds
+     * a date, or a timestamp when $timestamp is true.
+     *
+     * @template TModel of Model
+     *
+     * @param  Builder<TModel>  $query
+     * @return Builder<TModel>
+     */
+    private function window(
+        Builder $query,
+        ?Matter $matter,
+        ?CarbonImmutable $from,
+        ?CarbonImmutable $to,
+        bool $withProposed,
+        string $column,
+        bool $timestamp,
+        ?string $proposed,
+    ): Builder {
+        if ($matter) {
+            $query->where('matter_id', $matter->id);
+        }
+
+        if ($from === null && $to === null) {
+            return $query;
+        }
+
+        return $query->where(function (Builder $q) use ($column, $timestamp, $proposed, $from, $to, $withProposed) {
+            $q->where(function (Builder $range) use ($column, $timestamp, $from, $to) {
+                if ($from) {
+                    $range->where($column, '>=', $timestamp ? $from->startOfDay()->toIso8601String() : $from->toDateString());
+                }
+                if ($to) {
+                    $timestamp
+                        ? $range->where($column, '<', $to->addDay()->startOfDay()->toIso8601String())
+                        : $range->where($column, '<=', $to->toDateString());
+                }
+            });
+
+            if ($withProposed && $proposed !== null) {
+                $q->orWhere('status', $proposed);
+            }
+        });
     }
 
     private function route(string $name, int $id): ?string

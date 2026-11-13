@@ -10,6 +10,7 @@ import PhoneFrame from '@/components/ui/PhoneFrame.vue';
 import PhoneStatusBar from '@/components/ui/PhoneStatusBar.vue';
 import StatusChip from '@/components/ui/StatusChip.vue';
 import TabBar from '@/components/ui/TabBar.vue';
+import type { TabItem } from '@/components/ui/TabBar.vue';
 import { landingDemo } from '@/data/landingDemo';
 import { bs } from '@/i18n/bs';
 import { login, today } from '@/routes';
@@ -24,7 +25,7 @@ const appOrigin = (import.meta.env.VITE_APP_ORIGIN as string | undefined) ?? '';
 const prototypeHref = `${appOrigin}/demo`;
 const registerHref = `${appOrigin}/registracija`;
 
-const tabs = [
+const tabs: TabItem[] = [
     { key: 'today', label: bs.tabs.today, href: '', active: true },
     { key: 'matters', label: bs.tabs.matters, href: '', active: false },
     { key: 'calendar', label: bs.tabs.calendar, href: '', active: false },
@@ -74,6 +75,9 @@ const h2 =
                         <a href="#pilot" class="no-underline">{{
                             t.nav.pilot
                         }}</a>
+                        <a href="#cijene" class="no-underline">{{
+                            t.nav.pricing
+                        }}</a>
                     </nav>
                     <a
                         v-if="appOrigin"
@@ -95,7 +99,7 @@ const h2 =
                 </div>
             </div>
             <nav
-                class="-mb-1 flex gap-x-6 text-[15px] md:hidden"
+                class="-mb-1 flex gap-x-5 overflow-x-auto text-[15px] whitespace-nowrap md:hidden"
                 :aria-label="t.nav.sections"
             >
                 <a
@@ -112,6 +116,11 @@ const h2 =
                     href="#pilot"
                     class="inline-flex min-h-11 items-center no-underline"
                     >{{ t.nav.pilot }}</a
+                >
+                <a
+                    href="#cijene"
+                    class="inline-flex min-h-11 items-center no-underline"
+                    >{{ t.nav.pricing }}</a
                 >
             </nav>
         </header>
@@ -156,7 +165,7 @@ const h2 =
                         }}</span>
                     </span>
                 </div>
-                <div class="mt-11 max-w-[560px] border-t-2 border-ink">
+                <div class="mt-11 max-w-[560px] border-t border-line">
                     <div
                         class="flex justify-between gap-3 border-b border-line py-2 font-mono text-sub text-muted"
                     >
@@ -216,7 +225,7 @@ const h2 =
                     {{ t.flow.title }}
                 </h2>
                 <div
-                    class="mt-9 grid grid-cols-[repeat(auto-fit,minmax(190px,1fr))] border-t-2 border-ink"
+                    class="mt-9 grid grid-cols-[repeat(auto-fit,minmax(190px,1fr))] border-t border-line"
                 >
                     <div
                         v-for="(step, i) in t.flow.steps"
@@ -264,7 +273,7 @@ const h2 =
                 <h2 class="flex-[1_1_300px]" :class="h2">
                     {{ t.benefits.title }}
                 </h2>
-                <div class="flex-[2_1_460px] border-t-2 border-ink">
+                <div class="flex-[2_1_460px] border-t border-line">
                     <div
                         v-for="item in t.benefits.items"
                         :key="item.title"
@@ -283,7 +292,7 @@ const h2 =
 
         <section
             id="nadzor"
-            class="scroll-mt-2 bg-ink text-white"
+            class="scroll-mt-2 bg-gradient-to-br from-ink to-[#1d4f86] text-white"
             :class="[gutter, sectionY]"
         >
             <div class="mx-auto max-w-[1280px]">
@@ -300,11 +309,11 @@ const h2 =
                 >
                     {{ t.oversight.lead }}
                 </p>
-                <div class="mt-[30px] border-t-2 border-white">
+                <div class="mt-[30px] border-t border-white/25">
                     <div
                         v-for="item in t.oversight.items"
                         :key="item.question"
-                        class="grid gap-x-8 gap-y-2 border-b border-muted py-[18px] md:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]"
+                        class="grid gap-x-8 gap-y-2 border-b border-white/15 py-[18px] md:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]"
                     >
                         <div class="text-[20px] font-semibold">
                             {{ item.question }}
@@ -337,7 +346,7 @@ const h2 =
                         {{ t.pilot.lead }}
                     </p>
                 </div>
-                <div class="flex-[2_1_460px] border-t-2 border-ink">
+                <div class="flex-[2_1_460px] border-t border-line">
                     <div
                         v-for="week in t.pilot.weeks"
                         :key="week.when"
@@ -347,6 +356,112 @@ const h2 =
                         <p class="m-0 text-[17px] leading-[1.5]">
                             {{ week.text }}
                         </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cijene" class="scroll-mt-2" :class="[gutter, sectionY]">
+            <div class="mx-auto max-w-[1080px]">
+                <div class="text-center">
+                    <div :class="kicker">{{ t.pricing.kicker }}</div>
+                    <h2 class="mt-2.5" :class="h2">{{ t.pricing.title }}</h2>
+                    <p class="mt-3 mb-0 text-[17px] text-body">
+                        {{ t.pricing.lead }}
+                    </p>
+                </div>
+                <div
+                    class="mt-10 grid items-start gap-6 md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]"
+                >
+                    <div
+                        class="rounded-[20px] border border-line bg-white p-[clamp(22px,3vw,36px)] shadow-card ring-1 ring-accent/10"
+                    >
+                        <div class="flex items-center justify-between gap-4">
+                            <span
+                                class="font-serif text-[26px] font-semibold"
+                                >{{ t.pricing.plan }}</span
+                            >
+                            <span
+                                class="rounded-full bg-accent-bg px-3 py-1 text-[13px] font-semibold text-accent-text"
+                                >{{ t.pricing.badge }}</span
+                            >
+                        </div>
+                        <p class="mt-4 mb-0 flex items-baseline gap-2">
+                            <span
+                                class="text-[clamp(40px,5vw,56px)] leading-none font-semibold tracking-[-0.02em]"
+                                >{{ t.pricing.price }}</span
+                            >
+                            <span class="text-[17px] text-muted">{{
+                                t.pricing.period
+                            }}</span>
+                        </p>
+                        <Button
+                            :href="registerHref"
+                            anchor
+                            size="cta"
+                            block
+                            class="mt-6"
+                            >{{ t.pricing.cta }}</Button
+                        >
+                        <h3
+                            class="mt-8 mb-3 text-[13px] font-semibold tracking-label text-muted uppercase"
+                        >
+                            {{ t.pricing.includedTitle }}
+                        </h3>
+                        <ul class="m-0 grid list-none gap-2.5 p-0">
+                            <li
+                                v-for="item in t.pricing.included"
+                                :key="item"
+                                class="flex items-start gap-3 text-[16px] leading-[1.45]"
+                            >
+                                <span
+                                    class="mt-px grid size-[22px] flex-none place-items-center rounded-full bg-accent-bg text-accent"
+                                    ><svg
+                                        viewBox="0 0 24 24"
+                                        width="14"
+                                        height="14"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="3"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        aria-hidden="true"
+                                    >
+                                        <path d="M5 12.5l4.5 4.5L19 7.5" /></svg
+                                ></span>
+                                {{ item }}
+                            </li>
+                        </ul>
+                    </div>
+                    <div
+                        class="rounded-[20px] border border-line bg-app/60 p-[clamp(22px,3vw,32px)]"
+                    >
+                        <h3 class="m-0 text-[18px] font-semibold">
+                            {{ t.pricing.notTitle }}
+                        </h3>
+                        <ul class="mt-4 mb-0 grid list-none gap-3 p-0">
+                            <li
+                                v-for="item in t.pricing.not"
+                                :key="item"
+                                class="flex items-start gap-3 text-[15.5px] leading-[1.5] text-body"
+                            >
+                                <span
+                                    class="mt-[3px] grid size-[20px] flex-none place-items-center rounded-full bg-white text-muted ring-1 ring-line"
+                                    ><svg
+                                        viewBox="0 0 24 24"
+                                        width="11"
+                                        height="11"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="3"
+                                        stroke-linecap="round"
+                                        aria-hidden="true"
+                                    >
+                                        <path d="M7 7l10 10M17 7L7 17" /></svg
+                                ></span>
+                                {{ item }}
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>

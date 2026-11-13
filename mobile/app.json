@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "eAdvokat",
+    "name": "Ročište",
     "slug": "eadvokat",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -47,14 +47,14 @@
       [
         "expo-audio",
         {
-          "microphonePermission": "eAdvokat koristi mikrofon za diktiranje bilješke s ročišta."
+          "microphonePermission": "Ročište koristi mikrofon za diktiranje bilješke s ročišta."
         }
       ],
       [
         "expo-image-picker",
         {
-          "cameraPermission": "eAdvokat koristi kameru za fotografisanje primljenih dokumenata i dokaza o predaji.",
-          "photosPermission": "eAdvokat otvara fotografije dokumenata koje odaberete."
+          "cameraPermission": "Ročište koristi kameru za fotografisanje primljenih dokumenata i dokaza o predaji.",
+          "photosPermission": "Ročište otvara fotografije dokumenata koje odaberete."
         }
       ],
       "expo-sharing",

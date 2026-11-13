@@ -33,9 +33,11 @@ const {
 }>();
 
 const variants: Record<Variant, string> = {
-    primary: 'border-0 bg-ink text-white hover:bg-ink-deep hover:text-white',
-    outline: 'border border-ink bg-white text-ink hover:text-ink',
-    subtle: 'border border-line-strong bg-white text-ink hover:text-ink',
+    primary:
+        'border-0 bg-accent text-white shadow-[0_1px_2px_rgb(16_32_48/0.12)] hover:bg-accent-hover hover:text-white',
+    outline:
+        'border border-line-strong bg-white text-ink hover:border-accent hover:text-accent-text',
+    subtle: 'border border-line bg-white text-ink hover:border-line-strong hover:bg-app hover:text-ink',
     ghost: 'border-0 bg-transparent text-ink hover:text-ink',
     confirm: 'border-0 bg-confirmed text-white hover:text-white',
     // Looks disabled but stays clickable so it can explain what is missing.

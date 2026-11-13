@@ -41,19 +41,19 @@ function savePassword(): void {
 
 const section =
     'grid gap-3 border-t border-line py-6 first:border-t-0 lg:grid-cols-[minmax(0,280px)_minmax(0,1fr)] lg:gap-10 lg:py-8';
-const card = 'rounded-card border border-line bg-white';
+const card = 'rounded-card border border-line bg-white shadow-card';
 </script>
 
 <template>
     <Head :title="bs.settings.title" />
 
-    <div class="px-4.5 pt-3.5 pb-8 lg:px-8 lg:pt-8">
+    <div class="px-4.5 pt-1.5 pb-8 lg:px-8 lg:pt-8">
         <Link
             href="/danas"
-            class="text-[14px] font-medium text-muted no-underline hover:text-ink lg:hidden"
+            class="inline-flex h-11 items-center text-[15px] font-medium text-ink no-underline lg:hidden"
             >{{ bs.settings.back }}</Link
         >
-        <h1 class="mt-2 mb-1 text-title font-semibold lg:mt-0">
+        <h1 class="mt-0 mb-1 text-title font-semibold">
             {{ bs.settings.title }}
         </h1>
         <p class="m-0 text-[15px] text-muted">{{ bs.settings.intro }}</p>

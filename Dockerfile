@@ -1,4 +1,4 @@
-# eAdvokat web app — production image for Railway.
+# Ročište web app — production image for Railway.
 FROM dunglas/frankenphp:1-php8.4-bookworm
 
 RUN install-php-extensions pdo_pgsql intl zip gd bcmath opcache pcntl

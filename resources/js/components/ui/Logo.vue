@@ -1,24 +1,52 @@
 <script setup lang="ts">
 import { bs } from '@/i18n/bs';
 
-/** The eAdvokat logo from the brand kit; "light" is the version for dark backgrounds. */
+/** Ročište logo: calendar mark + wordmark. "light" is for dark backgrounds. */
 const { tone = 'dark', height = 30 } = defineProps<{
     tone?: 'dark' | 'light';
     height?: number;
 }>();
-
-// Cropped artwork is 1900 × 396.
-const ratio = 1900 / 396;
 </script>
 
 <template>
-    <img
-        :src="tone === 'light' ? '/brand/logo-light.png' : '/brand/logo.png'"
-        :alt="bs.appName"
-        :width="Math.round(height * ratio)"
-        :height="height"
-        class="block h-auto max-w-full"
-        :style="{ height: `${height}px`, width: 'auto' }"
-        decoding="async"
-    />
+    <span
+        class="inline-flex items-center font-serif leading-none font-semibold tracking-[-0.01em]"
+        :class="tone === 'light' ? 'text-white' : 'text-ink'"
+        :style="{ gap: `${height * 0.3}px`, fontSize: `${height * 0.86}px` }"
+        role="img"
+        :aria-label="bs.appName"
+    >
+        <svg
+            viewBox="0 0 64 64"
+            :width="height"
+            :height="height"
+            aria-hidden="true"
+            class="flex-none"
+        >
+            <rect
+                width="64"
+                height="64"
+                rx="15"
+                :fill="tone === 'light' ? '#ffffff' : '#173247'"
+            />
+            <g
+                :stroke="tone === 'light' ? '#173247' : '#ffffff'"
+                fill="none"
+                stroke-width="4"
+            >
+                <rect x="14" y="17" width="36" height="33" rx="6" />
+                <path d="M14 27h36" />
+                <path d="M24 12v9M40 12v9" stroke-linecap="round" />
+            </g>
+            <path
+                d="M24.5 38.5l5.5 5.5l10.5-10.5"
+                fill="none"
+                :stroke="tone === 'light' ? '#2366d1' : '#6CB4FF'"
+                stroke-width="4.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+        </svg>
+        <span aria-hidden="true">{{ bs.appName }}</span>
+    </span>
 </template>
