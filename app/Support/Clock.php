@@ -27,6 +27,12 @@ final class Clock
         return self::now()->startOfDay();
     }
 
+    /** The real calendar date, never pinned: used for access periods, not for case data. */
+    public static function realToday(): CarbonImmutable
+    {
+        return CarbonImmutable::now(config('app.timezone'))->startOfDay();
+    }
+
     private static function pinnedDate(): ?CarbonImmutable
     {
         $office = CurrentOffice::get();

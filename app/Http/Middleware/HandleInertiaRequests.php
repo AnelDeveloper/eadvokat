@@ -32,6 +32,7 @@ class HandleInertiaRequests extends Middleware
                     'name' => $user->name,
                     'email' => $user->email,
                     'office' => $user->office->name,
+                    'trialDaysLeft' => $user->office->trialDaysLeft(),
                 ] : null,
             ],
         ];

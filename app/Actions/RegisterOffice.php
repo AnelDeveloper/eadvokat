@@ -4,11 +4,13 @@ namespace App\Actions;
 
 use App\Models\Office;
 use App\Models\User;
+use App\Support\Clock;
 use Illuminate\Support\Facades\DB;
 
 /**
  * Self-service sign-up: a new, empty office with its first user (the owner).
  * Every query afterwards is scoped to this office (rule 10).
+ * The office starts on a trial of rokovnik.trial_days days, today included.
  */
 final class RegisterOffice
 {
@@ -21,6 +23,7 @@ final class RegisterOffice
             $office = Office::query()->create([
                 'name' => $input['office_name'],
                 'is_demo' => false,
+                'trial_ends_on' => Clock::realToday()->addDays(config('rokovnik.trial_days') - 1),
             ]);
 
             return User::query()->create([

@@ -59,6 +59,11 @@ const tabs = computed<TabItem[]>(() =>
                     <span class="block truncate text-[13px] text-muted">{{
                         user.office
                     }}</span>
+                    <span
+                        v-if="user.trialDaysLeft !== null"
+                        class="mt-2 inline-block rounded-full bg-accent-bg px-2.5 py-0.5 text-[12.5px] font-semibold text-accent-text"
+                        >{{ bs.trial.daysLeft(user.trialDaysLeft) }}</span
+                    >
                 </div>
             </div>
         </aside>

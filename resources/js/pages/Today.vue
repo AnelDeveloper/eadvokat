@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Head, router } from '@inertiajs/vue3';
+import { Head, router, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
 import BriefingCard from '@/components/today/BriefingCard.vue';
 import QuickActions from '@/components/today/QuickActions.vue';
 import TodayHeader from '@/components/today/TodayHeader.vue';
@@ -15,6 +16,11 @@ defineProps<{
     canDictate: boolean;
     hasMatters: boolean;
 }>();
+
+// On phones there is no sidebar, so the trial countdown sits under the date.
+const trialDaysLeft = computed(
+    () => usePage().props.auth.user?.trialDaysLeft ?? null,
+);
 
 function toggle(row: BriefingRow): void {
     if (row.toggleUrl) {
@@ -39,6 +45,11 @@ function toggle(row: BriefingRow): void {
                     }}</Button
                 >
             </TodayHeader>
+            <span
+                v-if="trialDaysLeft !== null"
+                class="mt-2 inline-block rounded-full bg-accent-bg px-2.5 py-0.5 text-[12.5px] font-semibold text-accent-text lg:hidden"
+                >{{ bs.trial.daysLeft(trialDaysLeft) }}</span
+            >
             <BriefingCard
                 class="mt-3.5"
                 :lawyer="lawyer"

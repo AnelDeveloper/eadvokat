@@ -15,6 +15,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ReminderController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\TodayController;
+use App\Http\Controllers\TrialController;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'Landing')->name('home');
@@ -29,7 +30,9 @@ Route::get('demo', [DemoController::class, 'show'])->middleware('throttle:demo')
 Route::post('demo/reset', [DemoController::class, 'reset'])->middleware('throttle:demo')->name('demo.reset');
 Route::get('demo/napredak', [DemoController::class, 'progress'])->middleware('auth')->name('demo.progress');
 
-Route::middleware('auth')->group(function () {
+Route::get('probni-period', TrialController::class)->middleware('auth')->name('trial.expired');
+
+Route::middleware(['auth', 'trial'])->group(function () {
     Route::get('danas', TodayController::class)->name('today');
     Route::get('kalendar', CalendarController::class)->name('calendar');
     Route::post('podsjetnici/{reminder}/provjereno', [ReminderController::class, 'toggle'])->name('reminders.toggle');

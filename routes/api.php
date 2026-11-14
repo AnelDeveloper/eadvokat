@@ -16,6 +16,10 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('me', [AuthController::class, 'show']);
         Route::delete('auth/token', [AuthController::class, 'destroy']);
+    });
+
+    // Office data: closed once the office's trial has ended.
+    Route::middleware(['auth:sanctum', 'trial'])->group(function () {
 
         Route::get('today', [ScreenController::class, 'today']);
         Route::get('calendar', [ScreenController::class, 'calendar']);

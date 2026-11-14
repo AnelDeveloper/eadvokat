@@ -210,6 +210,18 @@ export const bs = {
         phoneLabel: 'Primjer ekrana „Danas“ u aplikaciji',
     },
 
+    trial: {
+        daysLeft: (n: number) =>
+            n === 1
+                ? 'Probni period: zadnji dan'
+                : `Probni period: još ${n} ${n % 10 === 1 && n % 100 !== 11 ? 'dan' : 'dana'}`,
+        title: 'Probni period je istekao',
+        text: 'Vaši predmeti, pošta i rokovi su sačuvani. Bit će dostupni čim se pristup produži.',
+        endedOn: (date: string) =>
+            `Posljednji dan probnog perioda bio je ${date}`,
+        logout: 'Odjavi se',
+    },
+
     today: {
         title: 'Danas',
         briefing: 'Jutarnji pregled',
