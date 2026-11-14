@@ -8,7 +8,7 @@ export const bs = {
     landing: {
         metaTitle: 'Asistent za advokatsku kancelariju',
         metaDescription:
-            'Fotografija sudskog pismena postaje prijedlog unosa u knjigu pošte, prijedlog roka i podsjetnik. Advokat sve pregleda, ispravlja i potvrđuje — tek tada rok postaje aktivan.',
+            'Knjiga pošte, rokovnik, kalendar i nacrt troškovnika za vašu kancelariju. Svaki rok je vezan uz sudsko pismeno iz kojeg je nastao i postaje aktivan tek kada ga advokat potvrdi.',
         nav: {
             flow: 'Tok',
             oversight: 'Nadzor',
@@ -22,13 +22,11 @@ export const bs = {
         },
         hero: {
             kicker: 'Asistent za advokatsku kancelariju',
-            title: 'Od primljene pošte do potvrđenog roka. Bez prepisivanja.',
-            lead: 'Fotografija sudskog pismena postaje prijedlog unosa u knjigu pošte, prijedlog roka i podsjetnik. Advokat sve pregleda, ispravlja i potvrđuje — tek tada rok postaje aktivan.',
+            title: 'Od primljene pošte do potvrđenog roka. Na jednom mjestu.',
+            lead: 'Knjiga pošte, rokovnik, kalendar i nacrt troškovnika za vašu kancelariju. Svaki rok je vezan uz sudsko pismeno iz kojeg je nastao i postaje aktivan tek kada ga advokat potvrdi.',
             cta: 'Registrujte se →',
-            demo: 'Pogledaj demo',
-            ctaNote: 'Telefon desno je već aktivan — možete kliknuti odmah.',
-            ctaNoteMobile:
-                'Telefon ispod je već aktivan — možete ga dodirnuti.',
+            pricing: 'Pogledaj cijene',
+            ctaNote: '14,99 € mjesečno · sve funkcije u jednom paketu.',
             register: 'Otvorite račun za svoju kancelariju ›',
             tableCase: 'Predmet 65 0 P 084512 25 P',
             tableFictional: 'primjer',
@@ -41,7 +39,7 @@ export const bs = {
                 },
                 {
                     time: '08:13',
-                    text: 'Prijedlog roka: 26.11.2026.',
+                    text: 'Upisan rok: 26.11.2026.',
                     tag: 'Predloženo',
                     tone: 'proposed',
                 },
@@ -66,14 +64,14 @@ export const bs = {
                 {
                     meta: '02 · 11.11. 08:13',
                     title: 'Knjiga pošte',
-                    text: 'Unos U-2026/041: sud, broj predmeta, vrsta, datum prijema. Advokat pregleda i ispravi polja.',
+                    text: 'Unos U-2026/041 s automatskim brojem: sud, broj predmeta, vrsta, datum prijema. Fotografija ostaje uz unos.',
                     chips: [{ label: 'Potvrdio advokat', status: 'confirmed' }],
                 },
                 {
                     meta: '03 · 11.11. 08:15',
                     title: 'Rok',
                     quote: '„…u roku od 15 dana od dana prijema…“',
-                    text: 'Prijedlog: 26.11.2026., uz izvor i pretpostavke.',
+                    text: 'Advokat upiše pravilo i broj dana, a aplikacija izračuna posljednji dan: 26.11.2026.',
                     chips: [
                         { label: 'Predloženo', status: 'proposed' },
                         { label: '→ Potvrdio advokat', status: 'confirmed' },
@@ -88,7 +86,7 @@ export const bs = {
                 {
                     meta: '05 · 11.11. 11:52',
                     title: 'Radnja',
-                    text: 'Ročište zabilježeno glasom, podnesak predat na pisarnici, s dokazom o predaji.',
+                    text: 'Podnesak predat na pisarnici, s dokazom o predaji i podsjetnikom za provjeru.',
                     chips: [{ label: 'Evidentirano', status: 'recorded' }],
                 },
                 {
@@ -104,7 +102,7 @@ export const bs = {
             items: [
                 {
                     title: 'Manje ručnog unosa',
-                    text: 'Podatak se unosi jednom, s dokumenta, i koristi se u knjizi pošte, rokovniku i troškovniku.',
+                    text: 'Podatak se unosi jednom i koristi se u knjizi pošte, rokovniku i troškovniku.',
                 },
                 {
                     title: 'Rokovi na vidiku',
@@ -165,7 +163,7 @@ export const bs = {
                 },
                 {
                     when: '2. i 3. sedmica',
-                    text: 'Svakodnevni rad: fotografisanje pošte, potvrđivanje rokova, bilješke s ročišta.',
+                    text: 'Svakodnevni rad: fotografisanje pošte, potvrđivanje rokova, evidentiranje podnesaka.',
                 },
                 {
                     when: '4. sedmica',
@@ -187,7 +185,7 @@ export const bs = {
                 'Rokovnik s podsjetnicima u jutarnjem pregledu',
                 'Knjiga ulazne i izlazne pošte s automatskim brojevima',
                 'Kalendar ročišta, rokova i podsjetnika',
-                'Svaki rok povezan s izvornim dokumentom i citiranim odlomkom',
+                'Svaki rok povezan s izvornim dokumentom i pravilom po kojem je izračunat',
                 'Nacrt troškovnika s izvozom u PDF',
                 'Hronologija predmeta i dnevnik svih izmjena',
                 'Pristup iz pretraživača na računaru i telefonu',
@@ -209,7 +207,7 @@ export const bs = {
             text: 'Ročište je aplikacija za advokatske kancelarije u Bosni i Hercegovini. Advokatska komora je nije odobrila niti podržala. Predmet, stranke i iznosi u primjerima na ovoj stranici su izmišljeni.',
             cta: 'Registrujte se →',
         },
-        phoneLabel: 'Otvori demo: ekran „Danas“ u aplikaciji',
+        phoneLabel: 'Primjer ekrana „Danas“ u aplikaciji',
     },
 
     today: {
@@ -229,6 +227,10 @@ export const bs = {
         dictate: 'Diktiraj',
         submission: 'Podnesak',
         settings: 'Postavke',
+        startTitle: 'Dobro došli u Ročište',
+        startText:
+            'Otvorite prvi predmet. Zatim u njega možete evidentirati primljenu poštu, upisivati rokove i bilježiti predate podneske.',
+        startCta: 'Otvori prvi predmet',
     },
 
     matters: {
@@ -247,6 +249,8 @@ export const bs = {
         recorded: 'Evidentirano',
         auditIntro: 'Dnevnik značajnih izmjena u predmetu.',
         empty: 'Nema unosa.',
+        emptyMatter:
+            'Predmet je otvoren. Dodajte rok ili evidentirajte primljenu poštu i podneske — pojavit će se ovdje.',
         create: 'Novi predmet',
         emptyList:
             'Još nema predmeta. Otvorite prvi predmet da biste mogli evidentirati poštu i rokove.',
@@ -259,7 +263,7 @@ export const bs = {
             'Otvorite račun za svoju advokatsku kancelariju. Podaci kancelarije vidljivi su samo vašim korisnicima.',
         officeName: 'Naziv kancelarije',
         officePlaceholder: 'npr. Advokatska kancelarija Hadžić',
-        titleLabel: 'Titula (neobavezno)',
+        titleLabel: 'Titula',
         name: 'Ime i prezime',
         email: 'E-mail',
         password: 'Lozinka',
@@ -336,7 +340,7 @@ export const bs = {
         choose: 'Odaberi datoteku',
         formats: 'JPG, PNG, HEIC ili PDF, najviše 20 MB.',
         uploadHint:
-            'Dokument se čuva u zaštićenoj pohrani kancelarije. Polja i mogući rok predlažu se za pregled — ništa se ne aktivira samo.',
+            'Dokument se čuva u zaštićenoj pohrani kancelarije. Nakon učitavanja pregledate unos u knjigu pošte — ništa se ne aktivira bez vaše potvrde.',
     },
 
     review: {
@@ -460,6 +464,9 @@ export const bs = {
     submission: {
         title: 'Izlazni podnesak',
         matter: 'Predmet',
+        noMatters:
+            'Podnesak se evidentira u predmetu. Otvorite prvi predmet, pa se vratite ovdje.',
+        createMatter: 'Otvori predmet',
         docType: 'Vrsta podneska',
         docTypePlaceholder: 'npr. Podnesak — dostava adrese svjedoka',
         sentOn: 'Datum predaje',

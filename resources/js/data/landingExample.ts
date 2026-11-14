@@ -1,10 +1,10 @@
 import type { BriefingGroup } from '@/types';
 
 /**
- * The static Danas screen on the landing page: the prototype's fresh demo state
+ * The static Danas screen on the landing page: an illustrative example
  * for 11.11.2026. (fictional matter 65 0 P 084512 25 P).
  */
-export const landingDemo = {
+export const landingExample = {
     clock: '08:05',
     date: 'srijeda, 11. novembar 2026.',
     lawyer: 'adv. Lejla Karić',

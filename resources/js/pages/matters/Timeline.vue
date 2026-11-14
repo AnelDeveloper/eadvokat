@@ -28,9 +28,13 @@ defineProps<{ matter: Header; upcoming: AgendaRow[]; recorded: AgendaRow[] }>();
         <div class="h-2" />
         <TimelineRow v-for="row in upcoming" :key="row.id" :row="row" />
         <p v-if="upcoming.length === 0" class="m-0 pb-2 text-[14px] text-muted">
-            {{ bs.matters.empty }}
+            {{
+                recorded.length === 0
+                    ? bs.matters.emptyMatter
+                    : bs.matters.empty
+            }}
         </p>
-        <SectionLabel class="pt-3.5 pb-2">{{
+        <SectionLabel v-if="recorded.length > 0" class="pt-3.5 pb-2">{{
             bs.matters.recorded
         }}</SectionLabel>
         <TimelineRow v-for="row in recorded" :key="row.id" :row="row" />

@@ -11,7 +11,7 @@ import PhoneStatusBar from '@/components/ui/PhoneStatusBar.vue';
 import StatusChip from '@/components/ui/StatusChip.vue';
 import TabBar from '@/components/ui/TabBar.vue';
 import type { TabItem } from '@/components/ui/TabBar.vue';
-import { landingDemo } from '@/data/landingDemo';
+import { landingExample } from '@/data/landingExample';
 import { bs } from '@/i18n/bs';
 import { login, today } from '@/routes';
 
@@ -22,7 +22,6 @@ const signedIn = computed(() => page.props.auth.user !== null);
 // The landing page can be exported as a static site (Vercel); then the app
 // links point to the app's own origin.
 const appOrigin = (import.meta.env.VITE_APP_ORIGIN as string | undefined) ?? '';
-const prototypeHref = `${appOrigin}/demo`;
 const registerHref = `${appOrigin}/registracija`;
 
 const tabs: TabItem[] = [
@@ -148,22 +147,15 @@ const h2 =
                         t.hero.cta
                     }}</Button>
                     <Button
-                        :href="prototypeHref"
+                        href="#cijene"
                         anchor
                         size="hero"
                         variant="outline"
-                        >{{ t.hero.demo }}</Button
+                        >{{ t.hero.pricing }}</Button
                     >
-                    <span
-                        class="max-w-[260px] basis-full text-[14px] text-muted"
-                    >
-                        <span class="min-[900px]:hidden">{{
-                            t.hero.ctaNoteMobile
-                        }}</span>
-                        <span class="hidden min-[900px]:inline">{{
-                            t.hero.ctaNote
-                        }}</span>
-                    </span>
+                    <span class="basis-full text-[14px] text-muted">{{
+                        t.hero.ctaNote
+                    }}</span>
                 </div>
                 <div class="mt-11 max-w-[560px] border-t border-line">
                     <div
@@ -190,28 +182,28 @@ const h2 =
                 </div>
             </div>
 
-            <a
-                :href="prototypeHref"
-                class="order-2 block flex-none text-ink no-underline hover:text-ink"
+            <figure
+                class="order-2 m-0 flex-none text-ink"
+                role="img"
                 :aria-label="t.phoneLabel"
             >
                 <PhoneFrame aria-hidden="true">
-                    <PhoneStatusBar :clock="landingDemo.clock" />
+                    <PhoneStatusBar :clock="landingExample.clock" />
                     <div
                         class="min-h-0 flex-1 overflow-hidden px-4.5 pt-1.5 pb-4.5"
                     >
-                        <TodayHeader :date="landingDemo.date" as="div" />
+                        <TodayHeader :date="landingExample.date" as="div" />
                         <BriefingCard
                             class="mt-3.5"
-                            :lawyer="landingDemo.lawyer"
-                            :groups="landingDemo.groups"
+                            :lawyer="landingExample.lawyer"
+                            :groups="landingExample.groups"
                             :interactive="false"
                         />
                     </div>
                     <QuickActions :interactive="false" />
                     <TabBar :items="tabs" :interactive="false" />
                 </PhoneFrame>
-            </a>
+            </figure>
         </main>
 
         <section
@@ -225,7 +217,7 @@ const h2 =
                     {{ t.flow.title }}
                 </h2>
                 <div
-                    class="mt-9 grid grid-cols-[repeat(auto-fit,minmax(190px,1fr))] border-t border-line"
+                    class="mt-9 grid border-t border-line sm:grid-cols-2 lg:grid-cols-3"
                 >
                     <div
                         v-for="(step, i) in t.flow.steps"

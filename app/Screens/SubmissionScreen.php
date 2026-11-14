@@ -25,16 +25,20 @@ final class SubmissionScreen
     {
         $today = Clock::today();
 
+        // Open deadlines for every matter in one query, grouped in memory.
+        $deadlines = Deadline::query()
+            ->where('status', DeadlineStatus::Confirmed)
+            ->orderBy('due_date')
+            ->get()
+            ->groupBy('matter_id');
+
         $matters = Matter::query()->orderBy('title')->get()->map(fn (Matter $matter) => [
             'id' => $matter->id,
             'caseNumber' => $matter->case_number,
             'title' => $matter->title,
-            'openDeadlines' => Deadline::query()
-                ->where('matter_id', $matter->id)
-                ->where('status', DeadlineStatus::Confirmed)
-                ->orderBy('due_date')
-                ->get()
-                ->map(fn (Deadline $d) => ['id' => $d->id, 'due' => Format::date($d->due_date), 'title' => $d->title]),
+            'openDeadlines' => $deadlines->get($matter->id, collect())
+                ->map(fn (Deadline $d) => ['id' => $d->id, 'due' => Format::date($d->due_date), 'title' => $d->title])
+                ->values(),
         ]);
 
         return [

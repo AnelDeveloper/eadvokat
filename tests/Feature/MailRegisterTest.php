@@ -142,7 +142,7 @@ it('refuses an unknown case number and changes nothing', function () {
 
     $this->actingAs($user)
         ->post("/posta/pregled/{$document->id}", reviewedFields(['case_number' => '99 0 P 000000 26 P']))
-        ->assertSessionHasErrors(['case_number' => 'U kancelariji ne postoji predmet s ovim brojem.']);
+        ->assertSessionHasErrors(['case_number' => 'U kancelariji ne postoji predmet s ovim brojem. Prvo ga otvorite u odjeljku Predmeti.']);
 
     expect(MailEntry::query()->count())->toBe(3)
         ->and(Deadline::query()->count())->toBe(1);

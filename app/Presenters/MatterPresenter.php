@@ -23,7 +23,7 @@ final class MatterPresenter
         ];
     }
 
-    /** "1 stavka čeka pregled" / "sve stavke potvrđene — čeka odobrenje" / "nacrt odobrio advokat" */
+    /** "još nema stavki" / "1 stavka čeka pregled" / "sve stavke potvrđene — čeka odobrenje" / "nacrt odobrio advokat" */
     public static function costLine(?CostSheet $sheet): string
     {
         if ($sheet === null) {
@@ -32,6 +32,10 @@ final class MatterPresenter
 
         if ($sheet->isApproved()) {
             return __('agenda.cost_approved');
+        }
+
+        if ($sheet->items->isEmpty()) {
+            return __('agenda.cost_empty');
         }
 
         $pending = $sheet->pendingCount();

@@ -13,7 +13,7 @@ import { go } from '@/lib/navigate';
 import { useScreen } from '@/lib/useScreen';
 import { colors } from '@/theme/tokens';
 
-type Today = { date: string; lawyer: string; groups: BriefingGroup[] };
+type Today = { date: string; lawyer: string; groups: BriefingGroup[]; canDictate?: boolean };
 
 export default function TodayScreen() {
     const { data, error, loading, reload } = useScreen<Today>('/today');
@@ -53,7 +53,7 @@ export default function TodayScreen() {
                         </View>
                         <BriefingCard lawyer={data.lawyer} groups={data.groups} onRow={onRow} />
                     </ScrollView>
-                    <QuickActions />
+                    <QuickActions canDictate={data?.canDictate ?? false} />
                 </>
             )}
         </SafeAreaView>

@@ -234,6 +234,7 @@ function approve(): void {
         </div>
 
         <Button
+            v-if="sheet.approved || sheet.items.length > 0"
             block
             :variant="
                 sheet.approved

@@ -107,13 +107,25 @@ function save(): void {
     <div class="flex min-h-svh flex-col">
         <ScreenBar :title="t.title" back-url="/danas" />
 
+        <!-- A submission always belongs to a matter; a new office opens one first. -->
+        <div v-if="matters.length === 0" class="px-4.5 pt-6">
+            <p class="m-0 text-[15px] leading-[1.5] text-muted">
+                {{ t.noMatters }}
+            </p>
+            <Button href="/predmeti/novi" size="nav" class="mt-3"
+                ><Icon name="plus" :size="18" />{{ t.createMatter }}</Button
+            >
+        </div>
+
         <form
+            v-else
             id="submission"
             class="flex-1 px-4.5 pt-3.5 pb-4.5"
             @submit.prevent="save"
         >
             <div class="font-mono text-sub text-muted">
-                {{ nextNumber }} · {{ matter?.caseNumber }}
+                {{ nextNumber
+                }}<template v-if="matter"> · {{ matter.caseNumber }}</template>
             </div>
 
             <label v-if="matters.length > 1" class="mt-2.5 block">
@@ -273,7 +285,7 @@ function save(): void {
             </div>
         </form>
 
-        <StickyActionBar>
+        <StickyActionBar v-if="matters.length > 0">
             <Button
                 block
                 type="submit"

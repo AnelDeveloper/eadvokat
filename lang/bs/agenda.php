@@ -17,6 +17,7 @@ return [
     'fulfilled_by' => 'Ispunjeno podneskom :number od :date',
     'cost_pending' => ':count stavka čeka pregled|:count stavke čekaju pregled|:count stavki čeka pregled',
     'cost_approved' => 'nacrt odobrio advokat',
+    'cost_empty' => 'još nema stavki',
     'cost_all_confirmed' => 'sve stavke potvrđene — čeka odobrenje',
     'cost_review_title' => 'Troškovnik: :pending',
     'cost_review_sub' => 'Nacrt u predmetu :case',

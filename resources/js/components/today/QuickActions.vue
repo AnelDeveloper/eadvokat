@@ -5,7 +5,7 @@ import SectionLabel from '@/components/ui/SectionLabel.vue';
 import StickyActionBar from '@/components/ui/StickyActionBar.vue';
 import { bs } from '@/i18n/bs';
 
-const { interactive = true } = defineProps<{
+const { interactive = true, dictateHref } = defineProps<{
     captureHref?: string;
     dictateHref?: string;
     submissionHref?: string;
@@ -14,6 +14,8 @@ const { interactive = true } = defineProps<{
 }>();
 
 const tag = interactive ? Link : 'span';
+// Dictation is shown only where it works (an office with a speech service).
+const showDictate = dictateHref !== undefined;
 const base =
     'flex min-h-14 items-center justify-center gap-2 rounded-card px-1.5 py-1.5 text-center text-row leading-tight font-semibold no-underline max-sm:flex-col max-sm:gap-0.5 max-sm:text-[14px]';
 </script>
@@ -21,7 +23,14 @@ const base =
 <template>
     <StickyActionBar>
         <SectionLabel class="mb-[7px]">{{ bs.today.quickInput }}</SectionLabel>
-        <div class="grid grid-cols-[1.35fr_1fr_1fr] gap-2">
+        <div
+            class="grid gap-2"
+            :class="
+                showDictate
+                    ? 'grid-cols-[1.35fr_1fr_1fr]'
+                    : 'grid-cols-[1.35fr_1fr]'
+            "
+        >
             <component
                 :is="tag"
                 :href="captureHref"
@@ -47,6 +56,7 @@ const base =
             </component>
             <component
                 :is="tag"
+                v-if="showDictate"
                 :href="dictateHref"
                 :class="[
                     base,

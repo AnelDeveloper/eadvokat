@@ -72,6 +72,10 @@ final class TodayScreen
             'date' => Format::longDate($today),
             'lawyer' => $user->displayName(),
             'groups' => $groups,
+            // Dictation needs a speech service; until an office has one, the shortcut is hidden.
+            'canDictate' => (bool) $user->office->is_demo,
+            // A new office starts with an empty briefing; the page then points to the first step.
+            'hasMatters' => Matter::query()->exists(),
         ];
     }
 }

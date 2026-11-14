@@ -8,7 +8,13 @@ import Icon from '@/components/ui/Icon.vue';
 import { bs } from '@/i18n/bs';
 import type { BriefingGroup, BriefingRow } from '@/types';
 
-defineProps<{ date: string; lawyer: string; groups: BriefingGroup[] }>();
+defineProps<{
+    date: string;
+    lawyer: string;
+    groups: BriefingGroup[];
+    canDictate: boolean;
+    hasMatters: boolean;
+}>();
 
 function toggle(row: BriefingRow): void {
     if (row.toggleUrl) {
@@ -39,10 +45,26 @@ function toggle(row: BriefingRow): void {
                 :groups="groups"
                 @toggle="toggle"
             />
+            <div
+                v-if="!hasMatters"
+                class="mt-3.5 rounded-card border border-dashed border-line-strong bg-white px-4 py-4"
+            >
+                <p class="m-0 text-row font-semibold">
+                    {{ bs.today.startTitle }}
+                </p>
+                <p class="mt-1 mb-3 text-[14px] leading-[1.45] text-muted">
+                    {{ bs.today.startText }}
+                </p>
+                <Button href="/predmeti/novi" size="nav"
+                    ><Icon name="plus" :size="18" />{{
+                        bs.today.startCta
+                    }}</Button
+                >
+            </div>
         </div>
         <QuickActions
             capture-href="/posta/fotografisi"
-            dictate-href="/diktat"
+            :dictate-href="canDictate ? '/diktat' : undefined"
             submission-href="/posta/podnesak"
         />
     </div>

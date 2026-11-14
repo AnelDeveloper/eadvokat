@@ -6,8 +6,8 @@ import { StickyActionBar } from '@/components/ui/StickyActionBar';
 import { Text } from '@/components/ui/Text';
 import { colors, radius } from '@/theme/tokens';
 
-/** "Brzi unos": Fotografiši (primary, 1.35fr), Diktiraj, Podnesak. */
-export function QuickActions() {
+/** "Brzi unos": Fotografiši (primary, 1.35fr), Diktiraj (only with a speech service), Podnesak. */
+export function QuickActions({ canDictate = false }: { canDictate?: boolean }) {
     return (
         <StickyActionBar aboveTabs>
             <SectionLabel style={{ marginBottom: 7 }}>{bs.today.quickInput}</SectionLabel>
@@ -20,11 +20,13 @@ export function QuickActions() {
                         {bs.today.capture}
                     </Text>
                 </Pressable>
-                <Pressable accessibilityRole="button" onPress={() => router.push('/diktat')} style={[styles.button, styles.outline]}>
-                    <Text size={15} weight={600}>
-                        {bs.today.dictate}
-                    </Text>
-                </Pressable>
+                {canDictate ? (
+                    <Pressable accessibilityRole="button" onPress={() => router.push('/diktat')} style={[styles.button, styles.outline]}>
+                        <Text size={15} weight={600}>
+                            {bs.today.dictate}
+                        </Text>
+                    </Pressable>
+                ) : null}
                 <Pressable accessibilityRole="button" onPress={() => router.push('/posta/podnesak')} style={[styles.button, styles.outline]}>
                     <Text size={15} weight={600}>
                         {bs.today.submission}

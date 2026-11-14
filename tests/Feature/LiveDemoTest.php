@@ -82,9 +82,14 @@ it('prunes demo offices after 24 hours, but never real ones', function () {
         ->and(Office::query()->find($real->id))->not->toBeNull();
 });
 
-it('points the landing page to the live demo', function () {
+it('keeps the public landing page free of demo links and wording', function () {
     $this->get('/')->assertOk();
-    expect(file_get_contents(resource_path('js/pages/Landing.vue')))->toContain('const prototypeHref = `${appOrigin}/demo`;');
+    expect(file_get_contents(resource_path('js/pages/Landing.vue')))->not->toMatch('/demo/i');
+
+    // The landing copy lives in the "landing" block of the shared strings.
+    $strings = file_get_contents(resource_path('js/i18n/bs.ts'));
+    $landing = substr($strings, strpos($strings, 'landing: {'), strpos($strings, "\n    today: {") - strpos($strings, 'landing: {'));
+    expect($landing)->not->toMatch('/demo/i');
 });
 
 it('ticks guide steps as the visitor works through the scenario', function () {

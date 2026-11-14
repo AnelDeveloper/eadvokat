@@ -1,16 +1,22 @@
 <script setup lang="ts">
 import ListRow from '@/components/ui/ListRow.vue';
 import SectionLabel from '@/components/ui/SectionLabel.vue';
+import { computed } from 'vue';
 import { bs } from '@/i18n/bs';
 import type { BriefingGroup, BriefingRow } from '@/types';
 
-const { interactive = true } = defineProps<{
+const { interactive = true, groups } = defineProps<{
     lawyer: string;
     groups: BriefingGroup[];
     interactive?: boolean;
 }>();
 
 const emit = defineEmits<{ toggle: [row: BriefingRow] }>();
+
+// Empty groups are hidden; the deadline group always shows, so "no deadlines" is stated, not implied.
+const visible = computed(() =>
+    groups.filter((g) => g.rows.length > 0 || g.key === 'deadlines'),
+);
 </script>
 
 <template>
@@ -24,7 +30,7 @@ const emit = defineEmits<{ toggle: [row: BriefingRow] }>();
             <span class="text-card font-semibold">{{ bs.today.briefing }}</span>
             <span class="font-mono text-[12px] text-muted">{{ lawyer }}</span>
         </div>
-        <template v-for="group in groups" :key="group.key">
+        <template v-for="group in visible" :key="group.key">
             <SectionLabel band>{{ bs.today.groups[group.key] }}</SectionLabel>
             <div
                 v-if="group.key === 'deadlines' && group.rows.length === 0"
